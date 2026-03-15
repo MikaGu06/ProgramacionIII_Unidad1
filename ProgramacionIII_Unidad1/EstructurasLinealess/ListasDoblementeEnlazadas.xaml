@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="ProgramacionIII_Unidad1.EstructurasLinealess.ListasDoblementeEnlazadas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProgramacionIII_Unidad1.EstructurasLinealess"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
+        <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#D9D5F3"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#18214D"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#6B7280"/>
+        <SolidColorBrush x:Key="InputColor" Color="#EEF0F8"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#F46A6A"/>
+
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="12"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                             To="1.08" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                             To="1.08" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                             To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                             To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="{StaticResource ColorAlerta}"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource InputColor}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Height" Value="42"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition Width="170"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Encabezado -->
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,22">
+            <TextBlock Text="Lista Doblemente Enlazada"
+                   FontSize="18"
+                   FontFamily="Segoe UI Semibold"
+                   Foreground="{StaticResource TextoOscuro}"/>
+            <TextBlock Text="Nodos con enlace al siguiente"
+                   FontSize="14"
+                   Foreground="{StaticResource TextoClaro}"
+                   Margin="0,6,0,0" Cursor=""/>
+        </StackPanel>
+
+        <!-- Fila 1 -->
+        <TextBox x:Name="TxtNumero"
+             Grid.Row="1" Grid.Column="0"
+             Style="{StaticResource InputStyle}"
+             Margin="0,0,16,0" 
+             VerticalContentAlignment="Center"/>
+
+        <Button x:Name="BtnAgregarInicio"
+            Grid.Row="1" Grid.Column="1"
+            Style="{StaticResource BtnPrimary}"
+            Margin="0,0,12,0"
+            Content="Agregar al inicio"/>
+
+        <Button x:Name="BtnAgregarFinal"
+            Grid.Row="1" Grid.Column="2"
+            Style="{StaticResource BtnPrimary}"
+            Content="Agregar al final"/>
+
+        <!-- Fila 2 -->
+        <Button x:Name="BtnEliminarInicio"
+            Grid.Row="2" Grid.Column="0"
+            Style="{StaticResource BtnDanger}"
+            Width="170"
+            HorizontalAlignment="Left"
+            Content="Eliminar inicio"/>
+
+        <Button x:Name="BtnEliminarFinal"
+            Grid.Row="2" Grid.Column="0"
+            Style="{StaticResource BtnDanger}"
+            Width="170"
+            HorizontalAlignment="Left"
+            Margin="190,0,0,0"
+            Content="Eliminar final"/>
+
+        <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="12,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="TxtBuscar"
+                 Grid.Column="0"
+                 Style="{StaticResource InputStyle}"
+                 Margin="0,0,12,0"
+                 VerticalContentAlignment="Center"
+                 Text=""/>
+
+            <Button x:Name="BtnBuscar"
+                Grid.Column="1"
+                Style="{StaticResource BtnPrimary}"
+                Content="Buscar elemento"/>
+        </Grid>
+
+        <!-- Área visual -->
+        <Border Grid.Row="3" Grid.ColumnSpan="3"
+            Margin="0,24,0,18"
+            BorderBrush="{StaticResource BordesSuaves}"
+            BorderThickness="1.5"
+            CornerRadius="16"
+            Background="#FCFCFF"
+            Padding="20">
+
+            <StackPanel>
+                <TextBlock Text="Visualización de la lista"
+                       FontSize="15"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="{StaticResource TextoOscuro}"
+                       Margin="0,0,0,14"/>
+
+                <!-- Aquí luego puedes cargar nodos dinámicos -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                    <WrapPanel x:Name="PanelLista"
+                           Orientation="Horizontal"/>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Contador -->
+        <Border Grid.Row="4"
+            Grid.Column="0"
+            Background="#F4F3FF"
+            BorderBrush="{StaticResource BordesSuaves}"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="10,4"
+            HorizontalAlignment="Left">
+            <TextBlock x:Name="TxtElementos"
+                   Text="Elementos: 0"
+                   Foreground="{StaticResource TextoOscuro}"
+                   FontSize="14"/>
+        </Border>
+    </Grid>
+</UserControl>
