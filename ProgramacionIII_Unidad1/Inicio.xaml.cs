@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,14 +14,13 @@ using System.Windows.Shapes;
 namespace ProgramacionIII_Unidad1
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para Inicio.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Inicio : Page
     {
-        public MainWindow()
+        public Inicio()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Inicio());
         }
     }
 }
