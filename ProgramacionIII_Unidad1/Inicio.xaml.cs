@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProgramacionIII_Unidad1.EstructurasLinealess;
 
 namespace ProgramacionIII_Unidad1
 {
@@ -21,6 +22,11 @@ namespace ProgramacionIII_Unidad1
         public Inicio()
         {
             InitializeComponent();
+        }
+
+        private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new EstructurasLineales());
         }
     }
 }
