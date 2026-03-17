@@ -147,53 +147,54 @@
                        TextAlignment="Center"
                        Margin="0,10,0,0"/>
         </StackPanel>
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid Grid.Row="1" HorizontalAlignment="Center">
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
            
-            <Grid Grid.Row="0" HorizontalAlignment="Center">
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0"
-                        Style="{StaticResource TarjetaAnimada}"
-                        Margin="12"
-                        Height="220"
-                        Width="220"
-                        BorderBrush="#3B82F6"
-                        BorderThickness="0,6,0,0">
+                    <Border Grid.Column="0"
+                            Style="{StaticResource TarjetaAnimada}"
+                            Margin="12"
+                            Height="220"
+                            Width="220"
+                            BorderBrush="#3B82F6"
+                            BorderThickness="0,6,0,0">
 
-                    <StackPanel VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="10">
-                        <TextBlock Text="📊" 
-                                   FontSize="36"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#3B82F6"/>
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                            <TextBlock Text="📊" 
+                                       FontSize="36"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#3B82F6"/>
 
-                        <TextBlock Text="Ordenamiento"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Margin="0,8,0,15"
-                                   HorizontalAlignment="Center"/>
+                            <TextBlock Text="Ordenamiento"
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       Margin="0,8,0,15"
+                                       HorizontalAlignment="Center"/>
 
-                        <Button Style="{StaticResource RoundedButton}"
-                                Content="Abrir"
-                                Width="90"
-                                Height="32"/>
+                            <Button Style="{StaticResource RoundedButton}"
+                                    x:Name="BtnAbrirOrdenamiento"
+                                    Content="Abrir"
+                                    Width="90"
+                                    Height="32" Click="BtnAbrirOrdenamiento_Click"/>
 
 
-                    </StackPanel>
+                        </StackPanel>
 
-                </Border>
+                    </Border>
 
                 <Border Grid.Column="1"
                         Style="{StaticResource TarjetaAnimada}"
