@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProgramacionIII_Unidad1.EstructurasLinealess;
 
 namespace ProgramacionIII_Unidad1
 {
@@ -29,6 +30,9 @@ namespace ProgramacionIII_Unidad1
             AlgoritmosDeOrdenamiento paginaOrdenamiento = new AlgoritmosDeOrdenamiento();
 
             this.NavigationService.Navigate(paginaOrdenamiento);
+        private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new EstructurasLineales());
         }
     }
 }
