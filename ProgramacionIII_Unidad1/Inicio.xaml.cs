@@ -24,6 +24,12 @@ namespace ProgramacionIII_Unidad1
             InitializeComponent();
         }
 
+        private void BtnAbrirOrdenamiento_Click(object sender, RoutedEventArgs e)
+        {
+
+            AlgoritmosDeOrdenamiento paginaOrdenamiento = new AlgoritmosDeOrdenamiento();
+
+            this.NavigationService.Navigate(paginaOrdenamiento);
         private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new EstructurasLineales());
