@@ -136,10 +136,15 @@
                     Width="50" 
                     Height="40" 
                     Margin="0,0,10,0"
-                     Style="{StaticResource BotonIcono}"/>
+                    x:Name="BtnVolver"
+                    Style="{StaticResource BotonIcono}" Click="BtnVolver_Click"/>
             <StackPanel>
-                <TextBlock Text="Recursividad" FontSize="28" FontWeight="Bold" Foreground="#7C3AED"/>
-                <TextBlock Text="Explora funciones recursivas paso a paso" Foreground="#64748B"/>
+                <TextBlock Text="Recursividad" 
+                           FontSize="28" 
+                           FontWeight="Bold" 
+                           Foreground="#7C3AED"/>
+                <TextBlock Text="Explora funciones recursivas paso a paso" 
+                           Foreground="#64748B"/>
             </StackPanel>
         </StackPanel>
 
@@ -206,6 +211,7 @@
                             Foreground="White"
                             Padding="10,5"
                             BorderThickness="0"
+                            Click="BtnEjecutar_Click"
                             Style="{StaticResource BotonPrimario}" Cursor="Hand"/>
                 </StackPanel>
 
