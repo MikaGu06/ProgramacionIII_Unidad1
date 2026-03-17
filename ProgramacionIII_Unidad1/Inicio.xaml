@@ -282,9 +282,10 @@
                                    Margin="0,8,0,15"
                                    HorizontalAlignment="Center"/>
                         <Button Style="{StaticResource RoundedButton}"
+                                x:Name="btnRecursividad"
                                 Content="Abrir"
                                 Width="90"
-                                Height="32"/>
+                                Height="32" Click="btnRecursividad_Click"/>
 
                     </StackPanel>
                 </Border>

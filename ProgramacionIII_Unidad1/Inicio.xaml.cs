@@ -22,5 +22,10 @@ namespace ProgramacionIII_Unidad1
         {
             InitializeComponent();
         }
+
+        private void btnRecursividad_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Recursividad());
+        }
     }
 }
