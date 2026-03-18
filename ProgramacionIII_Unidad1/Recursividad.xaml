@@ -40,7 +40,7 @@
             </Setter>
         </Style>
 
-        <!-- Botón principal (Ejecutar) -->
+        <!-- el de ejecutar -->
         <Style x:Key="BotonPrimario" TargetType="Button">
             <Setter Property="Background" Value="#6366F1"/>
             <Setter Property="Foreground" Value="White"/>
@@ -78,7 +78,7 @@
         </Style>
 
 
-        <!-- Botón secundario (Volver) -->
+        <!-- Botón (Volver) -->
         <Style x:Key="BotonIcono" TargetType="Button">
             <Setter Property="Background" Value="#F1F5F9"/>
             <Setter Property="BorderBrush" Value="#E2E8F0"/>
@@ -130,7 +130,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- HEADER -->
+        <!-- titulo -->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Content="Volver" 
                     Width="50" 
@@ -148,41 +148,105 @@
             </StackPanel>
         </StackPanel>
 
-        <!-- MENÚ -->
-        <Border Grid.Row="1" Grid.Column="0" Background="White" CornerRadius="12" Padding="15" Margin="0,20,20,0">
-            <StackPanel>
+        <!-- menu -->
+        <Border Grid.Row="1" Grid.Column="0"
+        Background="White"
+        CornerRadius="12"
+        Padding="15"
+        Margin="0,20,20,0">
 
-                <TextBlock Text="Funciones" FontWeight="Bold"/>
-                <TextBlock Text="Selecciona una función" Foreground="Gray" Margin="0,0,0,10"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <Button Style="{StaticResource BotonMenu}" Height="60" Margin="0,5"
-                        Click="BtnFactorial_Click">
-                    <StackPanel>
-                        <TextBlock Text="Factorial" FontWeight="SemiBold"/>
-                        <TextBlock Text="Calcula n!" FontSize="11" Foreground="Gray"/>
-                    </StackPanel>
-                </Button>
+                <StackPanel>
 
-                <Button Style="{StaticResource BotonMenu}" Height="60" Margin="0,5"
-                        Click="BtnSuma_Click">
-                    <StackPanel>
-                        <TextBlock Text="Suma Recursiva" FontWeight="SemiBold"/>
-                        <TextBlock Text="Suma del 1 al n" FontSize="11" Foreground="Gray"/>
-                    </StackPanel>
-                </Button>
+                    <TextBlock Text="Funciones Recursivas"
+                       FontWeight="Bold"
+                       FontSize="14"/>
 
-                <Button Style="{StaticResource BotonMenu}" Height="60" Margin="0,5"
-                        Click="BtnHanoi_Click">
-                    <StackPanel>
-                        <TextBlock Text="Torres de Hanói" FontWeight="SemiBold"/>
-                        
-                    </StackPanel>
-                </Button>
+                    <TextBlock Text="Selecciona un ejercicio"
+                       Foreground="Gray"
+                       Margin="0,0,0,10"/>
 
-            </StackPanel>
+                    <!-- 1 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnCapicua_Click">
+                        <TextBlock Text="1. Número Capicúa"/>
+                    </Button>
+
+                    <!-- 2 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnSumaVector_Click">
+                        <TextBlock Text="2. Sumar Vector"/>
+                    </Button>
+
+                    <!-- 3 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnMultiplicarVector_Click">
+                        <TextBlock Text="3. Multiplicar Vector"/>
+                    </Button>
+
+                    <!-- 4 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnMenor_Click">
+                        <TextBlock Text="4. Menor del Vector"/>
+                    </Button>
+
+                    <!-- 5 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnMayor_Click">
+                        <TextBlock Text="5. Mayor del Vector"/>
+                    </Button>
+
+                    <!-- 6 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnFactorial_Click">
+                        <TextBlock Text="6. Factorial"/>
+                    </Button>
+
+                    <!-- 7 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnFibonacci_Click">
+                        <TextBlock Text="7. Fibonacci"/>
+                    </Button>
+
+                    <!-- 8 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnInvertir_Click">
+                        <TextBlock Text="8. Invertir Número"/>
+                    </Button>
+
+                    <!-- 9 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnSumarDigitos_Click">
+                        <TextBlock Text="9. Sumar Dígitos"/>
+                    </Button>
+
+                    <!-- 10 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnSuma_Click">
+                        <TextBlock Text="10. Suma 1 hasta n"/>
+                    </Button>
+
+                    <!-- 11 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnParImpar_Click">
+                        <TextBlock Text="11. Par o Impar"/>
+                    </Button>
+
+                    <!-- 12 -->
+                    <Button Style="{StaticResource BotonMenu}" Height="55" Margin="0,5"
+                    Click="BtnPositivoNegativo_Click">
+                        <TextBlock Text="12. Positivo o Negativo"/>
+                    </Button>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
         </Border>
 
-        <!-- PANEL PRINCIPAL -->
+
+        <!-- derecha -->
         <Border x:Name="PanelPrincipal"
                 Grid.Row="1" Grid.Column="1"
                 Background="White"
