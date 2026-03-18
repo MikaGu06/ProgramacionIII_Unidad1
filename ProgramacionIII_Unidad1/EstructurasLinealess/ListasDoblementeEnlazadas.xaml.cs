@@ -22,5 +22,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             InitializeComponent();
         }
+
     }
 }
