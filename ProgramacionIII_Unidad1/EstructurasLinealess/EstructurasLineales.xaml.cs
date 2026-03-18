@@ -44,5 +44,10 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             ContenidoDinamico.Content = new Colas();
         }
+
+        private void RegresarInicio_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new Inicio());
+        }
     }
 }

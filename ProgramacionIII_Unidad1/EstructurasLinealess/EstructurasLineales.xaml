@@ -247,7 +247,8 @@
 
             <!-- Header -->
             <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0">
+                <Button x:Name="RegresarInicio" 
+                    Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0" Click="RegresarInicio_Click">
                     <TextBlock Text="←" FontSize="20"/>
                 </Button>
 
@@ -270,7 +271,7 @@
     CornerRadius="18"
     Padding="22"
     Margin="0,24,0,0" Cursor="">
-                <StackPanel>
+                <StackPanel Cursor="">
                     <TextBlock Text="Estructuras"
                FontSize="18"
                FontFamily="Segoe UI Semibold"
@@ -291,6 +292,8 @@
 
                     <Button Style="{StaticResource BtnMenuCard}"
             Content="Cola (Queue)" Click="Button_Click_3"/>
+                    
+                    
                 </StackPanel>
             </Border>
 
@@ -304,7 +307,6 @@
                 Margin="0,24,0,0">
                 <ContentControl x:Name="ContenidoDinamico"/>
             </Border>
-
 
         </Grid>
     </ScrollViewer>
