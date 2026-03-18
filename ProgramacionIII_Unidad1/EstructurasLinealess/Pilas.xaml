@@ -82,10 +82,59 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <Style x:Key="InfoCardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Padding" Value="16"/>
+
+        <Style x:Key="InfoButtonStyle" TargetType="Button">
             <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="16"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                         To="1.04" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                         To="1.04" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                         To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                         To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -155,68 +204,74 @@
 
         <!-- Info -->
         <UniformGrid Grid.Row="3" Grid.ColumnSpan="2" Columns="4" Margin="0,20,0,0">
-            <Border Style="{StaticResource InfoCardStyle}"
-                    Background="#FFF7DB"
-                    BorderBrush="#F4C400"
-                    Margin="0,0,12,0">
+
+            <Button x:Name="BtnVacia"
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#FFF7DB"
+            BorderBrush="#F4C400"
+            Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Text="¿Está vacía?"
-                               FontSize="14"
-                               Foreground="#8A5A00"/>
+                       FontSize="14"
+                       Foreground="#8A5A00"/>
                     <TextBlock x:Name="TxtVacia"
-                               Text="Sí"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#8A5A00"/>
+                       Text="Sí"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#8A5A00"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
-                    Background="#FCE8DC"
-                    BorderBrush="#F59E42"
-                    Margin="0,0,12,0">
+            <Button x:Name="BtnLlena"
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#FCE8DC"
+            BorderBrush="#F59E42"
+            Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Text="¿Está llena?"
-                               FontSize="14"
-                               Foreground="#A84B00"/>
+                       FontSize="14"
+                       Foreground="#A84B00"/>
                     <TextBlock x:Name="TxtLlena"
-                               Text="No"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#A84B00"/>
+                       Text="No"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#A84B00"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
-                    Background="#E8F1FF"
-                    BorderBrush="#6AA7FF"
-                    Margin="0,0,12,0">
+            <Button x:Name="BtnMaximo"
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#E8F1FF"
+            BorderBrush="#6AA7FF"
+            Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Text="Tamaño máximo"
-                               FontSize="14"
-                               Foreground="#214E9C"/>
+                       FontSize="14"
+                       Foreground="#214E9C"/>
                     <TextBlock x:Name="TxtMaximo"
-                               Text="-"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#214E9C"/>
+                       Text="-"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#214E9C"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
-                    Background="#F3E8FF"
-                    BorderBrush="#C084FC">
+            <Button x:Name="BtnCima"
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#F3E8FF"
+            BorderBrush="#C084FC">
                 <StackPanel>
                     <TextBlock Text="Cima"
-                               FontSize="14"
-                               Foreground="#7A2BBE"/>
+                       FontSize="14"
+                       Foreground="#7A2BBE"/>
                     <TextBlock x:Name="TxtCima"
-                               Text="-"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#7A2BBE"/>
+                       Text="-"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#7A2BBE"/>
                 </StackPanel>
-            </Border>
+            </Button>
+
         </UniformGrid>
 
         <!-- Área visual -->
