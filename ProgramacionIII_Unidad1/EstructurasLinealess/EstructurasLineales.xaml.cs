@@ -49,5 +49,20 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new Inicio());
         }
+
+        private void ListasCircularesSimples_Click(object sender, RoutedEventArgs e)
+        {
+            ContenidoDinamico.Content = new ListasCircularesSimples();
+        }
+
+        private void ListasCircularesDobles_Click(object sender, RoutedEventArgs e)
+        {
+            ContenidoDinamico.Content = new ListasCircularesDobles();
+        }
+
+        private void Calculadora_Click(object sender, RoutedEventArgs e)
+        {
+            ContenidoDinamico.Content = new CalculadoraConPilas();
+        }
     }
 }

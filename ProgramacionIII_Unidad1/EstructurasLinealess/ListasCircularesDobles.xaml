@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ProgramacionIII_Unidad1.EstructurasLinealess.ListasDoblementeEnlazadas"
+﻿<UserControl x:Class="ProgramacionIII_Unidad1.EstructurasLinealess.ListasCircularesDobles"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -34,10 +34,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                            CornerRadius="12"
-                            Padding="{TemplateBinding Padding}">
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -48,9 +48,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -58,9 +58,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -140,9 +140,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                 To="1.03" Duration="0:0:0.12"/>
+                         To="1.03" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                 To="1.03" Duration="0:0:0.12"/>
+                         To="1.03" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -151,9 +151,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                 To="1" Duration="0:0:0.12"/>
+                         To="1" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                 To="1" Duration="0:0:0.12"/>
+                         To="1" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -162,7 +162,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Cursor="">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="56"/>
@@ -180,49 +180,49 @@
 
         <!-- Encabezado -->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,22">
-            <TextBlock Text="Lista Doblemente Enlazada"
-                   FontSize="18"
-                   FontFamily="Segoe UI Semibold"
-                   Foreground="{StaticResource TextoOscuro}"/>
-            <TextBlock Text="Nodos con enlace al anterior y siguiente"
-                   FontSize="14"
-                   Foreground="{StaticResource TextoClaro}"
-                   Margin="0,6,0,0" Cursor=""/>
+            <TextBlock Text="Nodos con enlace doble y ciclo cerrado"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="{StaticResource TextoOscuro}"/>
+            <TextBlock Text="El último nodo apunta al primero"
+                       FontSize="14"
+                       Foreground="{StaticResource TextoClaro}"
+                       Margin="0,6,0,0" Cursor=""/>
         </StackPanel>
 
         <!-- Fila 1 -->
         <TextBox x:Name="TxtNumero"
-             Grid.Row="1" Grid.Column="0"
-             Style="{StaticResource InputStyle}"
-             Margin="0,0,16,0" 
-             VerticalContentAlignment="Center"/>
+                 Grid.Row="1" Grid.Column="0"
+                 Style="{StaticResource InputStyle}"
+                 Margin="0,0,16,0" 
+                 VerticalContentAlignment="Center"/>
 
         <Button x:Name="BtnAgregarInicio"
-            Grid.Row="1" Grid.Column="1"
-            Style="{StaticResource BtnPrimary}"
-            Margin="0,0,12,0"
-            Content="Agregar al inicio"/>
+                Grid.Row="1" Grid.Column="1"
+                Style="{StaticResource BtnPrimary}"
+                Margin="0,0,12,0"
+                Content="Agregar al inicio"/>
 
         <Button x:Name="BtnAgregarFinal"
-            Grid.Row="1" Grid.Column="2"
-            Style="{StaticResource BtnPrimary}"
-            Content="Agregar al final"/>
+                Grid.Row="1" Grid.Column="2"
+                Style="{StaticResource BtnPrimary}"
+                Content="Agregar al final"/>
 
         <!-- Fila 2 -->
         <Button x:Name="BtnEliminarInicio"
-            Grid.Row="2" Grid.Column="0"
-            Style="{StaticResource BtnDanger}"
-            Width="170"
-            HorizontalAlignment="Left"
-            Content="Eliminar inicio"/>
+                Grid.Row="2" Grid.Column="0"
+                Style="{StaticResource BtnDanger}"
+                Width="170"
+                HorizontalAlignment="Left"
+                Content="Eliminar inicio"/>
 
         <Button x:Name="BtnEliminarFinal"
-            Grid.Row="2" Grid.Column="0"
-            Style="{StaticResource BtnDanger}"
-            Width="170"
-            HorizontalAlignment="Left"
-            Margin="190,0,0,0"
-            Content="Eliminar final"/>
+                Grid.Row="2" Grid.Column="0"
+                Style="{StaticResource BtnDanger}"
+                Width="170"
+                HorizontalAlignment="Left"
+                Margin="190,0,0,0"
+                Content="Eliminar final"/>
 
         <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="12,0,0,0">
             <Grid.ColumnDefinitions>
@@ -231,136 +231,135 @@
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="TxtBuscar"
-                 Grid.Column="0"
-                 Style="{StaticResource InputStyle}"
-                 Margin="0,0,12,0"
-                 VerticalContentAlignment="Center"
-                 Text=""/>
+                     Grid.Column="0"
+                     Style="{StaticResource InputStyle}"
+                     Margin="0,0,12,0"
+                     VerticalContentAlignment="Center"
+                     Text=""/>
 
             <Button x:Name="BtnBuscar"
-                Grid.Column="1"
-                Style="{StaticResource BtnPrimary}"
-                Content="Buscar elemento"/>
+                    Grid.Column="1"
+                    Style="{StaticResource BtnPrimary}"
+                    Content="Buscar elemento"/>
         </Grid>
 
         <!-- Área visual -->
         <Border Grid.Row="3" Grid.ColumnSpan="3"
-            Margin="0,24,0,18"
-            BorderBrush="{StaticResource BordesSuaves}"
-            BorderThickness="1.5"
-            CornerRadius="16"
-            Background="#FCFCFF"
-            Padding="20">
+                Margin="0,24,0,18"
+                BorderBrush="{StaticResource BordesSuaves}"
+                BorderThickness="1.5"
+                CornerRadius="16"
+                Background="#FCFCFF"
+                Padding="20">
 
             <StackPanel>
                 <TextBlock Text="Visualización de la lista"
-                       FontSize="15"
-                       FontFamily="Segoe UI Semibold"
-                       Foreground="{StaticResource TextoOscuro}"
-                       Margin="0,0,0,14"/>
+                           FontSize="15"
+                           FontFamily="Segoe UI Semibold"
+                           Foreground="{StaticResource TextoOscuro}"
+                           Margin="0,0,0,14"/>
 
                 <!-- Aquí luego puedes cargar nodos dinámicos -->
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                          VerticalScrollBarVisibility="Disabled">
+                              VerticalScrollBarVisibility="Disabled">
                     <WrapPanel x:Name="PanelLista"
-                           Orientation="Horizontal"/>
+                               Orientation="Horizontal"/>
                 </ScrollViewer>
             </StackPanel>
         </Border>
 
         <!-- Contador -->
         <Border Grid.Row="4"
-            Grid.Column="0"
-            Background="#F4F3FF"
-            BorderBrush="{StaticResource BordesSuaves}"
-            BorderThickness="1"
-            CornerRadius="12"
-            Padding="10,4"
-            HorizontalAlignment="Left">
+                Grid.Column="0"
+                Background="#F4F3FF"
+                BorderBrush="{StaticResource BordesSuaves}"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="10,4"
+                HorizontalAlignment="Left">
             <TextBlock x:Name="TxtElementos"
-                   Text="Elementos: 0"
-                   Foreground="{StaticResource TextoOscuro}"
-                   FontSize="14"/>
+                       Text="Elementos: 0"
+                       Foreground="{StaticResource TextoOscuro}"
+                       FontSize="14"/>
         </Border>
-
         <!-- Card inferior de estadísticas -->
         <Border Grid.Row="6" Grid.ColumnSpan="3"
-        Margin="0,0,0,0"
-        BorderBrush="{StaticResource BordesSuaves}"
-        BorderThickness="1.5"
-        CornerRadius="16"
-        Background="#FCFCFF"
-        Padding="20">
+Margin="0,0,0,0"
+BorderBrush="{StaticResource BordesSuaves}"
+BorderThickness="1.5"
+CornerRadius="16"
+Background="#FCFCFF"
+Padding="20">
 
             <StackPanel>
                 <TextBlock Text="Estadísticas de la Lista"
-                   FontSize="15"
-                   FontFamily="Segoe UI Semibold"
-                   Foreground="{StaticResource TextoOscuro}"/>
+           FontSize="15"
+           FontFamily="Segoe UI Semibold"
+           Foreground="{StaticResource TextoOscuro}"/>
 
                 <TextBlock Text="Información y operaciones sobre la lista"
-                   FontSize="14"
-                   Foreground="{StaticResource TextoClaro}"
-                   Margin="0,4,0,18"/>
+           FontSize="14"
+           Foreground="{StaticResource TextoClaro}"
+           Margin="0,4,0,18"/>
 
                 <!-- Primera fila -->
                 <UniformGrid Columns="3" Margin="0,0,0,14">
                     <Button x:Name="BtnEstaVacia"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#FFF7DB"
-                    BorderBrush="#F4C400"
-                    Margin="0,0,12,0">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#FFF7DB"
+            BorderBrush="#F4C400"
+            Margin="0,0,12,0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está vacía?"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#8A5A00"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#8A5A00"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaVacia"
-                               Text="NO"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#8A5A00"
-                               HorizontalAlignment="Center"/>
+                       Text="NO"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#8A5A00"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnEstaLlena"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#FCE8DC"
-                    BorderBrush="#F59E42"
-                    Margin="0,0,12,0">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#FCE8DC"
+            BorderBrush="#F59E42"
+            Margin="0,0,12,0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está llena?"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#A84B00"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#A84B00"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaLlena"
-                               Text="NO"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#A84B00"
-                               HorizontalAlignment="Center"/>
+                       Text="NO"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#A84B00"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnModa"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#FBE4F1"
-                    BorderBrush="#F28CC4">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#FBE4F1"
+            BorderBrush="#F28CC4">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Moda"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#B01F6D"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#B01F6D"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtModa"
-                               Text="-"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#B01F6D"
-                               HorizontalAlignment="Center"/>
+                       Text="-"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#B01F6D"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </UniformGrid>
@@ -368,61 +367,61 @@
                 <!-- Segunda fila -->
                 <UniformGrid Columns="3" Margin="0,0,0,16">
                     <Button x:Name="BtnSumaTotal"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#E8F1FF"
-                    BorderBrush="#6AA7FF"
-                    Margin="0,0,12,0">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#E8F1FF"
+            BorderBrush="#6AA7FF"
+            Margin="0,0,12,0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Suma Total"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#214E9C"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#214E9C"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtSumaTotal"
-                               Text="Calcular"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#214E9C"
-                               HorizontalAlignment="Center"/>
+                       Text="Calcular"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#214E9C"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnMayor"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#F3E8FF"
-                    BorderBrush="#C084FC"
-                    Margin="0,0,12,0">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#F3E8FF"
+            BorderBrush="#C084FC"
+            Margin="0,0,12,0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Mayor"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#7A2BBE"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#7A2BBE"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtMayor"
-                               Text="Calcular"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#7A2BBE"
-                               HorizontalAlignment="Center"/>
+                       Text="Calcular"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#7A2BBE"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnMenor"
-                    Style="{StaticResource InfoButtonStyle}"
-                    Background="#E3F6E8"
-                    BorderBrush="#62D78B">
+            Style="{StaticResource InfoButtonStyle}"
+            Background="#E3F6E8"
+            BorderBrush="#62D78B">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Menor"
-                               FontSize="14"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#137A3E"
-                               HorizontalAlignment="Center"/>
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#137A3E"
+                       HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtMenor"
-                               Text="Calcular"
-                               FontSize="18"
-                               FontFamily="Segoe UI Semibold"
-                               Foreground="#137A3E"
-                               HorizontalAlignment="Center"/>
+                       Text="Calcular"
+                       FontSize="18"
+                       FontFamily="Segoe UI Semibold"
+                       Foreground="#137A3E"
+                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </UniformGrid>
@@ -435,36 +434,37 @@ Margin="0,0,0,18" Background="#F46A6A" Cursor="Hand"/>
 
                 <!-- Separador -->
                 <Border Height="1"
-                Background="{StaticResource BordesSuaves}"
-                Margin="0,8,0,18"/>
+        Background="{StaticResource BordesSuaves}"
+        Margin="0,8,0,18"/>
 
                 <!-- Ordenamiento -->
                 <StackPanel>
                     <TextBlock Text="Tipo de ordenamiento"
-                       FontSize="14"
-                       FontFamily="Segoe UI Semibold"
-                       Foreground="{StaticResource TextoOscuro}"
-                       Margin="0,0,0,12"/>
+               FontSize="14"
+               FontFamily="Segoe UI Semibold"
+               Foreground="{StaticResource TextoOscuro}"
+               Margin="0,0,0,12"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
                         <RadioButton x:Name="RbAscendente"
-                             Content="Ascendente"
-                             IsChecked="True"
-                             Margin="0,0,24,0"
-                             Foreground="{StaticResource TextoOscuro}"
-                             FontSize="14"/>
+                     Content="Ascendente"
+                     IsChecked="True"
+                     Margin="0,0,24,0"
+                     Foreground="{StaticResource TextoOscuro}"
+                     FontSize="14"/>
 
                         <RadioButton x:Name="RbDescendente"
-                             Content="Descendente"
-                             Foreground="{StaticResource TextoOscuro}"
-                             FontSize="14"/>
+                     Content="Descendente"
+                     Foreground="{StaticResource TextoOscuro}"
+                     FontSize="14"/>
                     </StackPanel>
 
                     <Button x:Name="BtnOrdenarLista"
-                    Style="{StaticResource BtnPrimarySmallHover}"
-                    Content="Ordenar Lista" Cursor="Hand"/>
+            Style="{StaticResource BtnPrimarySmallHover}"
+            Content="Ordenar Lista"/>
                 </StackPanel>
             </StackPanel>
         </Border>
+
     </Grid>
 </UserControl>
