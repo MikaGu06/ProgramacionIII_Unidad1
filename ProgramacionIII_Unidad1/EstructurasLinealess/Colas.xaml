@@ -172,7 +172,8 @@
         <Button x:Name="BtnInsertar"
                 Grid.Row="1" Grid.Column="1"
                 Style="{StaticResource BtnPrimary}"
-                Content="Insertar"/>
+                Content="Insertar"
+                Click="BtnInsertar_Click"/>
 
         <!-- Fila 2: generar vector -->
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
@@ -190,7 +191,8 @@
             <Button x:Name="BtnGenerarAleatorio"
                     Grid.Column="1"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Generar automático"/>
+                    Content="Generar automático"
+                    Click="BtnGenerarAleatorio_Click"/>
         </Grid>
 
         <!-- Fila 3 -->
@@ -212,12 +214,14 @@
                     Grid.Column="1"
                     Style="{StaticResource BtnDanger}"
                     Margin="0,0,12,0"
-                    Content="Quitar"/>
+                    Content="Quitar"
+                    Click="BtnQuitar_Click"/>
 
             <Button x:Name="BtnLimpiar"
                     Grid.Column="2"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Limpiar"/>
+                    Content="Limpiar"
+                    Click="BtnLimpiar_Click"/>
         </Grid>
 
         <!-- Info -->
@@ -261,7 +265,8 @@
                     Style="{StaticResource InfoButtonStyle}"
                     Background="#E8F1FF"
                     BorderBrush="#6AA7FF"
-                    Margin="0,0,12,0">
+                    Margin="0,0,12,0"
+                    Click="BtnMaximo_Click">
                 <StackPanel>
                     <TextBlock Text="Tamaño máximo"
                                FontSize="14"
@@ -307,11 +312,17 @@
                            Foreground="{StaticResource TextoOscuro}"
                            Margin="0,0,0,14"/>
 
-                <TextBox x:Name="TxtResultado"
-                         Style="{StaticResource InputStyle}"
-                         Height="42"
-                         TextWrapping="Wrap"
-                         IsReadOnly="True"/>
+                <ListBox x:Name="LstCola"
+                     Height="120"
+                     Background="#F1F3F9"
+                     BorderBrush="Transparent"
+                     FontSize="16">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </StackPanel>
         </Border>
 
