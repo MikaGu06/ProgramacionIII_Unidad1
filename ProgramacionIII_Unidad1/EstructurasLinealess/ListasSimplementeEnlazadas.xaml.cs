@@ -204,12 +204,29 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             ActualizarTodo();
         }
 
+        //validación de longitud numeral
+        private bool ValidarRango(int valor, int minimo, int maximo)
+        {
+            if (valor < minimo || valor > maximo)
+            {
+                MessageBox.Show("El valor debe estar entre " + minimo + " y " + maximo );
+                return false;
+            }
+
+            return true;
+        }
+
         //BOTONES CARD SUPERIOR
         private void BtnAgregarInicio_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 int valor = int.Parse(TxtNumero.Text);
+                if (!ValidarRango(valor, 0, 999))
+                {
+                    TxtNumero.Clear();
+                    return;
+                }
                 AgregarInicio(valor);
                 ActualizarTodo();
                 TxtNumero.Clear();
@@ -231,10 +248,17 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             try
             {
                 int valor = int.Parse(TxtNumero.Text);
+
+                if (!ValidarRango(valor, 0, 999))
+                {
+                    TxtNumero.Clear();
+                    return;
+                }
                 AgregarFinal(valor);
                 ActualizarTodo();
                 TxtNumero.Clear();
-            }catch (FormatException)
+            }
+            catch (FormatException)
             {
                 MessageBox.Show("Ingrese un valor entero válido.");
                 TxtNumero.Clear();
@@ -263,10 +287,13 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             try
             {
                 int valor = int.Parse(txtBuscar.Text);
+                if (!ValidarRango(valor, 0, 999))
+                {
+                    txtBuscar.Clear();
+                    return;
+                }
                 int posicion = BuscarElemento(valor);
-
                 BordeResultadoBusqueda.Visibility = Visibility.Visible;
-
                 if (posicion != -1)
                 {
                     TxtResultadoBusqueda.Text = "Resultado encontrado en la posición " + posicion;
@@ -299,17 +326,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             try
             {
                 int tam = int.Parse(TxtCantidadAleatoria.Text);
-
-                if (tam > 0)
+                if (!ValidarRango(tam, 1, 30))
                 {
-                    tamañoMaximo = tam;
-                    MessageBox.Show("Tamaño máximo definido correctamente.");
-                    ActualizarTodo();
+                    TxtCantidadAleatoria.Clear();
+                    return;
                 }
-                else
-                {
-                    MessageBox.Show("Ingrese un tamaño válido.");
-                }
+                tamañoMaximo = tam;
+                MessageBox.Show("Tamaño máximo definido correctamente.");
+                ActualizarTodo();
             }
             catch (FormatException)
             {

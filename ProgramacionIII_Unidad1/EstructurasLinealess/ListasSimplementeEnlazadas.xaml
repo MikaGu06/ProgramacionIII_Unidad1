@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProgramacionIII_Unidad1.EstructurasLinealess"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
         <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
@@ -281,25 +281,19 @@
 
         <!-- Área visual -->
         <Border Grid.Row="4" Grid.ColumnSpan="3"
-                Margin="0,24,0,18"
-                BorderBrush="{StaticResource BordesSuaves}"
-                BorderThickness="1.5"
-                CornerRadius="16"
-                Background="#FCFCFF"
-                Padding="20">
+Margin="0,24,0,18"
+BorderBrush="{StaticResource BordesSuaves}"
+BorderThickness="1.5"
+CornerRadius="16"
+Background="#FCFCFF"
+Padding="20">
 
-            <StackPanel>
-                <TextBlock x:Name="tbLista"
-                           FontSize="23"
-                           FontFamily="Segoe UI Semibold"
-                           Foreground="{StaticResource TextoOscuro}"/>
-
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Disabled">
-                    <WrapPanel x:Name="PanelLista"
-                               Orientation="Horizontal"/>
-                </ScrollViewer>
-            </StackPanel>
+            <TextBlock x:Name="tbLista"
+       FontSize="23"
+       FontFamily="Segoe UI Semibold"
+       Foreground="{StaticResource TextoOscuro}"
+       TextWrapping="Wrap"
+       Width="700"/>
         </Border>
 
         <!-- Contador -->
