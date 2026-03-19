@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProgramacionIII_Unidad1.EstructurasLinealess"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="750" d:DesignWidth="800">
     <UserControl.Resources>
         <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
         <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
@@ -161,11 +161,11 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Cursor="">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="56"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -201,30 +201,48 @@
                 Grid.Row="1" Grid.Column="1"
                 Style="{StaticResource BtnPrimary}"
                 Margin="0,0,12,0"
-                Content="Agregar al inicio"/>
+                Content="Agregar al inicio" Click="BtnAgregarInicio_Click"/>
 
         <Button x:Name="BtnAgregarFinal"
                 Grid.Row="1" Grid.Column="2"
                 Style="{StaticResource BtnPrimary}"
-                Content="Agregar al final"/>
+                Content="Agregar al final" Click="BtnAgregarFinal_Click"/>
 
-        <!-- Fila 2: generación aleatoria -->
-        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+        <!-- Fila 2: tamaño máximo -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="180"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TxtCantidadAleatoria"
-                     Grid.Column="0"
-                     Style="{StaticResource InputStyle}"
-                     Margin="0,0,12,0"
-                     ToolTip="Cantidad de elementos aleatorios" Cursor=""/>
+            <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                <TextBlock Text="Tamaño máximo"
+                   FontSize="13"
+                   FontFamily="Segoe UI Semibold"
+                   Foreground="{StaticResource TextoClaro}"
+                   Margin="4,0,0,6"/>
+                <TextBox x:Name="TxtCantidadAleatoria"
+                 Style="{StaticResource InputStyle}"
+                 ToolTip="Tamaño máximo de la lista"/>
+            </StackPanel>
+
+            <Button x:Name="BtnDefinirTam"
+            Grid.Column="1"
+            Style="{StaticResource BtnPrimary}"
+            Content="Definir tamaño"
+            Margin="0,0,12,0"
+            VerticalAlignment="Bottom"
+            Cursor="Hand"
+            Click="BtnDefinirTam_Click"/>
 
             <Button x:Name="BtnGenerarAleatorio"
-                    Grid.Column="1"
-                    Style="{StaticResource BtnPrimary}"
-                    Content="Generar automático" Cursor="Hand"/>
+            Grid.Column="2"
+            Style="{StaticResource BtnPrimary}"
+            Content="Generar automático"
+            VerticalAlignment="Bottom"
+            Cursor="Hand"
+            Click="BtnGenerarAleatorio_Click"/>
         </Grid>
 
         <!-- Fila 3: eliminar y buscar -->
@@ -233,7 +251,7 @@
                 Style="{StaticResource BtnDanger}"
                 Width="170"
                 HorizontalAlignment="Left"
-                Content="Eliminar inicio"/>
+                Content="Eliminar inicio" Click="BtnEliminarInicio_Click"/>
 
         <Button x:Name="BtnEliminarFinal"
                 Grid.Row="3" Grid.Column="0"
@@ -241,7 +259,7 @@
                 Width="170"
                 HorizontalAlignment="Left"
                 Margin="190,0,0,0"
-                Content="Eliminar final"/>
+                Content="Eliminar final" Click="BtnEliminarFinal_Click"/>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="12,0,0,0">
             <Grid.ColumnDefinitions>
@@ -249,7 +267,7 @@
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TxtBuscar"
+            <TextBox x:Name="txtBuscar"
                      Grid.Column="0"
                      Style="{StaticResource InputStyle}"
                      Margin="0,0,12,0"
@@ -258,7 +276,7 @@
             <Button x:Name="BtnBuscar"
                     Grid.Column="1"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Buscar elemento"/>
+                    Content="Buscar elemento" Click="BtnBuscar_Click"/>
         </Grid>
 
         <!-- Área visual -->
@@ -271,11 +289,10 @@
                 Padding="20">
 
             <StackPanel>
-                <TextBlock Text="Visualización de la lista"
-                           FontSize="15"
+                <TextBlock x:Name="tbLista"
+                           FontSize="23"
                            FontFamily="Segoe UI Semibold"
-                           Foreground="{StaticResource TextoOscuro}"
-                           Margin="0,0,0,14"/>
+                           Foreground="{StaticResource TextoOscuro}"/>
 
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Disabled">
@@ -298,6 +315,23 @@
                        Text="Elementos: 0"
                        Foreground="{StaticResource TextoOscuro}"
                        FontSize="14"/>
+        </Border>
+        
+        <!--Resultado Busqueda-->
+        <Border x:Name="BordeResultadoBusqueda"
+            Grid.Row="5" Visibility="Hidden"
+        Grid.Column="0"
+        Background="#FFEEE2FF"
+        BorderBrush="#6A5AE0"
+        BorderThickness="1"
+        CornerRadius="12"
+        Padding="10,4"
+                Margin="120 0 0 0"
+        HorizontalAlignment="Left">
+            <TextBlock x:Name="TxtResultadoBusqueda"
+               Text=""
+               Foreground="{StaticResource TextoOscuro}"
+               FontSize="14"/>
         </Border>
 
         <!-- Card inferior -->
@@ -324,7 +358,7 @@
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#FFF7DB"
                             BorderBrush="#F4C400"
-                            Margin="0,0,12,0">
+                            Margin="0,0,12,0" Click="BtnEstaVacia_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está vacía?"
                                        FontSize="14"
@@ -332,7 +366,7 @@
                                        Foreground="#8A5A00"
                                        HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaVacia"
-                                       Text="NO"
+                                       Text=" - "
                                        FontSize="18"
                                        FontFamily="Segoe UI Semibold"
                                        Foreground="#8A5A00"
@@ -344,7 +378,7 @@
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#FCE8DC"
                             BorderBrush="#F59E42"
-                            Margin="0,0,12,0">
+                            Margin="0,0,12,0" Click="BtnEstaLlena_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está llena?"
                                        FontSize="14"
@@ -352,7 +386,7 @@
                                        Foreground="#A84B00"
                                        HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaLlena"
-                                       Text="NO"
+                                       Text=" - "
                                        FontSize="18"
                                        FontFamily="Segoe UI Semibold"
                                        Foreground="#A84B00"
@@ -363,7 +397,7 @@
                     <Button x:Name="BtnModa"
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#FBE4F1"
-                            BorderBrush="#F28CC4">
+                            BorderBrush="#F28CC4" Click="BtnModa_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Moda"
                                        FontSize="14"
@@ -385,7 +419,7 @@
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#E8F1FF"
                             BorderBrush="#6AA7FF"
-                            Margin="0,0,12,0">
+                            Margin="0,0,12,0" Click="BtnSumaTotal_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Suma Total"
                                        FontSize="14"
@@ -405,7 +439,7 @@
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#F3E8FF"
                             BorderBrush="#C084FC"
-                            Margin="0,0,12,0">
+                            Margin="0,0,12,0" Click="BtnMayor_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Mayor"
                                        FontSize="14"
@@ -424,7 +458,7 @@
                     <Button x:Name="BtnMenor"
                             Style="{StaticResource InfoButtonStyle}"
                             Background="#E3F6E8"
-                            BorderBrush="#62D78B">
+                            BorderBrush="#62D78B" Click="BtnMenor_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Menor"
                                        FontSize="14"
@@ -445,7 +479,7 @@
                         Style="{StaticResource BtnPrimarySmallHover}"
                         Content="Limpiar Lista"
                         Margin="0,0,0,18"
-                        Background="#F46A6A"/>
+                        Background="#F46A6A" Click="BtnLimpiarListaCompleta_Click"/>
 
                 <Border Height="1"
                         Background="{StaticResource BordesSuaves}"
@@ -474,7 +508,7 @@
 
                     <Button x:Name="BtnOrdenarLista"
                             Style="{StaticResource BtnPrimarySmallHover}"
-                            Content="Ordenar Lista"/>
+                            Content="Ordenar Lista" Click="BtnOrdenarLista_Click"/>
                 </StackPanel>
             </StackPanel>
         </Border>
