@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ProgramacionIII_Unidad1.EstructurasLinealess"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
         <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
         <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
@@ -82,10 +83,58 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <Style x:Key="InfoCardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Padding" Value="16"/>
+        <Style x:Key="InfoButtonStyle" TargetType="Button">
             <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="16"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1.04" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1.04" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -94,10 +143,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="56"/>
             <RowDefinition Height="56"/>
+            <RowDefinition Height="56"/>
             <RowDefinition Height="95"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="140"/>
@@ -124,10 +175,31 @@
         <Button x:Name="BtnInsertar"
                 Grid.Row="1" Grid.Column="1"
                 Style="{StaticResource BtnPrimary}"
-                Content="Insertar"/>
+                Content="Insertar"
+                Click="BtnInsertar_Click"/>
 
-        <!-- Fila 2 -->
-        <Grid Grid.Row="2" Grid.Column="0" Margin="0,0,16,0">
+        <!-- Fila 2: generar aleatorio -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="TxtCantidadAleatoria"
+                     Grid.Column="0"
+                     Style="{StaticResource InputStyle}"
+                     Margin="0,0,12,0"
+                     ToolTip="Cantidad de elementos aleatorios"/>
+
+            <Button x:Name="BtnGenerarAleatorio"
+                    Grid.Column="1"
+                    Style="{StaticResource BtnPrimary}"
+                    Content="Generar automático"
+                    Click="BtnGenerarAleatorio_Click"/>
+        </Grid>
+
+        <!-- Fila 3 -->
+        <Grid Grid.Row="3" Grid.Column="0" Margin="0,0,16,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="120"/>
@@ -139,23 +211,27 @@
                      Grid.Column="0"
                      Style="{StaticResource InputStyle}"
                      Margin="0,0,16,0"
-                     ToolTip="Tamaño máximo"/>
+                     />
 
             <Button x:Name="BtnQuitar"
                     Grid.Column="1"
                     Style="{StaticResource BtnDanger}"
                     Margin="0,0,12,0"
-                    Content="Quitar"/>
+                    Content="Quitar"
+                    Click="BtnQuitar_Click"/>
 
             <Button x:Name="BtnLimpiar"
                     Grid.Column="2"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Limpiar"/>
+                    Content="Limpiar"
+                    Click="BtnLimpiar_Click"/>
         </Grid>
 
         <!-- Info -->
-        <UniformGrid Grid.Row="3" Grid.ColumnSpan="2" Columns="4" Margin="0,20,0,0">
-            <Border Style="{StaticResource InfoCardStyle}"
+        <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Columns="4" Margin="0,20,0,0">
+
+            <Button x:Name="BtnVacia"
+                    Style="{StaticResource InfoButtonStyle}"
                     Background="#FFF7DB"
                     BorderBrush="#F4C400"
                     Margin="0,0,12,0">
@@ -169,9 +245,10 @@
                                FontFamily="Segoe UI Semibold"
                                Foreground="#8A5A00"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
+            <Button x:Name="BtnLlena"
+                    Style="{StaticResource InfoButtonStyle}"
                     Background="#FCE8DC"
                     BorderBrush="#F59E42"
                     Margin="0,0,12,0">
@@ -185,12 +262,14 @@
                                FontFamily="Segoe UI Semibold"
                                Foreground="#A84B00"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
+            <Button x:Name="BtnMaximo"
+                    Style="{StaticResource InfoButtonStyle}"
                     Background="#E8F1FF"
                     BorderBrush="#6AA7FF"
-                    Margin="0,0,12,0">
+                    Margin="0,0,12,0"
+                    Click="BtnMaximo_Click">
                 <StackPanel>
                     <TextBlock Text="Tamaño máximo"
                                FontSize="14"
@@ -201,9 +280,10 @@
                                FontFamily="Segoe UI Semibold"
                                Foreground="#214E9C"/>
                 </StackPanel>
-            </Border>
+            </Button>
 
-            <Border Style="{StaticResource InfoCardStyle}"
+            <Button x:Name="BtnCima"
+                    Style="{StaticResource InfoButtonStyle}"
                     Background="#F3E8FF"
                     BorderBrush="#C084FC">
                 <StackPanel>
@@ -216,11 +296,12 @@
                                FontFamily="Segoe UI Semibold"
                                Foreground="#7A2BBE"/>
                 </StackPanel>
-            </Border>
+            </Button>
+
         </UniformGrid>
 
         <!-- Área visual -->
-        <Border Grid.Row="4" Grid.ColumnSpan="2"
+        <Border Grid.Row="5" Grid.ColumnSpan="2"
                 Margin="0,24,0,18"
                 BorderBrush="{StaticResource BordesSuaves}"
                 BorderThickness="1.5"
@@ -255,7 +336,7 @@
         </Border>
 
         <!-- Contador -->
-        <Border Grid.Row="5"
+        <Border Grid.Row="6"
                 Grid.Column="0"
                 Background="#F4F3FF"
                 BorderBrush="{StaticResource BordesSuaves}"

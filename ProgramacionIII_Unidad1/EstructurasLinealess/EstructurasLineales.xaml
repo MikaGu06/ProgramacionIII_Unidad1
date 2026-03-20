@@ -233,10 +233,10 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
               VerticalScrollBarVisibility="Auto">
-        <Grid Margin="24" MinWidth="1180" MinHeight="680">
+        <Grid Margin="24" MinWidth="1180">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -247,7 +247,8 @@
 
             <!-- Header -->
             <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0">
+                <Button x:Name="RegresarInicio" 
+                    Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0" Click="RegresarInicio_Click">
                     <TextBlock Text="←" FontSize="20"/>
                 </Button>
 
@@ -264,47 +265,63 @@
 
             <!-- Panel izquierdo -->
             <Border Grid.Row="1" Grid.Column="0"
-    Background="{StaticResource Card}"
-    BorderBrush="{StaticResource BordesSuaves}"
-    BorderThickness="1"
-    CornerRadius="18"
-    Padding="22"
-    Margin="0,24,0,0" Cursor="">
-                <StackPanel>
-                    <TextBlock Text="Estructuras"
+                Background="{StaticResource Card}"
+                BorderBrush="{StaticResource BordesSuaves}"
+                BorderThickness="1"
+                CornerRadius="18"
+                Padding="22"
+                Margin="0,24,0,0" Cursor="">
+
+
+                    <StackPanel Cursor="">
+                        <TextBlock Text="Estructuras"
                FontSize="18"
                FontFamily="Segoe UI Semibold"
                Foreground="{StaticResource TextoOscuro}"/>
-                    <TextBlock Text="Selecciona una estructura"
+                        <TextBlock Text="Selecciona una estructura"
                Margin="0,6,0,20"
                FontSize="14"
                Foreground="{StaticResource TextoClaro}"/>
 
-                    <Button Style="{StaticResource BtnMenuCard}"
+                        <Button Style="{StaticResource BtnMenuCard}"
             Content="Lista Simplemente Enlazada" Click="Button_Click"/>
 
-                    <Button Style="{StaticResource BtnMenuCard}"
+                        <Button Style="{StaticResource BtnMenuCard}"
             Content="Lista Doblemente Enlazada" Click="Button_Click_1"/>
+
+                    <Button Style="{StaticResource BtnMenuCard}"
+                Content="Lista Circular Simple" x:Name="ListasCircularesSimples" Click="ListasCircularesSimples_Click"/>
+                        
+                    <Button Style="{StaticResource BtnMenuCard}"
+                Content="Lista Circular Doble" Cursor="Hand" x:Name="ListasCircularesDobles" Click="ListasCircularesDobles_Click"/>
+                        
+                    <Button Style="{StaticResource BtnMenuCard}"
+Content="Cola (Queue)" Click="Button_Click_3"/>
 
                     <Button Style="{StaticResource BtnMenuCard}"
             Content="Pila (Stack)" Click="Button_Click_2"/>
 
                     <Button Style="{StaticResource BtnMenuCard}"
-            Content="Cola (Queue)" Click="Button_Click_3"/>
+Content="Calculadora con pilas" x:Name="Calculadora" Click="Calculadora_Click"/>
+
+
+
+
                 </StackPanel>
+       
             </Border>
 
             <!-- Card derecha vacía -->
             <Border Grid.Row="1" Grid.Column="2"
-                Background="{StaticResource Card}"
-                BorderBrush="{StaticResource BordesSuaves}"
-                BorderThickness="1"
-                CornerRadius="18"
-                Padding="28"
-                Margin="0,24,0,0">
+        Background="{StaticResource Card}"
+        BorderBrush="{StaticResource BordesSuaves}"
+        BorderThickness="1"
+        CornerRadius="18"
+        Padding="28"
+        Margin="0,24,0,0"
+        VerticalAlignment="Top">
                 <ContentControl x:Name="ContenidoDinamico"/>
             </Border>
-
 
         </Grid>
     </ScrollViewer>

@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 namespace ProgramacionIII_Unidad1.EstructurasLinealess
 {
     /// <summary>
-    /// Lógica de interacción para ListasDoblementeEnlazadas.xaml
+    /// Lógica de interacción para ListasCircularesSimples.xaml
     /// </summary>
-    public partial class ListasDoblementeEnlazadas : UserControl
+    public partial class ListasCircularesSimples : UserControl
     {
         private int tamañoMaximo = 0;
         private Random rnd = new Random();
@@ -27,17 +27,15 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             public int Dato { get; set; }
             public Nodo Siguiente { get; set; }
-            public Nodo Anterior { get; set; }
 
             public Nodo(int dato)
             {
                 Dato = dato;
                 Siguiente = null;
-                Anterior = null;
             }
         }
 
-        public ListasDoblementeEnlazadas()
+        public ListasCircularesSimples()
         {
             InitializeComponent();
             ActualizarTodo();
@@ -60,12 +58,13 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 inicio = nuevoNodo;
                 fin = nuevoNodo;
+                fin.Siguiente = inicio;
             }
             else
             {
                 nuevoNodo.Siguiente = inicio;
-                inicio.Anterior = nuevoNodo;
                 inicio = nuevoNodo;
+                fin.Siguiente = inicio;
             }
         }
 
@@ -86,12 +85,13 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 inicio = nuevoNodo;
                 fin = nuevoNodo;
+                fin.Siguiente = inicio;
             }
             else
             {
                 fin.Siguiente = nuevoNodo;
-                nuevoNodo.Anterior = fin;
                 fin = nuevoNodo;
+                fin.Siguiente = inicio;
             }
         }
 
@@ -110,13 +110,13 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             else
             {
                 inicio = inicio.Siguiente;
-                inicio.Anterior = null;
+                fin.Siguiente = inicio;
             }
         }
 
         private void EliminarFinal()
         {
-            if (fin == null)
+            if (inicio == null)
             {
                 return;
             }
@@ -125,20 +125,30 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 inicio = null;
                 fin = null;
+                return;
             }
-            else
+
+            Nodo penultimo = inicio;
+
+            while (penultimo.Siguiente != fin)
             {
-                fin = fin.Anterior;
-                fin.Siguiente = null;
+                penultimo = penultimo.Siguiente;
             }
+
+            fin = penultimo;
+            fin.Siguiente = inicio;
         }
+
         /*
-        private int BuscarElemento(int valor)
+         * private int BuscarElemento(int valor)
         {
+            if (inicio == null)
+                return -1; // no encontrado
+
             Nodo actual = inicio;
             int posicion = 0;
 
-            while (actual != null)
+            do
             {
                 if (actual.Dato == valor)
                 {
@@ -147,7 +157,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
                 actual = actual.Siguiente;
                 posicion++;
-            }
+
+            } while (actual != inicio);
 
             return -1; // no encontrado
         }*/
@@ -155,37 +166,45 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         private void ActualizarLista()
         {
             tbLista.Text = "";
-            Nodo actual = inicio;
-
-            while (actual != null)
-            {
-                tbLista.Text += actual.Dato.ToString();
-
-                if (actual.Siguiente != null)
-                {
-                    tbLista.Text += ",  ";
-                }
-
-                actual = actual.Siguiente;
-            }
 
             if (inicio == null)
             {
                 tbLista.Text = "Esperando valores";
+                return;
             }
+
+            Nodo actual = inicio;
+
+            do
+            {
+                tbLista.Text += actual.Dato.ToString();
+
+                actual = actual.Siguiente;
+
+                if (actual != inicio)
+                {
+                    tbLista.Text += ",  ";
+                }
+
+            } while (actual != inicio);
+
         }
 
         //Para el textblock de contador
         private int ContarElementos()
         {
+            if (inicio == null)
+                return 0;
+
             int contador = 0;
             Nodo actual = inicio;
 
-            while (actual != null)
+            do
             {
                 contador++;
                 actual = actual.Siguiente;
-            }
+
+            } while (actual != inicio);
 
             return contador;
         }
@@ -237,6 +256,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             ActualizarTodo();
         }
+
         //validación de longitud numeral
         private bool ValidarRango(int valor, int minimo, int maximo)
         {
@@ -270,24 +290,26 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             int maxFrecuencia = 0;
 
             //1) encontrar frecuencia máxima
-            while (actual != null)
+            do
             {
                 int frecuencia = 0;
                 Nodo aux = inicio;
 
-                while (aux != null)
+                do
                 {
                     if (aux.Dato == actual.Dato)
                         frecuencia++;
 
                     aux = aux.Siguiente;
-                }
+
+                } while (aux != inicio);
 
                 if (frecuencia > maxFrecuencia)
                     maxFrecuencia = frecuencia;
 
                 actual = actual.Siguiente;
-            }
+
+            } while (actual != inicio);
 
             //Si todos aparecen una sola vez → no hay moda
             if (maxFrecuencia <= 1)
@@ -297,18 +319,19 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             string resultado = "";
             actual = inicio;
 
-            while (actual != null)
+            do
             {
                 int frecuencia = 0;
                 Nodo aux = inicio;
 
-                while (aux != null)
+                do
                 {
                     if (aux.Dato == actual.Dato)
                         frecuencia++;
 
                     aux = aux.Siguiente;
-                }
+
+                } while (aux != inicio);
 
                 //evitar repetir números en el resultado
                 if (frecuencia == maxFrecuencia && !resultado.Contains(actual.Dato.ToString()))
@@ -320,21 +343,26 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 }
 
                 actual = actual.Siguiente;
-            }
+
+            } while (actual != inicio);
 
             return resultado;
         }
 
         private int CalcularSumaTotal()
         {
+            if (inicio == null)
+                return 0;
+
             int suma = 0;
             Nodo actual = inicio;
 
-            while (actual != null)
+            do
             {
                 suma += actual.Dato;
                 actual = actual.Siguiente;
-            }
+
+            } while (actual != inicio);
 
             return suma;
         }
@@ -345,9 +373,9 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return 0;
 
             int mayor = inicio.Dato;
-            Nodo actual = inicio;
+            Nodo actual = inicio.Siguiente;
 
-            while (actual != null)
+            while (actual != inicio)
             {
                 if (actual.Dato > mayor)
                 {
@@ -366,9 +394,9 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return 0;
 
             int menor = inicio.Dato;
-            Nodo actual = inicio;
+            Nodo actual = inicio.Siguiente;
 
-            while (actual != null)
+            while (actual != inicio)
             {
                 if (actual.Dato < menor)
                 {
@@ -381,6 +409,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             return menor;
         }
 
+        //ordenamiento merge sort
         private Nodo ObtenerMitad(Nodo cabeza)
         {
             if (cabeza == null)
@@ -414,19 +443,11 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 {
                     resultado = izquierda;
                     resultado.Siguiente = MezclarListas(izquierda.Siguiente, derecha, ascendente);
-                    if (resultado.Siguiente != null)
-                    {
-                        resultado.Siguiente.Anterior = resultado;
-                    }
                 }
                 else
                 {
                     resultado = derecha;
                     resultado.Siguiente = MezclarListas(izquierda, derecha.Siguiente, ascendente);
-                    if (resultado.Siguiente != null)
-                    {
-                        resultado.Siguiente.Anterior = resultado;
-                    }
                 }
             }
             else
@@ -435,23 +456,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 {
                     resultado = izquierda;
                     resultado.Siguiente = MezclarListas(izquierda.Siguiente, derecha, ascendente);
-                    if (resultado.Siguiente != null)
-                    {
-                        resultado.Siguiente.Anterior = resultado;
-                    }
                 }
                 else
                 {
                     resultado = derecha;
                     resultado.Siguiente = MezclarListas(izquierda, derecha.Siguiente, ascendente);
-                    if (resultado.Siguiente != null)
-                    {
-                        resultado.Siguiente.Anterior = resultado;
-                    }
                 }
             }
 
-            resultado.Anterior = null;
             return resultado;
         }
 
@@ -464,18 +476,13 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             Nodo segundaMitad = mitad.Siguiente;
             mitad.Siguiente = null;
 
-            if (segundaMitad != null)
-            {
-                segundaMitad.Anterior = null;
-            }
-
             Nodo izquierda = MergeSort(cabeza, ascendente);
             Nodo derecha = MergeSort(segundaMitad, ascendente);
 
             return MezclarListas(izquierda, derecha, ascendente);
         }
 
-        private void ActualizarFin()
+        private void ConvertirACircular()
         {
             fin = inicio;
 
@@ -486,6 +493,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 fin = fin.Siguiente;
             }
+
+            fin.Siguiente = inicio;
         }
 
         //BOTONES CARD SUPERIOR
@@ -568,16 +577,17 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 }
 
                 int posicion = BuscarElemento(valor);
-
                 BordeResultadoBusqueda.Visibility = Visibility.Visible;
 
                 if (posicion != -1)
                 {
                     TxtResultadoBusqueda.Text = "Resultado encontrado en la posición " + posicion;
+                    txtBuscar.Clear();
                 }
                 else
                 {
-                    TxtResultadoBusqueda.Text = "El elemento no se encuentra en la lista";
+                    TxtResultadoBusqueda.Text = "El elemento no se encuentra en la lista ";
+                    txtBuscar.Clear();
                 }
             }
             catch (FormatException)
@@ -589,8 +599,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 MessageBox.Show("Error al buscar el elemento.");
             }
-        }
-        */
+        }*/
+
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
             GenerarAutomatico();
@@ -622,7 +632,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 MessageBox.Show("Error al definir el tamaño.");
             }
         }
-        
+
         //botones
         private void BtnEstaVacia_Click(object sender, RoutedEventArgs e)
         {
@@ -717,6 +727,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return;
             }
 
+            fin.Siguiente = null;
+
             if (RbAscendente.IsChecked == true)
             {
                 inicio = MergeSort(inicio, true);
@@ -727,9 +739,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 inicio = MergeSort(inicio, false);
             }
 
-            ActualizarFin();
+            ConvertirACircular();
             ActualizarTodo();
         }
-
     }
 }
