@@ -299,8 +299,7 @@
             <Button x:Name="BtnBuscar"
                     Grid.Column="1"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Buscar elemento"
-                    Click="BtnBuscar_Click"/>
+                    Content="Buscar elemento"/>
         </Grid>
 
         <!-- Área visual -->
