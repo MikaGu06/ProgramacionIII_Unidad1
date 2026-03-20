@@ -30,6 +30,13 @@ namespace ProgramacionIII_Unidad1
             AlgoritmosDeOrdenamiento paginaOrdenamiento = new AlgoritmosDeOrdenamiento();
 
             this.NavigationService.Navigate(paginaOrdenamiento);
+        }
+
+        private void BtnAbrirBusqueda_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new AlgoritmosDeBusqueda());
+        }
+
         private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new EstructurasLineales());
