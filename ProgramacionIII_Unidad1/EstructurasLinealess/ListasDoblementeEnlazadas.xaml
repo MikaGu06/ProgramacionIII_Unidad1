@@ -183,11 +183,11 @@
 
         <!-- Encabezado -->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,22">
-            <TextBlock Text="Lista Simplemente Enlazada"
+            <TextBlock Text="Lista Doblemente Enlazada"
                        FontSize="18"
                        FontFamily="Segoe UI Semibold"
                        Foreground="{StaticResource TextoOscuro}"/>
-            <TextBlock Text="Nodos con enlace al siguiente"
+            <TextBlock Text="Nodos con enlace al anterior y al siguiente"
                        FontSize="14"
                        Foreground="{StaticResource TextoClaro}"
                        Margin="0,6,0,0"/>
@@ -299,8 +299,7 @@
             <Button x:Name="BtnBuscar"
                     Grid.Column="1"
                     Style="{StaticResource BtnPrimary}"
-                    Content="Buscar elemento"
-                    Click="BtnBuscar_Click"/>
+                    Content="Buscar elemento"/>
         </Grid>
 
         <!-- Área visual -->

@@ -102,6 +102,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
             penultimo.Siguiente = null;
         }
+        /*
         private int BuscarElemento(int valor)
         {
             Nodo actual = inicio;
@@ -119,7 +120,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             return -1; // no encontrado
-        }
+        }*/
         private void ActualizarLista()
         {
             tbLista.Text = "";
@@ -212,7 +213,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 MessageBox.Show("El valor debe estar entre " + minimo + " y " + maximo );
                 return false;
             }
-
             return true;
         }
 
@@ -282,6 +282,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             ActualizarTodo();
         }
 
+        /*
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -314,7 +315,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 MessageBox.Show("Error al buscar el elemento.");
             }
-        }
+        }*/
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
             GenerarAutomatico();
@@ -476,45 +477,81 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             return menor;
         }
 
-        private void MetodoBurbuja(bool ascendente)
+        //Métodos para MergeSort
+        private Nodo ObtenerMitad(Nodo cabeza)
         {
-            int t;
-            Nodo a = inicio;
+            if (cabeza == null)
+                return null;
 
-            while (a != null)
+            Nodo lento = cabeza;
+            Nodo rapido = cabeza.Siguiente;
+
+            while (rapido != null && rapido.Siguiente != null)
             {
-                Nodo b = inicio;
-
-                while (b.Siguiente != null)
-                {
-                    if (ascendente)
-                    {
-                        if (b.Dato > b.Siguiente.Dato)
-                        {
-                            t = b.Dato;
-                            b.Dato = b.Siguiente.Dato;
-                            b.Siguiente.Dato = t;
-                        }
-                    }
-                    else
-                    {
-                        if (b.Dato < b.Siguiente.Dato)
-                        {
-                            t = b.Dato;
-                            b.Dato = b.Siguiente.Dato;
-                            b.Siguiente.Dato = t;
-                        }
-                    }
-
-                    b = b.Siguiente;
-                }
-
-                a = a.Siguiente;
+                lento = lento.Siguiente;
+                rapido = rapido.Siguiente.Siguiente;
             }
+
+            return lento;
+        }
+
+        private Nodo MezclarListas(Nodo izquierda, Nodo derecha, bool ascendente)
+        {
+            if (izquierda == null)
+                return derecha;
+
+            if (derecha == null)
+                return izquierda;
+
+            Nodo resultado;
+
+            if (ascendente)
+            {
+                if (izquierda.Dato <= derecha.Dato)
+                {
+                    resultado = izquierda;
+                    resultado.Siguiente = MezclarListas(izquierda.Siguiente, derecha, ascendente);
+                }
+                else
+                {
+                    resultado = derecha;
+                    resultado.Siguiente = MezclarListas(izquierda, derecha.Siguiente, ascendente);
+                }
+            }
+            else
+            {
+                if (izquierda.Dato >= derecha.Dato)
+                {
+                    resultado = izquierda;
+                    resultado.Siguiente = MezclarListas(izquierda.Siguiente, derecha, ascendente);
+                }
+                else
+                {
+                    resultado = derecha;
+                    resultado.Siguiente = MezclarListas(izquierda, derecha.Siguiente, ascendente);
+                }
+            }
+
+            return resultado;
+        }
+
+        private Nodo MergeSort(Nodo cabeza, bool ascendente)
+        {
+            if (cabeza == null || cabeza.Siguiente == null)
+                return cabeza;
+
+            Nodo mitad = ObtenerMitad(cabeza);
+            Nodo segundaMitad = mitad.Siguiente;
+            mitad.Siguiente = null;
+
+            Nodo izquierda = MergeSort(cabeza, ascendente);
+            Nodo derecha = MergeSort(segundaMitad, ascendente);
+
+            return MezclarListas(izquierda, derecha, ascendente);
         }
 
         //botones
-        
+
         private void BtnEstaVacia_Click(object sender, RoutedEventArgs e)
         {
             if (EstaVacia())
@@ -582,7 +619,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             inicio = null;
             tamañoMaximo = 0;
-
             TxtCantidadAleatoria.Clear();
             TxtNumero.Clear();
             txtBuscar.Clear();
@@ -596,7 +632,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             BordeResultadoBusqueda.Visibility = Visibility.Hidden;
             TxtResultadoBusqueda.Text = "";
-
             ActualizarTodo();
         }
 
@@ -607,10 +642,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 MessageBox.Show("La lista está vacía.");
                 return;
             }
-
-            bool ascendente = RbAscendente.IsChecked == true;
-
-            MetodoBurbuja(ascendente);
+            if (RbAscendente.IsChecked == true)
+            {
+                inicio = MergeSort(inicio, true);
+            }
+            else
+            {
+                inicio = MergeSort(inicio, false);
+            }
             ActualizarTodo();
         }
     }
