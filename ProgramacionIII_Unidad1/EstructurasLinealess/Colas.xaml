@@ -7,13 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
-        <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
-        <SolidColorBrush x:Key="BordesSuaves" Color="#D9D5F3"/>
-        <SolidColorBrush x:Key="TextoOscuro" Color="#18214D"/>
-        <SolidColorBrush x:Key="TextoClaro" Color="#6B7280"/>
-        <SolidColorBrush x:Key="InputColor" Color="#F1F3F9"/>
-        <SolidColorBrush x:Key="ColorAlerta" Color="#F46A6A"/>
+        <!-- Paleta nueva -->
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#262233"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
+        <SolidColorBrush x:Key="PrimarioSuave" Color="#9B8DBE"/>
+        <SolidColorBrush x:Key="FondoLavanda" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="White"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
 
         <Style x:Key="BtnPrimary" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -44,6 +50,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -74,7 +81,8 @@
 
         <Style x:Key="InputStyle" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource InputColor}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Padding" Value="14,10"/>
@@ -229,69 +237,69 @@
 
             <Button x:Name="BtnVacia"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#FFF7DB"
-                    BorderBrush="#F4C400"
+                    Background="#F2EAE0"
+                    BorderBrush="#DDD8E7"
                     Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Text="¿Está vacía?"
                                FontSize="14"
-                               Foreground="#8A5A00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtVacia"
                                Text="Sí"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#8A5A00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnLlena"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#FCE8DC"
-                    BorderBrush="#F59E42"
+                    Background="#E8E2F2"
+                    BorderBrush="#9B8DBE"
                     Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Text="¿Está llena?"
                                FontSize="14"
-                               Foreground="#A84B00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtLlena"
                                Text="No"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#A84B00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnMaximo"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#E8F1FF"
-                    BorderBrush="#6AA7FF"
+                    Background="#F1E0E7"
+                    BorderBrush="#C9A3C8"
                     Margin="0,0,12,0"
                     Click="BtnMaximo_Click">
                 <StackPanel>
                     <TextBlock Text="Tamaño máximo"
                                FontSize="14"
-                               Foreground="#214E9C"/>
+                               Foreground="#8A4D67"/>
                     <TextBlock x:Name="TxtMaximo"
                                Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#214E9C"/>
+                               Foreground="#8A4D67"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnCima"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#F3E8FF"
-                    BorderBrush="#C084FC">
+                    Background="#E1ECE3"
+                    BorderBrush="#A8C2CC">
                 <StackPanel>
                     <TextBlock Text="Cima"
                                FontSize="14"
-                               Foreground="#7A2BBE"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtCima"
                                Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#7A2BBE"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                 </StackPanel>
             </Button>
         </UniformGrid>
@@ -302,7 +310,7 @@
                 BorderBrush="{StaticResource BordesSuaves}"
                 BorderThickness="1.5"
                 CornerRadius="16"
-                Background="#FCFCFF"
+                Background="{StaticResource Card}"
                 Padding="20">
 
             <StackPanel>
@@ -313,10 +321,12 @@
                            Margin="0,0,0,14"/>
 
                 <ListBox x:Name="LstCola"
-                     Height="120"
-                     Background="#F1F3F9"
-                     BorderBrush="Transparent"
-                     FontSize="16">
+                         Height="120"
+                         Background="{StaticResource InputColor}"
+                         BorderBrush="{StaticResource BordesSuaves}"
+                         BorderThickness="1"
+                         FontSize="16"
+                         Foreground="{StaticResource TextoOscuro}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -329,7 +339,7 @@
         <!-- Contador -->
         <Border Grid.Row="6"
                 Grid.Column="0"
-                Background="#F4F3FF"
+                Background="{StaticResource FondoLavanda}"
                 BorderBrush="{StaticResource BordesSuaves}"
                 BorderThickness="1"
                 CornerRadius="12"
@@ -341,4 +351,5 @@
                        FontSize="14"/>
         </Border>
     </Grid>
+
 </UserControl>

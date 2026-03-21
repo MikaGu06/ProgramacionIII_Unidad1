@@ -10,21 +10,27 @@
 
     <Page.Resources>
 
-        <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
-        <SolidColorBrush x:Key="PrimarioOscuro" Color="#5A48E6"/>
-        <SolidColorBrush x:Key="PrimarioClaro" Color="#A9A4F5"/>
-        <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
-        <SolidColorBrush x:Key="BordesSuaves" Color="#D9D5F3"/>
-        <SolidColorBrush x:Key="TextoOscuro" Color="#18214D"/>
-        <SolidColorBrush x:Key="TextoClaro" Color="#6B7280"/>
-        <SolidColorBrush x:Key="InputColor" Color="#F1F3F9"/>
-        <SolidColorBrush x:Key="ColorAlerta" Color="#F46A6A"/>
-        <SolidColorBrush x:Key="AlertaOscuro" Color="#EB4D4D"/>
+        <!-- Paleta nueva -->
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="PrimarioOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="PrimarioClaro" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
+        <SolidColorBrush x:Key="AlertaOscuro" Color="#6F3C53"/>
+
+        <!-- Acentos -->
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
+        <SolidColorBrush x:Key="AcentoLavandaSuave" Color="#F1EAF7"/>
 
         <!-- Botón principal -->
         <Style x:Key="BtnPrimary" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="{StaticResource PrimarioClaro}"/>
+            <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Padding" Value="10,4"/>
             <Setter Property="Height" Value="38"/>
@@ -45,14 +51,14 @@
                             CornerRadius="12"
                             Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#958EF0"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimarioOscuro}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#7E75EA"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#1E1B2A"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -64,9 +70,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -74,16 +80,15 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
         </Style>
-
 
         <!-- Botón transparente -->
         <Style x:Key="BtnGhost" TargetType="Button">
@@ -111,11 +116,11 @@
                             CornerRadius="12"
                             Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#F2F1FD"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AcentoLavandaSuave}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -127,9 +132,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -137,9 +142,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                             To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -148,8 +153,8 @@
         </Style>
 
         <Style x:Key="MenuCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#EEF0F8"/>
-            <Setter Property="BorderBrush" Value="#D6D4F3"/>
+            <Setter Property="Background" Value="#F7F5FA"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="14"/>
             <Setter Property="Padding" Value="18"/>
@@ -163,8 +168,8 @@
 
         <Style x:Key="BtnMenuCard" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
-            <Setter Property="Background" Value="#EEF0F8"/>
-            <Setter Property="BorderBrush" Value="#D6D4F3"/>
+            <Setter Property="Background" Value="#F7F5FA"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="18"/>
             <Setter Property="Height" Value="64"/>
@@ -184,18 +189,22 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="14"
-                    Padding="{TemplateBinding Padding}">
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="14"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter  Property="Background" Value="{StaticResource ColorPrimario}"/>
+                                <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimarioOscuro}"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -209,9 +218,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                     To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                     To="1.08" Duration="0:0:0.12"/>
+                                                 To="1.08" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -220,9 +229,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
-                                     To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
-                                     To="1" Duration="0:0:0.12"/>
+                                                 To="1" Duration="0:0:0.12"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -232,7 +241,7 @@
     </Page.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Auto">
+                  VerticalScrollBarVisibility="Auto">
         <Grid Margin="24" MinWidth="1180">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -248,78 +257,82 @@
             <!-- Header -->
             <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
                 <Button x:Name="RegresarInicio" 
-                    Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0" Click="RegresarInicio_Click">
+                        Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0" Click="RegresarInicio_Click">
                     <TextBlock Text="←" FontSize="20"/>
                 </Button>
 
                 <StackPanel>
                     <TextBlock Text="Estructuras Lineales"
-                           FontSize="42"
-                           FontFamily="Segoe UI Semibold"
-                           Foreground="{StaticResource ColorPrimario}"/>
+                               FontSize="42"
+                               FontFamily="Segoe UI Semibold"
+                               Foreground="{StaticResource PrimarioOscuro}"/>
                     <TextBlock Text="Visualiza listas, pilas y colas"
-                           FontSize="16"
-                           Foreground="{StaticResource TextoClaro}"/>
+                               FontSize="16"
+                               Foreground="{StaticResource TextoClaro}"/>
                 </StackPanel>
             </StackPanel>
 
             <!-- Panel izquierdo -->
             <Border Grid.Row="1" Grid.Column="0"
-                Background="{StaticResource Card}"
-                BorderBrush="{StaticResource BordesSuaves}"
-                BorderThickness="1"
-                CornerRadius="18"
-                Padding="22"
-                Margin="0,24,0,0" Cursor="">
+                    Background="#F7F5FA"
+                    BorderBrush="{StaticResource BordesSuaves}"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    Padding="22"
+                    Margin="0,24,0,0">
 
-
-                    <StackPanel Cursor="">
-                        <TextBlock Text="Estructuras"
-               FontSize="18"
-               FontFamily="Segoe UI Semibold"
-               Foreground="{StaticResource TextoOscuro}"/>
-                        <TextBlock Text="Selecciona una estructura"
-               Margin="0,6,0,20"
-               FontSize="14"
-               Foreground="{StaticResource TextoClaro}"/>
-
-                        <Button Style="{StaticResource BtnMenuCard}"
-            Content="Lista Simplemente Enlazada" Click="Button_Click"/>
-
-                        <Button Style="{StaticResource BtnMenuCard}"
-            Content="Lista Doblemente Enlazada" Click="Button_Click_1"/>
+                <StackPanel>
+                    <TextBlock Text="Estructuras"
+                               FontSize="18"
+                               FontFamily="Segoe UI Semibold"
+                               Foreground="{StaticResource TextoOscuro}"/>
+                    <TextBlock Text="Selecciona una estructura"
+                               Margin="0,6,0,20"
+                               FontSize="14"
+                               Foreground="{StaticResource TextoClaro}"/>
 
                     <Button Style="{StaticResource BtnMenuCard}"
-                Content="Lista Circular Simple" x:Name="ListasCircularesSimples" Click="ListasCircularesSimples_Click"/>
-                        
-                    <Button Style="{StaticResource BtnMenuCard}"
-                Content="Lista Circular Doble" Cursor="Hand" x:Name="ListasCircularesDobles" Click="ListasCircularesDobles_Click"/>
-                        
-                    <Button Style="{StaticResource BtnMenuCard}"
-Content="Cola (Queue)" Click="Button_Click_3"/>
+                            Content="Lista Simplemente Enlazada"
+                            Click="Button_Click"/>
 
                     <Button Style="{StaticResource BtnMenuCard}"
-            Content="Pila (Stack)" Click="Button_Click_2"/>
+                            Content="Lista Doblemente Enlazada"
+                            Click="Button_Click_1"/>
 
                     <Button Style="{StaticResource BtnMenuCard}"
-Content="Calculadora con pilas" x:Name="Calculadora" Click="Calculadora_Click"/>
+                            Content="Lista Circular Simple"
+                            x:Name="ListasCircularesSimples"
+                            Click="ListasCircularesSimples_Click"/>
 
+                    <Button Style="{StaticResource BtnMenuCard}"
+                            Content="Lista Circular Doble"
+                            x:Name="ListasCircularesDobles"
+                            Click="ListasCircularesDobles_Click"/>
 
+                    <Button Style="{StaticResource BtnMenuCard}"
+                            Content="Cola (Queue)"
+                            Click="Button_Click_3"/>
 
+                    <Button Style="{StaticResource BtnMenuCard}"
+                            Content="Pila (Stack)"
+                            Click="Button_Click_2"/>
 
+                    <Button Style="{StaticResource BtnMenuCard}"
+                            Content="Calculadora con pilas"
+                            x:Name="Calculadora"
+                            Click="Calculadora_Click"/>
                 </StackPanel>
-       
             </Border>
 
-            <!-- Card derecha vacía -->
+            <!-- Card derecha -->
             <Border Grid.Row="1" Grid.Column="2"
-        Background="{StaticResource Card}"
-        BorderBrush="{StaticResource BordesSuaves}"
-        BorderThickness="1"
-        CornerRadius="18"
-        Padding="28"
-        Margin="0,24,0,0"
-        VerticalAlignment="Top">
+                    Background="{StaticResource Card}"
+                    BorderBrush="{StaticResource BordesSuaves}"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    Padding="28"
+                    Margin="0,24,0,0"
+                    VerticalAlignment="Top">
                 <ContentControl x:Name="ContenidoDinamico"/>
             </Border>
 

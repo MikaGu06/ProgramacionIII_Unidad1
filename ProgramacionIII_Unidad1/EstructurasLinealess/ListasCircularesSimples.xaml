@@ -7,13 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
-        <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
-        <SolidColorBrush x:Key="BordesSuaves" Color="#D9D5F3"/>
-        <SolidColorBrush x:Key="TextoOscuro" Color="#18214D"/>
-        <SolidColorBrush x:Key="TextoClaro" Color="#6B7280"/>
-        <SolidColorBrush x:Key="InputColor" Color="#EEF0F8"/>
-        <SolidColorBrush x:Key="ColorAlerta" Color="#F46A6A"/>
+        <!-- Paleta nueva -->
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#262233"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
+
+        <SolidColorBrush x:Key="PrimarioSuave" Color="#9B8DBE"/>
+        <SolidColorBrush x:Key="FondoLavanda" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="White"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
 
         <Style x:Key="BtnPrimary" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -44,6 +53,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -74,7 +84,8 @@
 
         <Style x:Key="InputStyle" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource InputColor}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Padding" Value="10,8"/>
@@ -138,6 +149,7 @@
         <Style x:Key="BtnPrimarySmallHover" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -308,7 +320,7 @@
             BorderBrush="{StaticResource BordesSuaves}"
             BorderThickness="1.5"
             CornerRadius="16"
-            Background="#FCFCFF"
+            Background="{StaticResource Card}"
             Padding="20">
 
             <TextBlock x:Name="tbLista"
@@ -322,7 +334,7 @@
         <!-- Contador -->
         <Border Grid.Row="5"
             Grid.Column="0"
-            Background="#F4F3FF"
+            Background="{StaticResource FondoLavanda}"
             BorderBrush="{StaticResource BordesSuaves}"
             BorderThickness="1"
             CornerRadius="12"
@@ -339,8 +351,8 @@
             Grid.Row="5"
             Grid.Column="0"
             Visibility="Hidden"
-            Background="#FFEEE2FF"
-            BorderBrush="#6A5AE0"
+            Background="{StaticResource FondoLavanda}"
+            BorderBrush="{StaticResource ColorPrimario}"
             BorderThickness="1"
             CornerRadius="12"
             Padding="10,4"
@@ -357,7 +369,7 @@
             BorderBrush="{StaticResource BordesSuaves}"
             BorderThickness="1.5"
             CornerRadius="16"
-            Background="#FCFCFF"
+            Background="{StaticResource Card}"
             Padding="20">
 
             <StackPanel>
@@ -374,62 +386,62 @@
                 <UniformGrid Columns="3" Margin="0,0,0,14">
                     <Button x:Name="BtnEstaVacia"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#FFF7DB"
-                        BorderBrush="#F4C400"
+                        Background="#F2EAE0"
+                        BorderBrush="#DDD8E7"
                         Margin="0,0,12,0"
                         Click="BtnEstaVacia_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está vacía?"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#8A5A00"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaVacia"
                                    Text=" - "
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#8A5A00"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnEstaLlena"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#FCE8DC"
-                        BorderBrush="#F59E42"
+                        Background="#E8E2F2"
+                        BorderBrush="#9B8DBE"
                         Margin="0,0,12,0"
                         Click="BtnEstaLlena_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="¿Está llena?"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#A84B00"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtEstaLlena"
                                    Text=" - "
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#A84B00"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnModa"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#FBE4F1"
-                        BorderBrush="#F28CC4"
+                        Background="#F1E0E7"
+                        BorderBrush="#C9A3C8"
                         Click="BtnModa_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Moda"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#B01F6D"
+                                   Foreground="#8A4D67"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtModa"
                                    Text="-"
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#B01F6D"
+                                   Foreground="#8A4D67"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -438,62 +450,62 @@
                 <UniformGrid Columns="3" Margin="0,0,0,16">
                     <Button x:Name="BtnSumaTotal"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#E8F1FF"
-                        BorderBrush="#6AA7FF"
+                        Background="#E1ECE3"
+                        BorderBrush="#A8C2CC"
                         Margin="0,0,12,0"
                         Click="BtnSumaTotal_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Suma Total"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#214E9C"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtSumaTotal"
                                    Text="Calcular"
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#214E9C"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnMayor"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#F3E8FF"
-                        BorderBrush="#C084FC"
+                        Background="#DDD8E7"
+                        BorderBrush="#7F73A1"
                         Margin="0,0,12,0"
                         Click="BtnMayor_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Mayor"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#7A2BBE"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtMayor"
                                    Text="Calcular"
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#7A2BBE"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="BtnMenor"
                         Style="{StaticResource InfoButtonStyle}"
-                        Background="#E3F6E8"
-                        BorderBrush="#62D78B"
+                        Background="#F7F5FA"
+                        BorderBrush="#C9A3C8"
                         Click="BtnMenor_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="Menor"
                                    FontSize="14"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#137A3E"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                             <TextBlock x:Name="TxtMenor"
                                    Text="Calcular"
                                    FontSize="18"
                                    FontFamily="Segoe UI Semibold"
-                                   Foreground="#137A3E"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -503,7 +515,7 @@
                     Style="{StaticResource BtnPrimarySmallHover}"
                     Content="Limpiar Lista"
                     Margin="0,0,0,18"
-                    Background="#F46A6A"
+                    Background="{StaticResource ColorAlerta}"
                     Click="BtnLimpiarListaCompleta_Click"/>
 
                 <Border Height="1"
@@ -523,7 +535,7 @@
                                  IsChecked="True"
                                  Margin="0,0,24,0"
                                  Foreground="{StaticResource TextoOscuro}"
-                                 FontSize="14" Cursor=""/>
+                                 FontSize="14"/>
 
                         <RadioButton x:Name="RbDescendente"
                                  Content="Descendente"
