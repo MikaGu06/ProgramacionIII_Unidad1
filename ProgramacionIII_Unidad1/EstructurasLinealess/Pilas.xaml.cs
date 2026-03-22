@@ -126,7 +126,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
         }
 
-        
+
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -139,16 +139,12 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                     return;
                 }
 
-                if (tamMax > 0 && count >= tamMax)
-                {
-                    MessageBox.Show("La pila ya está llena");
-                    return;
-                }
+                top = null;
+                count = 0;
 
-                if (tamMax > 0 && count + cantidad > tamMax)
+                if (tamMax > 0 && cantidad > tamMax)
                 {
-                    int espacioDisponible = tamMax - count;
-                    MessageBox.Show("Solo puedes agregar " + espacioDisponible + " elementos más");
+                    MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
                     return;
                 }
 
