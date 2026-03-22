@@ -185,16 +185,12 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                     return;
                 }
 
-                if (IsFull())
-                {
-                    MessageBox.Show("La cola ya está llena");
-                    return;
-                }
+                front = rear = null;
+                count = 0;
 
-                if (tamMax > 0 && count + cantidad > tamMax)
+                if (tamMax > 0 && cantidad > tamMax)
                 {
-                    int espacio = tamMax - count;
-                    MessageBox.Show("Solo puedes agregar " + espacio + " elementos más");
+                    MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
                     return;
                 }
 

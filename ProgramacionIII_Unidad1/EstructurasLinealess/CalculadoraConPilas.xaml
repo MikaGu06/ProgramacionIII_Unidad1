@@ -145,42 +145,61 @@
                  Margin="0,0,0,18"/>
 
                 <UniformGrid Columns="4">
-                    <Button x:Name="Btn7" Content="7" Style="{StaticResource BtnCalc}"/>
-                    <Button x:Name="Btn8" Content="8" Style="{StaticResource BtnCalc}"/>
-                    <Button x:Name="Btn9" Content="9" Style="{StaticResource BtnCalc}"/>
-                    <Button x:Name="BtnDiv" Content="/" Style="{StaticResource BtnOperador}"/>
+                    <Button x:Name="Btn7" Content="7" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn8" Content="8" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn9" Content="9" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnDiv" Content="/" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
 
-                    <Button x:Name="Btn4" Content="4" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="Btn5" Content="5" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="Btn6" Content="6" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="BtnMul" Content="*" Style="{StaticResource BtnOperador}"/>
+                    <Button x:Name="Btn4" Content="4" Style="{StaticResource BtnCalc}" 
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn5" Content="5" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn6" Content="6" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnMul" Content="*" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
 
-                    <Button x:Name="Btn1" Content="1" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="Btn2" Content="2" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="Btn3" Content="3" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="BtnRes" Content="-" Style="{StaticResource BtnOperador}" />
+                    <Button x:Name="Btn1" Content="1" Style="{StaticResource BtnCalc}" 
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn2" Content="2" Style="{StaticResource BtnCalc}" 
+                            Click="AgregarTexto"/>
+                    <Button x:Name="Btn3" Content="3" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnRes" Content="-" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
 
-                    <Button x:Name="Btn0" Content="0" Style="{StaticResource BtnCalc}" />
-                    <Button x:Name="BtnParA" Content="(" Style="{StaticResource BtnOperador}"/>
-                    <Button x:Name="BtnParC" Content=")" Style="{StaticResource BtnOperador}" />
-                    <Button x:Name="BtnSum" Content="+" Style="{StaticResource BtnOperador}" />
+                    <Button x:Name="Btn0" Content="0" Style="{StaticResource BtnCalc}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnParA" Content="(" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnParC" Content=")" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
+                    <Button x:Name="BtnSum" Content="+" Style="{StaticResource BtnOperador}"
+                            Click="AgregarTexto"/>
                 </UniformGrid>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                     <Button x:Name="BtnBorrarUno"
                     Content="Borrar"
-                    Style="{StaticResource BtnBorrar}" Cursor="Hand"/>
+                    Style="{StaticResource BtnBorrar}" Cursor="Hand"
+                            Click="BorrarUno"/>
 
                     <Button x:Name="BtnIgual"
                     Content="="
-                    Style="{StaticResource BtnIgual}"/>
+                    Style="{StaticResource BtnIgual}"
+                            Click="Calcular"/>
                 </StackPanel>
 
                 <Button x:Name="BtnLimpiarTodo"
                 Content="Limpiar Todo"
                 Style="{StaticResource BtnLimpiar}"
                 HorizontalAlignment="Left"
-                Margin="6,10,0,0"/>
+                Margin="6,10,0,0"
+                Click="Limpiar"/>
             </StackPanel>
         </Border>
     </Grid>
