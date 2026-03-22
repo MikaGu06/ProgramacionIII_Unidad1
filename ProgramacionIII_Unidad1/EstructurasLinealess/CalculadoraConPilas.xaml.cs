@@ -19,6 +19,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             InitializeComponent();
         }
+
         private void AgregarTexto(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
@@ -62,38 +63,54 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             Stack<char> pila = new Stack<char>();
             string salida = "";
+            string numero = "";
 
             foreach (char c in infija)
             {
                 if (char.IsDigit(c))
                 {
-                    salida += c;
-                }
-                else if (c == '(')
-                {
-                    pila.Push(c);
-                }
-                else if (c == ')')
-                {
-                    while (pila.Peek() != '(')
-                        salida += pila.Pop();
-
-                    pila.Pop();
+                    numero += c;
                 }
                 else
                 {
-                    while (pila.Count > 0 && Prioridad(pila.Peek()) >= Prioridad(c))
-                        salida += pila.Pop();
+                    
+                    if (numero != "")
+                    {
+                        salida += numero + " ";
+                        numero = "";
+                    }
 
-                    pila.Push(c);
+                    if (c == '(')
+                    {
+                        pila.Push(c);
+                    }
+                    else if (c == ')')
+                    {
+                        while (pila.Peek() != '(')
+                            salida += pila.Pop() + " ";
+
+                        pila.Pop();
+                    }
+                    else
+                    {
+                        while (pila.Count > 0 && Prioridad(pila.Peek()) >= Prioridad(c))
+                            salida += pila.Pop() + " ";
+
+                        pila.Push(c);
+                    }
                 }
             }
 
-            while (pila.Count > 0)
-                salida += pila.Pop();
+            if (numero != "")
+                salida += numero + " ";
 
-            return salida;
+            
+            while (pila.Count > 0)
+                salida += pila.Pop() + " ";
+
+            return salida.Trim();
         }
+
         private int Prioridad(char op)
         {
             if (op == '+' || op == '-') return 1;
@@ -104,24 +121,25 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         private double EvaluarPostfija(string expr)
         {
             Stack<double> pila = new Stack<double>();
+            string[] tokens = expr.Split(' ');
 
-            foreach (char c in expr)
+            foreach (string token in tokens)
             {
-                if (char.IsDigit(c))
+                if (double.TryParse(token, out double numero))
                 {
-                    pila.Push(Convert.ToDouble(c.ToString()));
+                    pila.Push(numero);
                 }
                 else
                 {
                     double b = pila.Pop();
                     double a = pila.Pop();
 
-                    switch (c)
+                    switch (token)
                     {
-                        case '+': pila.Push(a + b); break;
-                        case '-': pila.Push(a - b); break;
-                        case '*': pila.Push(a * b); break;
-                        case '/': pila.Push(a / b); break;
+                        case "+": pila.Push(a + b); break;
+                        case "-": pila.Push(a - b); break;
+                        case "*": pila.Push(a * b); break;
+                        case "/": pila.Push(a / b); break;
                     }
                 }
             }
