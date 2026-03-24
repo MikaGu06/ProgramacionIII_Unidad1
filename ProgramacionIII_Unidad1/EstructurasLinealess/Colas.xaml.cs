@@ -15,7 +15,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 {
     public partial class Colas : UserControl
     {
-        
         private class Nodo
         {
             public int key;
@@ -28,7 +27,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
         }
 
-        
         private Nodo front = null;
         private Nodo rear = null;
         private int tamMax = 0;
@@ -40,10 +38,15 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             ActualizarUI();
         }
 
-        
         private void Enqueue(int key)
         {
-            if (tamMax > 0 && count >= tamMax)
+            if (tamMax == 0)
+            {
+                MessageBox.Show("Primero debes definir el tamaño máximo (1 a 30)");
+                return;
+            }
+
+            if (count >= tamMax)
             {
                 MessageBox.Show("La cola está llena");
                 return;
@@ -64,7 +67,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             count++;
         }
 
-        
         private void Dequeue()
         {
             if (front == null)
@@ -77,12 +79,9 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             count--;
 
             if (front == null)
-            {
                 rear = null;
-            }
         }
 
-       
         private bool IsEmpty()
         {
             return count == 0;
@@ -95,10 +94,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
         private string TopElement()
         {
-            if (IsEmpty())
-                return "-";
-
-            return front.key.ToString(); 
+            return IsEmpty() ? "-" : front.key.ToString();
         }
 
         private void ActualizarUI()
@@ -117,96 +113,96 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             TxtVacia.Text = IsEmpty() ? "Sí" : "No";
             TxtLlena.Text = IsFull() ? "Sí" : "No";
             TxtCima.Text = TopElement();
-            TxtMaximo.Text = tamMax > 0 ? tamMax.ToString() : "∞";
+            TxtMaximo.Text = tamMax > 0 ? tamMax.ToString() : "No definido (máx 30)";
         }
 
-        // 🔹 Tamaño máximo
+        // DEFINIR TAMAÑO (1 A 30)
         private void BtnMaximo_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (count > 0)
             {
-                if (count > 0)
-                {
-                    MessageBox.Show("No puedes definir el tamaño máximo si la cola ya tiene elementos");
-                    return;
-                }
-
-                if (!string.IsNullOrWhiteSpace(TxtTamMax.Text))
-                {
-                    int valor = int.Parse(TxtTamMax.Text);
-
-                    if (valor <= 0)
-                    {
-                        MessageBox.Show("El tamaño máximo debe ser mayor a 0");
-                        return;
-                    }
-
-                    tamMax = valor;
-                }
-                else
-                {
-                    tamMax = 0;
-                }
-
-                ActualizarUI();
+                MessageBox.Show("No puedes definir el tamaño si la cola tiene elementos");
+                return;
             }
-            catch
+
+            if (string.IsNullOrWhiteSpace(TxtTamMax.Text))
+            {
+                MessageBox.Show("Debes ingresar un tamaño máximo (1 a 30)");
+                return;
+            }
+
+            if (!int.TryParse(TxtTamMax.Text, out int valor))
             {
                 MessageBox.Show("Ingrese un número válido");
+                return;
             }
+
+            if (valor <= 0 || valor > 30)
+            {
+                MessageBox.Show("El tamaño debe estar entre 1 y 30");
+                return;
+            }
+
+            tamMax = valor;
+            ActualizarUI();
         }
 
         private void BtnInsertar_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tamMax == 0)
             {
-                int num = int.Parse(TxtNumero.Text);
-
-                Enqueue(num);
-                TxtNumero.Clear();
-
-                ActualizarUI();
+                MessageBox.Show("Primero define el tamaño máximo");
+                return;
             }
-            catch
+
+            if (!int.TryParse(TxtNumero.Text, out int num))
             {
                 MessageBox.Show("Ingrese un número válido");
+                return;
             }
+
+            Enqueue(num);
+            TxtNumero.Clear();
+            ActualizarUI();
         }
 
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tamMax == 0)
             {
-                int cantidad = int.Parse(TxtCantidadAleatoria.Text);
-
-                if (cantidad <= 0)
-                {
-                    MessageBox.Show("La cantidad debe ser mayor a 0");
-                    return;
-                }
-
-                front = rear = null;
-                count = 0;
-
-                if (tamMax > 0 && cantidad > tamMax)
-                {
-                    MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
-                    return;
-                }
-
-                Random rnd = new Random();
-
-                for (int i = 0; i < cantidad; i++)
-                {
-                    Enqueue(rnd.Next(1, 100));
-                }
-
-                ActualizarUI();
+                MessageBox.Show("Primero define el tamaño máximo");
+                return;
             }
-            catch
+
+            if (!int.TryParse(TxtCantidadAleatoria.Text, out int cantidad))
             {
                 MessageBox.Show("Ingrese una cantidad válida");
+                return;
             }
+
+            if (cantidad <= 0)
+            {
+                MessageBox.Show("La cantidad debe ser mayor a 0");
+                return;
+            }
+
+            if (cantidad > tamMax)
+            {
+                MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
+                return;
+            }
+
+            front = rear = null;
+            count = 0;
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                Enqueue(rnd.Next(1, 100));
+            }
+
+            ActualizarUI();
         }
 
         private void BtnQuitar_Click(object sender, RoutedEventArgs e)
