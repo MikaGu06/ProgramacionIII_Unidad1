@@ -1,0 +1,275 @@
+﻿<Page x:Class="ProgramacionIII_Unidad1.Recursividad"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Recursividad">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#5E548E"/>
+        <SolidColorBrush x:Key="PrimarioOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="PrimarioClaro" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+        <SolidColorBrush x:Key="AcentoLavandaSuave" Color="#F1EAF7"/>
+
+        <Style x:Key="BtnGhost" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AcentoLavandaSuave}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.15" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.15" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BtnMenuCard" TargetType="Button">
+            <Setter Property="Background" Value="#F7F5FA"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="14">
+                            <ContentPresenter VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" 
+                             To="1.02" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" 
+                             To="1.02" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="#F7F5FA" BorderBrush="{StaticResource BordesSuaves}" BorderThickness="1" CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="b" Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.08" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.08" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,0,0,25">
+            <Button Style="{StaticResource BtnGhost}" 
+                    Click="BtnVolver_Click" 
+                    Margin="0,0,18,0">
+                <TextBlock Text="←" 
+                           FontSize="20" 
+                           FontWeight="Bold"/>
+            </Button>
+            <StackPanel>
+                <TextBlock Text="Recursividad" 
+                           FontSize="42" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource PrimarioOscuro}"/>
+                <TextBlock Text="Algoritmos y procesos recursivos" 
+                           Foreground="{StaticResource TextoClaro}" FontSize="16"/>
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" 
+                      Grid.Column="0" 
+                      VerticalScrollBarVisibility="Auto" 
+                      Padding="0,0,10,0">
+            <StackPanel>
+                <TextBlock Text="Funciones" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource TextoOscuro}"/>
+                <TextBlock Text="Selecciona una opción" 
+                           Foreground="{StaticResource TextoClaro}" 
+                           Margin="0,5,0,15"/>
+
+                <Button Style="{StaticResource BtnMenuCard}" 
+                        Content="Capicúa" 
+                        Click="BtnCapicua_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Suma de Vector" Click="BtnSumaVector_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Multiplicación de Vector" Click="BtnMultiVector_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Menor de Vector" Click="BtnMenor_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Mayor de Vector" Click="BtnMayor_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Factorial" Click="BtnFactorial_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Fibonacci" Click="BtnFibonacci_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Invertir Número" Click="BtnInvertir_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Sumar Dígitos" Click="BtnSumarDigitos_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Suma 1 a n" Click="BtnSuma_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Par o Impar" Click="BtnParImpar_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Positivo o Negativo" Click="BtnSigno_Click"/>
+                <Button Style="{StaticResource BtnMenuCard}" Content="Torres de Hanói" Click="BtnHanoi_Click"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border x:Name="PanelPrincipal" 
+                Grid.Row="1" Grid.Column="2" 
+                Background="{StaticResource Card}" 
+                BorderBrush="{StaticResource BordesSuaves}" 
+                BorderThickness="1" 
+                CornerRadius="18" 
+                Padding="30" 
+                Visibility="Collapsed" 
+                VerticalAlignment="Top">
+
+            <StackPanel>
+                <TextBlock x:Name="TituloFuncion" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}"/>
+                <TextBlock x:Name="DescripcionFuncion" FontSize="15" Foreground="{StaticResource TextoClaro}" Margin="0,8,0,25" TextWrapping="Wrap"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
+                    <TextBox x:Name="txtValor" Width="280" Style="{StaticResource InputStyle}" Margin="0,0,12,0"/>
+                    <Button Content="Ejecutar" Style="{StaticResource BtnPrimary}" Click="BtnEjecutar_Click"/>
+                </StackPanel>
+
+                <Border Background="{StaticResource PrimarioClaro}" CornerRadius="12" Padding="18" Margin="0,0,0,25">
+                    <TextBlock x:Name="TextoInfo" Text="Resultado aparecerá aquí" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextoOscuro}"/>
+                </Border>
+
+                <TextBlock Text="Definición del proceso" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}" Margin="0,0,0,10"/>
+                <Border Background="White" BorderBrush="{StaticResource BordesSuaves}" BorderThickness="1" CornerRadius="12" Padding="20">
+                    <TextBlock x:Name="Definicion" FontFamily="Consolas" FontSize="14" Foreground="{StaticResource TextoOscuro}" TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
