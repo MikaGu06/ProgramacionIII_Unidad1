@@ -15,7 +15,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 {
     public partial class Pilas : UserControl
     {
-        
         private class Node
         {
             public int data;
@@ -47,11 +46,23 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             TxtVacia.Text = (count == 0) ? "Sí" : "No";
             TxtLlena.Text = (tamMax > 0 && count == tamMax) ? "Sí" : "No";
             TxtCima.Text = (top != null) ? top.data.ToString() : "-";
-            TxtMaximo.Text = (tamMax > 0) ? tamMax.ToString() : "∞";
+            TxtMaximo.Text = (tamMax > 0) ? tamMax.ToString() : "No definido (máx 30)";
         }
 
         private void Push(int valor)
         {
+            if (tamMax == 0)
+            {
+                MessageBox.Show("Primero debes definir el tamaño máximo (1 a 30)");
+                return;
+            }
+
+            if (count >= tamMax)
+            {
+                MessageBox.Show("La pila está llena");
+                return;
+            }
+
             Node nuevo = new Node();
             nuevo.data = valor;
             nuevo.link = top;
@@ -61,106 +72,100 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
         private void Pop()
         {
-            if (top != null)
-            {
-                top = top.link;
-                count--;
-            }
+            if (top == null)
+                return;
+
+            top = top.link;
+            count--;
         }
 
+        // DEFINIR TAMAÑO (1 A 30)
         private void BtnMaximo_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (count > 0)
             {
-                if (count > 0)
-                {
-                    MessageBox.Show("No puedes definir el tamaño máximo si la pila ya tiene elementos");
-                    return;
-                }
-
-                if (!string.IsNullOrWhiteSpace(TxtTamMax.Text))
-                {
-                    int valor = int.Parse(TxtTamMax.Text);
-
-                    if (valor <= 0)
-                    {
-                        MessageBox.Show("El tamaño máximo debe ser mayor a 0");
-                        return;
-                    }
-
-                    tamMax = valor;
-                }
-                else
-                {
-                    tamMax = 0;
-                }
-
-                ActualizarUI();
+                MessageBox.Show("No puedes definir el tamaño si la pila tiene elementos");
+                return;
             }
-            catch
+
+            if (string.IsNullOrWhiteSpace(TxtTamMax.Text))
             {
-                MessageBox.Show("Ingrese un número válido para el tamaño máximo");
+                MessageBox.Show("Debes ingresar un tamaño máximo (1 a 30)");
+                return;
             }
+
+            if (!int.TryParse(TxtTamMax.Text, out int valor))
+            {
+                MessageBox.Show("Ingrese un número válido");
+                return;
+            }
+
+            if (valor <= 0 || valor > 30)
+            {
+                MessageBox.Show("El tamaño debe estar entre 1 y 30");
+                return;
+            }
+
+            tamMax = valor;
+            ActualizarUI();
         }
 
-        
         private void BtnInsertar_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tamMax == 0)
             {
-                int num = int.Parse(TxtNumero.Text);
-
-                if (tamMax > 0 && count >= tamMax)
-                {
-                    MessageBox.Show("La pila está llena, no se pueden agregar más elementos");
-                    return;
-                }
-
-                Push(num);
-                TxtNumero.Clear();
-                ActualizarUI();
+                MessageBox.Show("Primero define el tamaño máximo");
+                return;
             }
-            catch
+
+            if (!int.TryParse(TxtNumero.Text, out int num))
             {
-                MessageBox.Show("Ingrese un número válido para insertar");
+                MessageBox.Show("Ingrese un número válido");
+                return;
             }
+
+            Push(num);
+            TxtNumero.Clear();
+            ActualizarUI();
         }
-
 
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tamMax == 0)
             {
-                int cantidad = int.Parse(TxtCantidadAleatoria.Text);
-
-                if (cantidad <= 0)
-                {
-                    MessageBox.Show("La cantidad debe ser mayor a 0");
-                    return;
-                }
-
-                top = null;
-                count = 0;
-
-                if (tamMax > 0 && cantidad > tamMax)
-                {
-                    MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
-                    return;
-                }
-
-                Random rnd = new Random();
-
-                for (int i = 0; i < cantidad; i++)
-                {
-                    Push(rnd.Next(1, 100));
-                }
-
-                ActualizarUI();
+                MessageBox.Show("Primero define el tamaño máximo");
+                return;
             }
-            catch
+
+            if (!int.TryParse(TxtCantidadAleatoria.Text, out int cantidad))
             {
                 MessageBox.Show("Ingrese una cantidad válida");
+                return;
             }
+
+            if (cantidad <= 0)
+            {
+                MessageBox.Show("La cantidad debe ser mayor a 0");
+                return;
+            }
+
+            if (cantidad > tamMax)
+            {
+                MessageBox.Show("Solo puedes generar hasta " + tamMax + " elementos");
+                return;
+            }
+
+            top = null;
+            count = 0;
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                Push(rnd.Next(1, 100));
+            }
+
+            ActualizarUI();
         }
 
         private void BtnQuitar_Click(object sender, RoutedEventArgs e)
