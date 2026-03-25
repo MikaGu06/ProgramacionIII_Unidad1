@@ -24,7 +24,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             Button btn = sender as Button;
 
-            if (TxtPantalla.Text == "Error")
+            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indedermidado")
                 TxtPantalla.Text = "";
 
             TxtPantalla.Text += btn.Content.ToString();
@@ -37,6 +37,11 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
         private void BorrarUno(object sender, RoutedEventArgs e)
         {
+            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indedermidado")
+            {
+                TxtPantalla.Text = "";
+                return;
+            }
             if (!string.IsNullOrEmpty(TxtPantalla.Text))
             {
                 TxtPantalla.Text = TxtPantalla.Text.Substring(0, TxtPantalla.Text.Length - 1);
@@ -53,10 +58,22 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
                 TxtPantalla.Text = resultado.ToString();
             }
+            catch (DivideByZeroException)
+            {
+                TxtPantalla.Text = "Indefinido";
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.Message == "Indeterminado")
+                    TxtPantalla.Text = "Indeterminado";
+                else
+                    TxtPantalla.Text = "Error";
+            }
             catch
             {
                 TxtPantalla.Text = "Error";
             }
+
         }
 
         private string InfijaAPostfija(string infija)
@@ -139,7 +156,17 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                         case "+": pila.Push(a + b); break;
                         case "-": pila.Push(a - b); break;
                         case "*": pila.Push(a * b); break;
-                        case "/": pila.Push(a / b); break;
+
+                        case "/":
+                            if (b == 0)
+                            {
+                                if (a == 0)
+                                    throw new InvalidOperationException("Indeterminado");
+                                else
+                                    throw new DivideByZeroException();
+                            }
+                            pila.Push(a / b);
+                            break;
                     }
                 }
             }

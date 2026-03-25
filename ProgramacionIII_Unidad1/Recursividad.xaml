@@ -252,24 +252,28 @@
                 Visibility="Collapsed" 
                 VerticalAlignment="Top">
 
-            <StackPanel>
-                <TextBlock x:Name="TituloFuncion" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}"/>
-                <TextBlock x:Name="DescripcionFuncion" FontSize="15" Foreground="{StaticResource TextoClaro}" Margin="0,8,0,25" TextWrapping="Wrap"/>
+            <Grid>
+                <StackPanel x:Name="VistaNormal">
+                    <TextBlock x:Name="TituloFuncion" FontSize="26" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}"/>
+                    <TextBlock x:Name="DescripcionFuncion" FontSize="15" Foreground="{StaticResource TextoClaro}" Margin="0,8,0,25" TextWrapping="Wrap"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
-                    <TextBox x:Name="txtValor" Width="280" Style="{StaticResource InputStyle}" Margin="0,0,12,0"/>
-                    <Button Content="Ejecutar" Style="{StaticResource BtnPrimary}" Click="BtnEjecutar_Click"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
+                        <TextBox x:Name="txtValor" Width="280" Style="{StaticResource InputStyle}" Margin="0,0,12,0"/>
+                        <Button Content="Ejecutar" Style="{StaticResource BtnPrimary}" Click="BtnEjecutar_Click"/>
+                    </StackPanel>
+
+                    <Border Background="{StaticResource PrimarioClaro}" CornerRadius="12" Padding="18" Margin="0,0,0,25">
+                        <TextBlock x:Name="TextoInfo" Text="Resultado aparecerá aquí" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextoOscuro}"/>
+                    </Border>
+
+                    <TextBlock Text="Definición del proceso" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}" Margin="0,0,0,10"/>
+                    <Border Background="White" BorderBrush="{StaticResource BordesSuaves}" BorderThickness="1" CornerRadius="12" Padding="20">
+                        <TextBlock x:Name="Definicion" FontFamily="Consolas" FontSize="14" Foreground="{StaticResource TextoOscuro}" TextWrapping="Wrap"/>
+                    </Border>
                 </StackPanel>
 
-                <Border Background="{StaticResource PrimarioClaro}" CornerRadius="12" Padding="18" Margin="0,0,0,25">
-                    <TextBlock x:Name="TextoInfo" Text="Resultado aparecerá aquí" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextoOscuro}"/>
-                </Border>
-
-                <TextBlock Text="Definición del proceso" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoOscuro}" Margin="0,0,0,10"/>
-                <Border Background="White" BorderBrush="{StaticResource BordesSuaves}" BorderThickness="1" CornerRadius="12" Padding="20">
-                    <TextBlock x:Name="Definicion" FontFamily="Consolas" FontSize="14" Foreground="{StaticResource TextoOscuro}" TextWrapping="Wrap"/>
-                </Border>
-            </StackPanel>
+                <ContentControl x:Name="ContenedorHanoi" Visibility="Collapsed"/>
+            </Grid>
         </Border>
     </Grid>
 </Page>
