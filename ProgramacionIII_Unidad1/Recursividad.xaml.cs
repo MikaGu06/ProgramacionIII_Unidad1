@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 namespace ProgramacionIII_Unidad1
 {
     public partial class Recursividad : Page
@@ -24,10 +23,14 @@ namespace ProgramacionIII_Unidad1
             InitializeComponent();
         }
 
-        // Método para configurar la pantalla según la función elegida
         private void MostrarPanel(string codigo, string titulo, string descripcion, string formula)
         {
             PanelPrincipal.Visibility = Visibility.Visible;
+
+            VistaNormal.Visibility = Visibility.Visible;
+            ContenedorHanoi.Visibility = Visibility.Collapsed;
+            ContenedorHanoi.Content = null; 
+
             funcionActual = codigo;
             TituloFuncion.Text = titulo;
             DescripcionFuncion.Text = descripcion;
@@ -36,7 +39,28 @@ namespace ProgramacionIII_Unidad1
             txtValor.Text = "";
         }
 
-        // --- EVENTOS DE LOS BOTONES DEL MENÚ ---
+        // lo que haria el for pero recursivo
+        private void ConvertirTextoAVectorRecursivo(string[] partes, int[] vector, int indice)
+        {
+            
+            if (indice == partes.Length)
+            {
+                return;
+            }
+            else
+            {
+                string textoLimpio = partes[indice].Trim();
+
+                if (string.IsNullOrEmpty(textoLimpio))
+                {
+                    throw new Exception("Error: Hay una coma vacía o un espacio extra entre números.");
+                }
+
+                vector[indice] = int.Parse(textoLimpio);
+
+                ConvertirTextoAVectorRecursivo(partes, vector, indice + 1);
+            }
+        }
 
         private void BtnFactorial_Click(object sender, RoutedEventArgs e)
         {
@@ -100,8 +124,13 @@ namespace ProgramacionIII_Unidad1
 
         private void BtnHanoi_Click(object sender, RoutedEventArgs e)
         {
-            MostrarPanel("hanoi", "Torres de Hanói", "Mueve n discos siguiendo las reglas.", "T(n) = 2T(n-1) + 1");
+            PanelPrincipal.Visibility = Visibility.Visible;
+
+            VistaNormal.Visibility = Visibility.Collapsed;
+            ContenedorHanoi.Visibility = Visibility.Visible;
+            ContenedorHanoi.Content = new Hanoi();
         }
+
 
         private long CalcularFactorial(long n)
         {
@@ -167,7 +196,6 @@ namespace ProgramacionIII_Unidad1
 
         private bool EsPar(int n)
         {
-            // Convertimos a positivo para evitar error de recursión infinita
             if (n < 0)
             {
                 n = n * -1;
@@ -251,40 +279,24 @@ namespace ProgramacionIII_Unidad1
             }
         }
 
-        
 
         private void BtnEjecutar_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Verificación inicial de campo vacío
             if (string.IsNullOrWhiteSpace(txtValor.Text))
             {
                 TextoInfo.Text = "Por favor, ingresa un valor.";
                 return;
             }
 
-            // --- SECCIÓN PARA FUNCIONES DE VECTORES (SumaV, MultiV, Mayor, Menor) ---
+            // vectores
             if (funcionActual == "sv" || funcionActual == "mv" || funcionActual == "mayor" || funcionActual == "menor")
             {
                 try
                 {
                     string[] partes = txtValor.Text.Split(',');
                     int[] vector = new int[partes.Length];
+                    ConvertirTextoAVectorRecursivo(partes, vector, 0);
 
-                    for (int i = 0; i < partes.Length; i++)
-                    {
-                        string textoLimpio = partes[i].Trim();
-
-                        // Validación para evitar comas vacías como "1,,3"
-                        if (string.IsNullOrEmpty(textoLimpio))
-                        {
-                            TextoInfo.Text = "Error: Hay una coma vacía o un espacio extra entre números.";
-                            return;
-                        }
-
-                        vector[i] = int.Parse(textoLimpio);
-                    }
-
-                    // Ejecución según la función seleccionada
                     if (funcionActual == "sv")
                     {
                         TextoInfo.Text = "Suma de Vector: " + SumarVector(vector, 0);
@@ -302,33 +314,22 @@ namespace ProgramacionIII_Unidad1
                         TextoInfo.Text = "Valor Mínimo: " + EncontrarMenor(vector, 0);
                     }
                 }
-                catch (FormatException)
-                {
-                    TextoInfo.Text = "Error: Asegúrate de usar solo números y comas (Ejemplo: 1,2,3).";
-                }
                 catch (Exception ex)
                 {
-                    TextoInfo.Text = "Error en vector: " + ex.Message;
+                    TextoInfo.Text = "Error: " + ex.Message;
                 }
-
-                return; // Salimos para no ejecutar la lógica de números individuales
+                return;
             }
 
-            // --- SECCIÓN PARA FUNCIONES DE NÚMERO INDIVIDUAL ---
             try
             {
-                // Usamos long.Parse para capturar números muy grandes sin que el programa "explote"
                 long num = long.Parse(txtValor.Text);
 
                 if (funcionActual == "factorial")
                 {
-                    if (num > 20)
+                    if (num > 20 || num < 0)
                     {
-                        TextoInfo.Text = "Límite superado: El factorial máximo soportado es 20.";
-                    }
-                    else if (num < 0)
-                    {
-                        TextoInfo.Text = "Error: No existe el factorial de números negativos.";
+                        TextoInfo.Text = "Error: Rango permitido de 0 a 20.";
                     }
                     else
                     {
@@ -337,13 +338,9 @@ namespace ProgramacionIII_Unidad1
                 }
                 else if (funcionActual == "fib")
                 {
-                    if (num > 92)
+                    if (num > 92 || num < 0)
                     {
-                        TextoInfo.Text = "Límite superado: Fibonacci máximo soportado es 92.";
-                    }
-                    else if (num < 0)
-                    {
-                        TextoInfo.Text = "Error: Ingrese un número de posición positivo.";
+                        TextoInfo.Text = "Error: Rango permitido de 0 a 92.";
                     }
                     else
                     {
@@ -352,66 +349,40 @@ namespace ProgramacionIII_Unidad1
                 }
                 else if (funcionActual == "capicua")
                 {
-                    // Verificamos si cabe en un int antes de procesar
-                    if (num > int.MaxValue || num < int.MinValue)
+                    int n = (int)num;
+                    if (n == InvertirNumero(n, 0))
                     {
-                        TextoInfo.Text = "Error: El número es demasiado largo para el proceso de Capicúa.";
+                        TextoInfo.Text = "Resultado: Es Capicúa.";
                     }
                     else
                     {
-                        int n = (int)num;
-                        if (n == InvertirNumero(n, 0))
-                        {
-                            TextoInfo.Text = "Resultado: Es un número Capicúa.";
-                        }
-                        else
-                        {
-                            TextoInfo.Text = "Resultado: No es un número Capicúa.";
-                        }
+                        TextoInfo.Text = "Resultado: No es Capicúa.";
                     }
                 }
                 else if (funcionActual == "suma")
                 {
-                    if (num > 1000)
+                    if (num > 1000 || num < 0)
                     {
-                        TextoInfo.Text = "Límite de seguridad: Máximo 1000 para evitar StackOverflow.";
-                    }
-                    else if (num < 0)
-                    {
-                        TextoInfo.Text = "Error: Ingrese un número positivo.";
+                        TextoInfo.Text = "Error: Use un número entre 0 y 1000.";
                     }
                     else
                     {
-                        TextoInfo.Text = "Suma Progresiva: " + CalcularSuma((int)num);
+                        TextoInfo.Text = "Suma Progresiva: " + CalcularSuma(num);
                     }
                 }
                 else if (funcionActual == "invertir")
                 {
-                    if (num > int.MaxValue || num < int.MinValue)
-                    {
-                        TextoInfo.Text = "Error: Número demasiado grande para invertir.";
-                    }
-                    else
-                    {
-                        TextoInfo.Text = "Número Invertido: " + InvertirNumero((int)num, 0);
-                    }
+                    TextoInfo.Text = "Número Invertido: " + InvertirNumero((int)num, 0);
                 }
                 else if (funcionActual == "digitos")
                 {
-                    if (num > int.MaxValue || num < int.MinValue)
-                    {
-                        TextoInfo.Text = "Error: Número muy largo para sumar dígitos.";
-                    }
-                    else
-                    {
-                        TextoInfo.Text = "Suma de los dígitos: " + SumarDigitos((int)num);
-                    }
+                    TextoInfo.Text = "Suma de los dígitos: " + SumarDigitos((int)num);
                 }
                 else if (funcionActual == "par")
                 {
-                    if (num > 2000) // Límite para evitar demasiada recursión en resta de 2 en 2
+                    if (num > 2000)
                     {
-                        TextoInfo.Text = "Límite: Use un número menor a 2000 para esta función.";
+                        TextoInfo.Text = "Límite: Use un número menor a 2000.";
                     }
                     else
                     {
@@ -429,26 +400,17 @@ namespace ProgramacionIII_Unidad1
                 {
                     if (num >= 0)
                     {
-                        TextoInfo.Text = "El número ingresado es: POSITIVO";
+                        TextoInfo.Text = "El número es: POSITIVO";
                     }
                     else
                     {
-                        TextoInfo.Text = "El número ingresado es: NEGATIVO";
+                        TextoInfo.Text = "El número es: NEGATIVO";
                     }
                 }
-                
-            }
-            catch (OverflowException)
-            {
-                TextoInfo.Text = "Error Crítico: El número ingresado es demasiado grande para el sistema.";
-            }
-            catch (FormatException)
-            {
-                TextoInfo.Text = "Error de Formato: Por favor, ingresa solo números enteros.";
             }
             catch (Exception ex)
             {
-                TextoInfo.Text = "Error Inesperado: " + ex.Message;
+                TextoInfo.Text = "Error: " + ex.Message;
             }
         }
 
