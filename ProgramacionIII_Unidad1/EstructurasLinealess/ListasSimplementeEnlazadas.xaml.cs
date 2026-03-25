@@ -102,7 +102,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
             penultimo.Siguiente = null;
         }
-        /*
         private int BuscarElemento(int valor)
         {
             Nodo actual = inicio;
@@ -112,7 +111,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 if (actual.Dato == valor)
                 {
-                    return posicion; 
+                    return posicion;
                 }
 
                 actual = actual.Siguiente;
@@ -120,7 +119,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             return -1; // no encontrado
-        }*/
+        }
         private void ActualizarLista()
         {
             tbLista.Text = "";
@@ -210,7 +209,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             if (valor < minimo || valor > maximo)
             {
-                MessageBox.Show("El valor debe estar entre " + minimo + " y " + maximo );
+                MessageBox.Show("El valor debe estar entre " + minimo + " y " + maximo);
                 return false;
             }
             return true;
@@ -282,7 +281,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             ActualizarTodo();
         }
 
-        /*
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -315,7 +313,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 MessageBox.Show("Error al buscar el elemento.");
             }
-        }*/
+        }
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
             GenerarAutomatico();
@@ -581,7 +579,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             TxtModa.Text = CalcularModa();
         }
 
-        
+
 
         private void BtnSumaTotal_Click(object sender, RoutedEventArgs e)
         {

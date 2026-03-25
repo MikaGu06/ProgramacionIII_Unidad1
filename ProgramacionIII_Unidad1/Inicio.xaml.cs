@@ -34,7 +34,7 @@ namespace ProgramacionIII_Unidad1
 
         private void BtnAbrirBusqueda_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new Recursividad());
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new AlgoritmosDeBusqueda());
         }
 
         private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)

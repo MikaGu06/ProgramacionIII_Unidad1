@@ -132,7 +132,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 fin.Siguiente = null;
             }
         }
-        /*
         private int BuscarElemento(int valor)
         {
             Nodo actual = inicio;
@@ -150,7 +149,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             return -1; // no encontrado
-        }*/
+        }
 
         private void ActualizarLista()
         {
@@ -554,7 +553,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             EliminarFinal();
             ActualizarTodo();
         }
-        /*
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -590,7 +588,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 MessageBox.Show("Error al buscar el elemento.");
             }
         }
-        */
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
             GenerarAutomatico();
@@ -622,7 +619,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 MessageBox.Show("Error al definir el tamaño.");
             }
         }
-        
+
         //botones
         private void BtnEstaVacia_Click(object sender, RoutedEventArgs e)
         {

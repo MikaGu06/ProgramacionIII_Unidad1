@@ -142,7 +142,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 inicio.Anterior = fin;
             }
         }
-        /*
         private int BuscarElemento(int valor)
         {
             if (inicio == null)
@@ -165,7 +164,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             return -1; // no encontrado
         }
-        */
         private void ActualizarLista()
         {
             tbLista.Text = "";
@@ -591,7 +589,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             EliminarFinal();
             ActualizarTodo();
         }
-        /*
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -627,7 +624,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 MessageBox.Show("Error al buscar el elemento.");
             }
-        }*/
+        }
 
         private void BtnGenerarAleatorio_Click(object sender, RoutedEventArgs e)
         {
