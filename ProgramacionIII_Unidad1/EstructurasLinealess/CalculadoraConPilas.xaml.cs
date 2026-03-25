@@ -23,8 +23,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         private void AgregarTexto(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-
-            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indedermidado")
+             
+            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indeterminado")
                 TxtPantalla.Text = "";
 
             TxtPantalla.Text += btn.Content.ToString();
@@ -37,7 +37,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
         private void BorrarUno(object sender, RoutedEventArgs e)
         {
-            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indedermidado")
+            if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indeterminado")
             {
                 TxtPantalla.Text = "";
                 return;
