@@ -43,10 +43,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             TxtElementos.Text = "Elementos: " + count;
-            TxtVacia.Text = (count == 0) ? "Sí" : "No";
-            TxtLlena.Text = (tamMax > 0 && count == tamMax) ? "Sí" : "No";
-            TxtCima.Text = (top != null) ? top.data.ToString() : "-";
-            TxtMaximo.Text = (tamMax > 0) ? tamMax.ToString() : "No definido (máx 30)";
         }
 
         private void Push(int valor)
@@ -79,6 +75,28 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             count--;
         }
 
+        private bool EstaVacia()
+        {
+            return count == 0;
+        }
+
+        private bool EstaLlena()
+        {
+            return tamMax > 0 && count == tamMax;
+        }
+
+        private string Cima()
+        {
+            if (top != null)
+            {
+                return top.data.ToString();
+            }
+            else
+            {
+                return "-";
+            }
+        }
+
         // DEFINIR TAMAÑO (1 A 30)
         private void BtnMaximo_Click(object sender, RoutedEventArgs e)
         {
@@ -107,6 +125,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             tamMax = valor;
+            TxtMaximo.Text = tamMax.ToString();
             ActualizarUI();
         }
 
@@ -118,14 +137,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return;
             }
 
-            if (!int.TryParse(TxtNumero.Text, out int num))
+            if (!int.TryParse(TxtCantidadAleatoria.Text, out int num))
             {
                 MessageBox.Show("Ingrese un número válido");
                 return;
             }
 
             Push(num);
-            TxtNumero.Clear();
+            TxtCantidadAleatoria.Clear();
             ActualizarUI();
         }
 
@@ -137,7 +156,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return;
             }
 
-            if (!int.TryParse(TxtCantidadAleatoria.Text, out int cantidad))
+            if (!int.TryParse(TxtTamMax.Text, out int cantidad))
             {
                 MessageBox.Show("Ingrese una cantidad válida");
                 return;
@@ -164,7 +183,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 Push(rnd.Next(1, 100));
             }
-
             ActualizarUI();
         }
 
@@ -184,7 +202,45 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             top = null;
             count = 0;
+
+            TxtVacia.Text = "-";
+            TxtLlena.Text = "-";
+            TxtMaximo.Text = "-";
+            TxtCima.Text = "-";
+
+            TxtCantidadAleatoria.Clear();
+            TxtTamMax.Clear();
+
             ActualizarUI();
+        }
+
+        private void BtnVacia_Click(object sender, RoutedEventArgs e)
+        {
+            if (EstaVacia())
+            {
+                TxtVacia.Text = "Sí";
+            }
+            else
+            {
+                TxtVacia.Text = "No";
+            }
+        }
+
+        private void BtnLlena_Click(object sender, RoutedEventArgs e)
+        {
+            if (EstaLlena())
+            {
+                TxtLlena.Text = "Sí";
+            }
+            else
+            {
+                TxtLlena.Text = "No";
+            }
+        }
+
+        private void BtnCima_Click(object sender, RoutedEventArgs e)
+        {
+            TxtCima.Text = Cima();
         }
     }
 }

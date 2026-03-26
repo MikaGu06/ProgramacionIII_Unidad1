@@ -8,13 +8,18 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="ColorPrimario" Color="#6A5AE0"/>
-        <SolidColorBrush x:Key="Card" Color="#F8F8FC"/>
-        <SolidColorBrush x:Key="BordesSuaves" Color="#D9D5F3"/>
-        <SolidColorBrush x:Key="TextoOscuro" Color="#18214D"/>
-        <SolidColorBrush x:Key="TextoClaro" Color="#6B7280"/>
-        <SolidColorBrush x:Key="InputColor" Color="#EEF0F8"/>
-        <SolidColorBrush x:Key="ColorAlerta" Color="#F46A6A"/>
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#262233"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
+        <SolidColorBrush x:Key="PrimarioSuave" Color="#9B8DBE"/>
+        <SolidColorBrush x:Key="FondoLavanda" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="White"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
 
         <Style x:Key="BtnPrimary" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -45,6 +50,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -75,12 +81,15 @@
 
         <Style x:Key="InputStyle" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource InputColor}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="14,10"/>
-            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Width" Value="110"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
         <Style x:Key="InfoButtonStyle" TargetType="Button">
@@ -95,7 +104,6 @@
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </Setter.Value>
             </Setter>
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -110,7 +118,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Trigger.EnterActions>
@@ -145,7 +152,7 @@
             <RowDefinition Height="56"/>
             <RowDefinition Height="56"/>
             <RowDefinition Height="95"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -166,62 +173,68 @@
                        Margin="0,6,0,0"/>
         </StackPanel>
 
-        <!-- Fila 1 -->
-        <TextBox x:Name="TxtNumero"
-                 Grid.Row="1" Grid.Column="0"
-                 Style="{StaticResource InputStyle}"
-                 Margin="0,0,16,0"/>
+        <!-- Fila 1: insertar manual -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Cursor="">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button x:Name="BtnInsertar"
-                Grid.Row="1" Grid.Column="1"
-                Style="{StaticResource BtnPrimary}"
-                Content="Insertar"
-                Click="BtnInsertar_Click"/>
+            <TextBox x:Name="TxtTamMax"
+         Grid.Column="0"
+         Style="{StaticResource InputStyle}"
+         Margin="0,0,12,0"
+         HorizontalAlignment="Left"
+         ToolTip="Tamaño máximo"/>
+            <Button x:Name="BtnGenerarAleatorio"
+        Grid.Column="1"
+        Style="{StaticResource BtnPrimary}"
+        Content="Generar automático"
+        Click="BtnGenerarAleatorio_Click"/>
 
-        <!-- Fila 2: generar aleatorio -->
+        </Grid>
+
+        <!-- Fila 2: generar vector -->
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="TxtCantidadAleatoria"
                      Grid.Column="0"
                      Style="{StaticResource InputStyle}"
                      Margin="0,0,12,0"
+                     HorizontalAlignment="Left"
                      ToolTip="Cantidad de elementos aleatorios"/>
 
-            <Button x:Name="BtnGenerarAleatorio"
-                    Grid.Column="1"
-                    Style="{StaticResource BtnPrimary}"
-                    Content="Generar automático"
-                    Click="BtnGenerarAleatorio_Click"/>
+
+            <Button x:Name="BtnInsertar"
+Grid.Column="1"
+Style="{StaticResource BtnPrimary}"
+Content="Insertar"
+Click="BtnInsertar_Click"/>
         </Grid>
 
         <!-- Fila 3 -->
-        <Grid Grid.Row="3" Grid.Column="0" Margin="0,0,16,0">
+        <Grid Grid.Row="3" Grid.Column="0" Margin="0,0,16,0" Cursor="">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TxtTamMax"
-                     Grid.Column="0"
-                     Style="{StaticResource InputStyle}"
-                     Margin="0,0,16,0"
-                     />
-
             <Button x:Name="BtnQuitar"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Style="{StaticResource BtnDanger}"
                     Margin="0,0,12,0"
                     Content="Quitar"
                     Click="BtnQuitar_Click"/>
 
             <Button x:Name="BtnLimpiar"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Style="{StaticResource BtnPrimary}"
                     Content="Limpiar"
                     Click="BtnLimpiar_Click"/>
@@ -232,72 +245,69 @@
 
             <Button x:Name="BtnVacia"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#FFF7DB"
-                    BorderBrush="#F4C400"
-                    Margin="0,0,12,0">
+                    Background="#F2EAE0"
+                    BorderBrush="#DDD8E7"
+                    Margin="0,0,12,0" Click="BtnVacia_Click" >
                 <StackPanel>
                     <TextBlock Text="¿Está vacía?"
                                FontSize="14"
-                               Foreground="#8A5A00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtVacia"
-                               Text="Sí"
+                               Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#8A5A00"/>
+                               Foreground="{StaticResource TextoOscuro}" Cursor=""/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnLlena"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#FCE8DC"
-                    BorderBrush="#F59E42"
-                    Margin="0,0,12,0">
+                    Background="#E8E2F2"
+                    BorderBrush="#9B8DBE" 
+                    Margin="0,0,12,0" Click="BtnLlena_Click" Cursor="Hand" >
                 <StackPanel>
                     <TextBlock Text="¿Está llena?"
                                FontSize="14"
-                               Foreground="#A84B00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtLlena"
-                               Text="No"
+                               Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#A84B00"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnMaximo"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#E8F1FF"
-                    BorderBrush="#6AA7FF"
-                    Margin="0,0,12,0"
-                    Click="BtnMaximo_Click">
+                    Background="#F1E0E7" Margin="0,0,12,0"
+                    BorderBrush="#C9A3C8" Cursor="Hand" Click="BtnMaximo_Click">
                 <StackPanel>
                     <TextBlock Text="Tamaño máximo"
                                FontSize="14"
-                               Foreground="#214E9C"/>
+                               Foreground="#8A4D67"/>
                     <TextBlock x:Name="TxtMaximo"
                                Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#214E9C"/>
+                               Foreground="#8A4D67"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="BtnCima"
                     Style="{StaticResource InfoButtonStyle}"
-                    Background="#F3E8FF"
-                    BorderBrush="#C084FC">
+                    Background="#E1ECE3"
+                    BorderBrush="#A8C2CC" Click="BtnCima_Click">
                 <StackPanel>
                     <TextBlock Text="Cima"
                                FontSize="14"
-                               Foreground="#7A2BBE"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock x:Name="TxtCima"
                                Text="-"
                                FontSize="18"
                                FontFamily="Segoe UI Semibold"
-                               Foreground="#7A2BBE"/>
+                               Foreground="{StaticResource TextoOscuro}"/>
                 </StackPanel>
             </Button>
-
         </UniformGrid>
 
         <!-- Área visual -->
