@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 {
     /// <summary>
-    /// Lógica de interacción para GrafoPonderado.xaml
+    /// Lógica de interacción para ArbolBin.xaml
     /// </summary>
-    public partial class GrafoPonderado : UserControl
+    public partial class ArbolBin : Page
     {
-        public GrafoPonderado()
+        public ArbolBin()
         {
             InitializeComponent();
         }

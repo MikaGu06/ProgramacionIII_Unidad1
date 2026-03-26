@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 {
     /// <summary>
-    /// Lógica de interacción para GrafoNoDirigido.xaml
+    /// Lógica de interacción para Grafos.xaml
     /// </summary>
-    public partial class GrafoNoDirigido : UserControl
+    public partial class Grafos : Page
     {
-        public GrafoNoDirigido()
+        public Grafos()
         {
             InitializeComponent();
         }
