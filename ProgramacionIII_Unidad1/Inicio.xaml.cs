@@ -11,12 +11,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProgramacionIII_Unidad1.EstructurasLinealess;
+using ProgramacionIII_Unidad1.EstructurasNoLineales;
 
 namespace ProgramacionIII_Unidad1
 {
-    /// <summary>
-    /// Lógica de interacción para Inicio.xaml
-    /// </summary>
     public partial class Inicio : Page
     {
         public Inicio()
@@ -26,20 +24,27 @@ namespace ProgramacionIII_Unidad1
 
         private void BtnAbrirOrdenamiento_Click(object sender, RoutedEventArgs e)
         {
-
-            AlgoritmosDeOrdenamiento paginaOrdenamiento = new AlgoritmosDeOrdenamiento();
-
-            this.NavigationService.Navigate(paginaOrdenamiento);
+            this.NavigationService.Navigate(new AlgoritmosDeOrdenamiento());
         }
 
         private void BtnAbrirBusqueda_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new Recursividad());
+            this.NavigationService.Navigate(new AlgoritmosDeBusqueda()); 
         }
 
         private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new EstructurasLineales());
+            this.NavigationService.Navigate(new EstructurasLineales());
+        }
+
+        private void BtnAbrirRecursividad_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Recursividad());
+        }
+
+        private void BtnAbrirNoLineales_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new EstructurasNoLineales.EstNoLin());
         }
     }
 }
