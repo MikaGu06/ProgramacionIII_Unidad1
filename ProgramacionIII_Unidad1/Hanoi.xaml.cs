@@ -34,7 +34,10 @@ namespace ProgramacionIII_Unidad1
                 contadorPasos = 0;
                 lblPasos.Text = "Pasos realizados: 0";
 
-                // Crear discos
+                // Crear discos en TorreA con la piramide correcta:
+                // Se llama la recursion PRIMERO y luego se agrega el disco actual,
+                // asi el disco 1 (pequeño) queda en Children[0] (arriba visual)
+                // y el disco n (grande) queda en Children[n-1] (abajo visual)
                 CrearDiscosRecursivo(numeroDeDiscos);
 
                 // Resolver Hanoi
@@ -49,9 +52,19 @@ namespace ProgramacionIII_Unidad1
         }
 
         // --- CREAR DISCOS ---
+        // Se llama la recursion PRIMERO para que los discos pequeños
+        // queden arriba (índices bajos) y los grandes abajo (índices altos).
+        // Ejemplo con n=3:
+        //   CrearDiscosRecursivo(3) → llama CrearDiscosRecursivo(2) → llama CrearDiscosRecursivo(1)
+        //     → llama CrearDiscosRecursivo(0) → retorna
+        //     → agrega disco 1 (pequeño) → Children[0] = TOP visual
+        //   → agrega disco 2 → Children[1]
+        // → agrega disco 3 (grande) → Children[2] = BOTTOM visual  ✓ pirámide correcta
         private void CrearDiscosRecursivo(int discoActual)
         {
             if (discoActual == 0) return;
+
+            CrearDiscosRecursivo(discoActual - 1); // primero los discos más pequeños
 
             Border disco = new Border
             {
@@ -64,9 +77,7 @@ namespace ProgramacionIII_Unidad1
                 BorderThickness = new Thickness(1)
             };
 
-            TorreA.Children.Add(disco);
-
-            CrearDiscosRecursivo(discoActual - 1);
+            TorreA.Children.Add(disco); // el disco actual va abajo del anterior
         }
 
         // --- LIMPIAR TORRES ---
@@ -78,7 +89,14 @@ namespace ProgramacionIII_Unidad1
             LimpiarTorreRecursivo(torre, indice - 1);
         }
 
-        // --- HANOI ---
+        // --- HANOI RECURSIVO ---
+        // Igual al algoritmo del PDF:
+        //   hanoi(n, origen, destino, auxiliar)
+        //   si n==1: mover disco de origen a destino
+        //   si no:
+        //     hanoi(n-1, origen, auxiliar, destino)   ← mover n-1 discos a auxiliar
+        //     mover disco n de origen a destino
+        //     hanoi(n-1, auxiliar, destino, origen)   ← mover n-1 discos al destino
         private async Task ResolverHanoiRecursivoAsync(int n, StackPanel origen, StackPanel auxiliar, StackPanel destino)
         {
             if (n == 0) return;
@@ -86,20 +104,26 @@ namespace ProgramacionIII_Unidad1
             await ResolverHanoiRecursivoAsync(n - 1, origen, destino, auxiliar);
 
             MoverDisco(origen, destino);
-            await Task.Delay(1000); // velocidad más lenta
+            await Task.Delay(1000);
 
             await ResolverHanoiRecursivoAsync(n - 1, auxiliar, origen, destino);
         }
 
+        // --- MOVER DISCO ---
+        // El disco del TOPE de la torre es Children[0] (el más pequeño disponible,
+        // visualmente arriba). Se inserta en Children[0] del destino para que
+        // quede en el tope de esa torre también.
         private void MoverDisco(StackPanel origen, StackPanel destino)
         {
             if (origen.Children.Count > 0)
             {
-                int indice = origen.Children.Count - 1;
-                UIElement disco = origen.Children[indice];
+                // Tomar el disco del tope: Children[0] = disco más pequeño = arriba visual
+                UIElement disco = origen.Children[0];
 
-                origen.Children.RemoveAt(indice);
-                destino.Children.Add(disco);
+                origen.Children.RemoveAt(0);
+
+                // Insertar en el tope del destino: Insert(0, ...) lo pone arriba
+                destino.Children.Insert(0, disco);
 
                 contadorPasos++;
                 lblPasos.Text = "Pasos realizados: " + contadorPasos;
