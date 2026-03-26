@@ -19,7 +19,6 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             ActualizarEstadisticas();
         }
 
-        // --- CLASE NODO ---
         public class TreeNode<T>
         {
             public T Value { get; set; }
@@ -34,6 +33,89 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                 Right = null;
                 Parent = null;
             }
+        }
+
+        // --- UTILIDADES GENERALES ---
+        private dynamic ObtenerValorDesdeTexto(string texto, bool requiereTextoCompleto = false)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                throw new Exception("Ingrese un valor válido.");
+
+            if (rbIntegers.IsChecked == true)
+            {
+                if (!int.TryParse(texto, out int valorEntero))
+                    throw new Exception("Ingrese un número entero válido.");
+
+                return valorEntero;
+            }
+
+            if (requiereTextoCompleto && texto.Length == 0)
+                throw new Exception("Ingrese un carácter válido.");
+
+            return texto[0];
+        }
+
+        private bool SonIguales(dynamic a, dynamic b)
+        {
+            return Comparer<dynamic>.Default.Compare(a, b) == 0;
+        }
+
+        private bool ExisteValor(TreeNode<dynamic> nodo, dynamic valor)
+        {
+            return BuscarNodoGeneral(nodo, valor) != null;
+        }
+
+        // Búsqueda general para soportar también inserción manual
+        private TreeNode<dynamic> BuscarNodoGeneral(TreeNode<dynamic> nodo, dynamic valor)
+        {
+            if (nodo == null)
+                return null;
+
+            if (SonIguales(nodo.Value, valor))
+                return nodo;
+
+            TreeNode<dynamic> encontradoIzquierda = BuscarNodoGeneral(nodo.Left, valor);
+            if (encontradoIzquierda != null)
+                return encontradoIzquierda;
+
+            return BuscarNodoGeneral(nodo.Right, valor);
+        }
+
+        private void ReasignarPadre(TreeNode<dynamic> hijo, TreeNode<dynamic> nuevoPadre)
+        {
+            if (hijo != null)
+                hijo.Parent = nuevoPadre;
+        }
+
+        // Reutiliza la misma lógica de selección que ya usan en búsqueda/ordenamiento
+        private void OrdenarAscendente(List<dynamic> lista)
+        {
+            for (int i = 0; i < lista.Count; i++)
+            {
+                int indiceMinimo = i;
+
+                for (int j = i + 1; j < lista.Count; j++)
+                {
+                    if (Comparer<dynamic>.Default.Compare(lista[j], lista[indiceMinimo]) < 0)
+                    {
+                        indiceMinimo = j;
+                    }
+                }
+
+                dynamic temp = lista[i];
+                lista[i] = lista[indiceMinimo];
+                lista[indiceMinimo] = temp;
+            }
+        }
+
+        private void RecolectarValores(TreeNode<dynamic> nodo, List<dynamic> valores)
+        {
+            if (nodo == null)
+                return;
+
+            RecolectarValores(nodo.Left, valores);
+            valores.Add(nodo.Value);
+            RecolectarValores(nodo.Right, valores);
         }
 
         // --- INSERCIÓN AUTOMÁTICA (BST) ---
@@ -69,30 +151,10 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 
             try
             {
-                dynamic valorPadre, nuevoValor;
+                dynamic valorPadre = ObtenerValorDesdeTexto(txtPadre.Text, true);
+                dynamic nuevoValor = ObtenerValorDesdeTexto(txtNuevoValor.Text, true);
 
-                if (rbIntegers.IsChecked == true)
-                {
-                    if (!int.TryParse(txtPadre.Text, out int padreInt) || !int.TryParse(txtNuevoValor.Text, out int nuevoInt))
-                    {
-                        MessageBox.Show("Ingrese números enteros válidos.");
-                        return;
-                    }
-                    valorPadre = padreInt;
-                    nuevoValor = nuevoInt;
-                }
-                else
-                {
-                    if (txtPadre.Text.Length == 0 || txtNuevoValor.Text.Length == 0)
-                    {
-                        MessageBox.Show("Ingrese caracteres válidos.");
-                        return;
-                    }
-                    valorPadre = txtPadre.Text[0];
-                    nuevoValor = txtNuevoValor.Text[0];
-                }
-
-                TreeNode<dynamic> padre = BuscarNodo(root, valorPadre);
+                TreeNode<dynamic> padre = BuscarNodoGeneral(root, valorPadre);
 
                 if (padre == null)
                 {
@@ -100,7 +162,13 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                     return;
                 }
 
-                bool izquierda = (cbPosicion.SelectedIndex == 0);
+                if (ExisteValor(root, nuevoValor))
+                {
+                    MessageBox.Show($"El valor '{nuevoValor}' ya existe en el árbol.");
+                    return;
+                }
+
+                bool izquierda = cbPosicion.SelectedIndex == 0;
 
                 if (izquierda && padre.Left != null)
                 {
@@ -114,8 +182,10 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                     return;
                 }
 
-                var nuevoNodo = new TreeNode<dynamic>(nuevoValor);
-                nuevoNodo.Parent = padre;
+                var nuevoNodo = new TreeNode<dynamic>(nuevoValor)
+                {
+                    Parent = padre
+                };
 
                 if (izquierda)
                     padre.Left = nuevoNodo;
@@ -125,7 +195,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                 Redibujar();
                 txtPadre.Clear();
                 txtNuevoValor.Clear();
-                MessageBox.Show($"Nodo '{nuevoValor}' insertado como hijo {(izquierda ? "izquierdo" : "derecho")} de '{padre.Value}'");
+                MessageBox.Show($"Nodo '{nuevoValor}' insertado como hijo {(izquierda ? "izquierdo" : "derecho")} de '{padre.Value}'.");
             }
             catch (Exception ex)
             {
@@ -133,74 +203,73 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             }
         }
 
-        // --- ELIMINACIÓN ---
-        private TreeNode<dynamic> EliminarNodo(TreeNode<dynamic> nodo, dynamic valor)
+        // --- ELIMINACIÓN GENERAL ---
+        private TreeNode<dynamic> ObtenerNodoMasIzquierdo(TreeNode<dynamic> nodo)
         {
             if (nodo == null)
-            {
-                MessageBox.Show($"El valor {valor} no se encuentra en el árbol.");
                 return null;
-            }
 
-            int comp = Comparer<dynamic>.Default.Compare(valor, nodo.Value);
+            while (nodo.Left != null)
+                nodo = nodo.Left;
 
-            if (comp < 0)
-                nodo.Left = EliminarNodo(nodo.Left, valor);
-            else if (comp > 0)
-                nodo.Right = EliminarNodo(nodo.Right, valor);
-            else
-            {
-                if (nodo.Left == null && nodo.Right == null)
-                {
-                    MessageBox.Show($"Nodo '{valor}' eliminado (hoja).");
-                    return null;
-                }
-
-                if (nodo.Left == null)
-                {
-                    if (nodo.Right != null)
-                        nodo.Right.Parent = nodo.Parent;
-                    MessageBox.Show($"Nodo '{valor}' eliminado (tiene hijo derecho).");
-                    return nodo.Right;
-                }
-
-                if (nodo.Right == null)
-                {
-                    if (nodo.Left != null)
-                        nodo.Left.Parent = nodo.Parent;
-                    MessageBox.Show($"Nodo '{valor}' eliminado (tiene hijo izquierdo).");
-                    return nodo.Left;
-                }
-
-                dynamic sucesor = MinimoValor(nodo.Right);
-                nodo.Value = sucesor;
-                nodo.Right = EliminarNodo(nodo.Right, sucesor);
-                MessageBox.Show($"Nodo '{valor}' reemplazado por su sucesor '{sucesor}'.");
-            }
             return nodo;
         }
 
-        private dynamic MinimoValor(TreeNode<dynamic> nodo)
+        private void ReemplazarEnPadre(TreeNode<dynamic> nodo, TreeNode<dynamic> reemplazo)
         {
-            while (nodo.Left != null)
-                nodo = nodo.Left;
-            return nodo.Value;
+            if (nodo.Parent == null)
+            {
+                root = reemplazo;
+                ReasignarPadre(reemplazo, null);
+                return;
+            }
+
+            if (nodo.Parent.Left == nodo)
+                nodo.Parent.Left = reemplazo;
+            else if (nodo.Parent.Right == nodo)
+                nodo.Parent.Right = reemplazo;
+
+            ReasignarPadre(reemplazo, nodo.Parent);
         }
 
-        // --- BÚSQUEDA ---
-        private TreeNode<dynamic> BuscarNodo(TreeNode<dynamic> nodo, dynamic valor)
+        private bool EliminarNodoGeneral(dynamic valor)
         {
+            TreeNode<dynamic> nodo = BuscarNodoGeneral(root, valor);
+
             if (nodo == null)
-                return null;
+                return false;
 
-            int comp = Comparer<dynamic>.Default.Compare(valor, nodo.Value);
+            // Caso 1: hoja
+            if (nodo.Left == null && nodo.Right == null)
+            {
+                ReemplazarEnPadre(nodo, null);
+                return true;
+            }
 
-            if (comp == 0)
-                return nodo;
-            else if (comp < 0)
-                return BuscarNodo(nodo.Left, valor);
+            // Caso 2: un solo hijo
+            if (nodo.Left == null)
+            {
+                ReemplazarEnPadre(nodo, nodo.Right);
+                return true;
+            }
+
+            if (nodo.Right == null)
+            {
+                ReemplazarEnPadre(nodo, nodo.Left);
+                return true;
+            }
+
+            // Caso 3: dos hijos
+            TreeNode<dynamic> sucesor = ObtenerNodoMasIzquierdo(nodo.Right);
+            nodo.Value = sucesor.Value;
+
+            // El sucesor nunca tendrá hijo izquierdo
+            if (sucesor.Right != null)
+                ReemplazarEnPadre(sucesor, sucesor.Right);
             else
-                return BuscarNodo(nodo.Right, valor);
+                ReemplazarEnPadre(sucesor, null);
+
+            return true;
         }
 
         // --- PROPIEDADES DEL ÁRBOL ---
@@ -264,6 +333,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private TreeNode<dynamic> BalancearArbol(List<dynamic> elementos, int inicio, int fin, TreeNode<dynamic> parent = null)
         {
             if (inicio > fin) return null;
+
             int medio = (inicio + fin) / 2;
             TreeNode<dynamic> nodo = new TreeNode<dynamic>(elementos[medio]);
             nodo.Parent = parent;
@@ -389,21 +459,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 
             try
             {
-                dynamic valor;
-                if (rbIntegers.IsChecked == true)
-                {
-                    if (!int.TryParse(txtNodeValue.Text, out int intValue))
-                    {
-                        MessageBox.Show("Ingrese un número entero válido.");
-                        return;
-                    }
-                    valor = intValue;
-                }
-                else
-                {
-                    valor = txtNodeValue.Text[0];
-                }
-
+                dynamic valor = ObtenerValorDesdeTexto(txtNodeValue.Text, true);
                 root = InsertNode(root, valor);
                 Redibujar();
                 txtNodeValue.Clear();
@@ -430,24 +486,18 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 
             try
             {
-                dynamic valor;
-                if (rbIntegers.IsChecked == true)
+                dynamic valor = ObtenerValorDesdeTexto(txtNodeValue.Text, true);
+
+                bool eliminado = EliminarNodoGeneral(valor);
+                if (!eliminado)
                 {
-                    if (!int.TryParse(txtNodeValue.Text, out int intValue))
-                    {
-                        MessageBox.Show("Ingrese un número entero válido.");
-                        return;
-                    }
-                    valor = intValue;
-                }
-                else
-                {
-                    valor = txtNodeValue.Text[0];
+                    MessageBox.Show($"El valor {valor} no se encuentra en el árbol.");
+                    return;
                 }
 
-                root = EliminarNodo(root, valor);
                 Redibujar();
                 txtNodeValue.Clear();
+                txtResultado.Text = $"Nodo '{valor}' eliminado correctamente.";
             }
             catch (Exception ex)
             {
@@ -464,7 +514,8 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             }
 
             List<dynamic> elementos = new List<dynamic>();
-            Inorden(root, elementos);
+            RecolectarValores(root, elementos);
+            OrdenarAscendente(elementos);
             root = BalancearArbol(elementos, 0, elementos.Count - 1);
             Redibujar();
             MessageBox.Show("Árbol balanceado correctamente.");
@@ -498,21 +549,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
 
             try
             {
-                dynamic valor;
-                if (rbIntegers.IsChecked == true)
-                {
-                    if (!int.TryParse(txtNuevoValor.Text, out int intValue))
-                    {
-                        MessageBox.Show("Ingrese un número entero válido.");
-                        return;
-                    }
-                    valor = intValue;
-                }
-                else
-                {
-                    valor = txtNuevoValor.Text[0];
-                }
-
+                dynamic valor = ObtenerValorDesdeTexto(txtNuevoValor.Text, true);
                 root = new TreeNode<dynamic>(valor);
                 Redibujar();
                 txtNuevoValor.Clear();
