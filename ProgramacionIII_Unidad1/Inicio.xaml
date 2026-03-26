@@ -102,13 +102,13 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border"
                                 Property="Background"
-                                Value="#5B21B6"/>
+                                Value="#262233"/>
                             </Trigger>
 
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="Border"
                                 Property="Background"
-                                Value="#4C1D95"/>
+                                Value="#262233"/>
                             </Trigger>
 
                         </ControlTemplate.Triggers>
@@ -132,7 +132,7 @@
             <TextBlock Text="Visualizador de Algoritmos"
                        FontSize="36"
                        FontWeight="Bold"
-                       Foreground="#6D28D9"
+                       Foreground="#262233"
                        HorizontalAlignment="Center"
                        />
 
@@ -163,7 +163,7 @@
                             Margin="12"
                             Height="220"
                             Width="220"
-                            BorderBrush="#3B82F6"
+                            BorderBrush="#9B8DBE"
                             BorderThickness="0,6,0,0">
 
                     <StackPanel VerticalAlignment="Center"
@@ -172,7 +172,7 @@
                         <TextBlock Text="📊" 
                                        FontSize="36"
                                        HorizontalAlignment="Center"
-                                       Foreground="#3B82F6"/>
+                                       Foreground="#7F73A1"/>
 
                         <TextBlock Text="Ordenamiento"
                                        FontSize="16"
@@ -194,14 +194,14 @@
                         Background="White" 
                         Height="220"
                         Width="220"
-                        BorderBrush="#EC4899"
+                        BorderBrush="#8A4D67"
                         BorderThickness="0,6,0,0">
                     <StackPanel VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Margin="10">
                         <TextBlock Text="🔎"
                                    FontSize="36"
-                                   Foreground="#EC4899"
+                                   Foreground="#8A4D67"
                                    HorizontalAlignment="Center"/>
                         <TextBlock Text="Busqueda"
                                    FontSize="16"
@@ -222,14 +222,14 @@
                         Width="220"
                         Background="White" 
                         Height="220"
-                        BorderBrush="#8B5CF6"
+                        BorderBrush="#E1ECE3"
                         BorderThickness="0,6,0,0">
                     <StackPanel VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Margin="10">
                         <TextBlock Text="📋"
                                    FontSize="36"
-                                   Foreground="#8B5CF6"
+                                   Foreground="#5F6F66"
                                    HorizontalAlignment="Center"/>
                         <TextBlock Text="Estructuras Lineales"
                                    FontSize="16"
@@ -259,7 +259,7 @@
                         Background="White" 
                         Height="220"
                         Width="220"
-                        BorderBrush="#7C3AED"
+                        BorderBrush="#E1ECE3"
                         BorderThickness="0,6,0,0">
 
                     <StackPanel VerticalAlignment="Center"
@@ -267,8 +267,8 @@
                                 Margin="10">
                         <TextBlock Text="🔁"
                                    FontSize="36"
-                                   Foreground="#7C3AED"
-                                   HorizontalAlignment="Center"/>
+                                   Foreground="#5F6F66"
+                                   HorizontalAlignment="Center" Cursor=""/>
                         <TextBlock Text="Recursividad"
                                    FontSize="16"
                                    FontWeight="Bold"
@@ -288,14 +288,14 @@
                         Background="White" 
                         Height="220" 
                         Width="220"
-                        BorderBrush="#0284C7"
+                        BorderBrush="#8A4D67"
                         BorderThickness="0,6,0,0">
                     <StackPanel VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Margin="10">
                         <TextBlock Text="🌳"
                                    FontSize="36"
-                                   Foreground="#0284C7"
+                                   Foreground="#8A4D67"
                                    HorizontalAlignment="Center"/>
                         <TextBlock Text="Estructuras no lineales"
                                    FontSize="16"

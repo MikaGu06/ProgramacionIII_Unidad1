@@ -6,23 +6,25 @@
         xmlns:local="clr-namespace:ProgramacionIII_Unidad1"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
-    
-        <Window.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <!-- esquina superior izquierda (gris/blanco suave) -->
-                <GradientStop Color="#F7F8FC" Offset="0"/>
 
-                <!-- transición celeste pastel -->
-                <GradientStop Color="#E7EEFF" Offset="0.35"/>
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
 
-                <!-- mezcla celeste-lila -->
-                <GradientStop Color="#DDD9F3" Offset="0.65"/>
+            <!-- esquina superior izquierda (crema muy suave) -->
+            <GradientStop Color="#F7F5FA" Offset="0"/>
 
-                <!-- esquina inferior derecha (lila pastel) -->
-                <GradientStop Color="#CFC8F4" Offset="1"/>
-            </LinearGradientBrush>
-        </Window.Background>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+            <!-- transición lavanda clara -->
+            <GradientStop Color="#E8E2F2" Offset="0.35"/>
+
+            <!-- mezcla lavanda gris -->
+            <GradientStop Color="#DDD8E7" Offset="0.65"/>
+
+            <!-- esquina inferior derecha (lavanda más marcada) -->
+            <GradientStop Color="#CFC8F4" Offset="1"/>
+
+        </LinearGradientBrush>
+    </Window.Background>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
 
 
 </Window>
