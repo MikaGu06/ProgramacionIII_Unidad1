@@ -251,6 +251,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" 
@@ -288,25 +289,55 @@
                         Background="White" 
                         Height="220" 
                         Width="220"
-                        BorderBrush="#8A4D67"
+                        BorderBrush="#7F73A1"
                         BorderThickness="0,6,0,0">
                     <StackPanel VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Margin="10">
                         <TextBlock Text="🌳"
                                    FontSize="36"
-                                   Foreground="#8A4D67"
+                                   Foreground="#7F73A1"
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="Estructuras no lineales"
+                        <TextBlock Text="Árboles"
                                    FontSize="16"
                                    FontWeight="Bold"
                                    Margin="0,8,0,15"
                                    HorizontalAlignment="Center"/>
-                        <Button Style="{StaticResource RoundedButton}"
+                        <Button x:Name="BtnAbrirArboles"
+                                Style="{StaticResource RoundedButton}"
                                 Content="Abrir"
                                 Width="90"
                                 Height="32"
-                                Click="BtnAbrirNoLineales_Click"/>
+                                Click="BtnAbrirArboles_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2"
+                        Style="{StaticResource TarjetaAnimada}"
+                        Margin="12" 
+                        Background="White" 
+                        Height="220" 
+                        Width="220"
+                        BorderBrush="#8A4D67"
+                        BorderThickness="0,6,0,0">
+                    <StackPanel VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="10">
+                        <TextBlock Text="🔗"
+                                   FontSize="36"
+                                   Foreground="#8A4D67"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Grafos"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Margin="0,8,0,15"
+                                   HorizontalAlignment="Center"/>
+                        <Button x:Name="BtnAbrirGrafos"
+                                Style="{StaticResource RoundedButton}"
+                                Content="Abrir"
+                                Width="90"
+                                Height="32"
+                                Click="BtnAbrirGrafos_Click"/>
                     </StackPanel>
                 </Border>
 

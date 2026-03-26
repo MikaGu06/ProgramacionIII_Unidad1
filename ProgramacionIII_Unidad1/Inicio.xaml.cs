@@ -14,37 +14,64 @@ using ProgramacionIII_Unidad1.EstructurasLinealess;
 using ProgramacionIII_Unidad1.EstructurasNoLineales;
 
 namespace ProgramacionIII_Unidad1
+
 {
+
     public partial class Inicio : Page
     {
         public Inicio()
+
         {
             InitializeComponent();
+
         }
 
         private void BtnAbrirOrdenamiento_Click(object sender, RoutedEventArgs e)
+
         {
             this.NavigationService.Navigate(new AlgoritmosDeOrdenamiento());
+
         }
 
         private void BtnAbrirBusqueda_Click(object sender, RoutedEventArgs e)
+
         {
-            this.NavigationService.Navigate(new AlgoritmosDeBusqueda()); 
+            this.NavigationService.Navigate(new AlgoritmosDeBusqueda());
+
         }
 
         private void EstructurasLinealesBtn_Click(object sender, RoutedEventArgs e)
+
         {
             this.NavigationService.Navigate(new EstructurasLineales());
+
         }
 
         private void BtnAbrirRecursividad_Click(object sender, RoutedEventArgs e)
+
         {
             this.NavigationService.Navigate(new Recursividad());
+
         }
 
-        private void BtnAbrirNoLineales_Click(object sender, RoutedEventArgs e)
+        private void BtnAbrirArboles_Click(object sender, RoutedEventArgs e)
+
         {
-            this.NavigationService.Navigate(new EstructurasNoLineales.EstNoLin());
+
+
+            this.NavigationService.Navigate(new ArbolBin());
+
         }
+
+
+        private void BtnAbrirGrafos_Click(object sender, RoutedEventArgs e)
+
+        {
+
+            this.NavigationService.Navigate(new Grafos());
+
+        }
+
     }
+
 }
