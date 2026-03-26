@@ -94,7 +94,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
         private string TopElement()
         {
-            return IsEmpty() ? "-" : front.key.ToString();
+            if (IsEmpty())
+            {
+                return "-";
+            }
+            else
+            {
+                return front.key.ToString();
+            }
         }
 
         private void ActualizarUI()
@@ -110,10 +117,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             TxtElementos.Text = "Elementos: " + count;
-            TxtVacia.Text = IsEmpty() ? "Sí" : "No";
-            TxtLlena.Text = IsFull() ? "Sí" : "No";
-            TxtCima.Text = TopElement();
-            TxtMaximo.Text = tamMax > 0 ? tamMax.ToString() : "No definido (máx 30)";
         }
 
         // DEFINIR TAMAÑO (1 A 30)
@@ -144,6 +147,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             }
 
             tamMax = valor;
+            TxtMaximo.Text = tamMax.ToString();
             ActualizarUI();
         }
 
@@ -155,14 +159,14 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return;
             }
 
-            if (!int.TryParse(TxtNumero.Text, out int num))
+            if (!int.TryParse(TxtCantidadAleatoria.Text, out int num))
             {
                 MessageBox.Show("Ingrese un número válido");
                 return;
             }
 
             Enqueue(num);
-            TxtNumero.Clear();
+            TxtCantidadAleatoria.Clear();
             ActualizarUI();
         }
 
@@ -174,7 +178,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 return;
             }
 
-            if (!int.TryParse(TxtCantidadAleatoria.Text, out int cantidad))
+            if (!int.TryParse(TxtTamMax.Text, out int cantidad))
             {
                 MessageBox.Show("Ingrese una cantidad válida");
                 return;
@@ -215,7 +219,42 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         {
             front = rear = null;
             count = 0;
+
+            TxtVacia.Text = "-";
+            TxtLlena.Text = "-";
+            TxtMaximo.Text = "-";
+            TxtCima.Text = "-";
+
             ActualizarUI();
+        }
+
+        private void BtnVacia_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsEmpty())
+            {
+                TxtVacia.Text = "Sí";
+            }
+            else
+            {
+                TxtVacia.Text = "No";
+            }
+        }
+
+        private void BtnLlena_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsFull())
+            {
+                TxtLlena.Text = "Sí";
+            }
+            else
+            {
+                TxtLlena.Text = "No";
+            }
+        }
+
+        private void BtnCima_Click(object sender, RoutedEventArgs e)
+        {
+            TxtCima.Text = TopElement();
         }
     }
 }
