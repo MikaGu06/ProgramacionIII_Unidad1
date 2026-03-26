@@ -122,6 +122,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 fin.Siguiente = inicio;
             }
         }
+        
 
         private void EliminarFinal()
         {

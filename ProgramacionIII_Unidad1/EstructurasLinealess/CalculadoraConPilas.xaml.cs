@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
         private void AgregarTexto(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-             
+
             if (TxtPantalla.Text == "Error" || TxtPantalla.Text == "Indefinido" || TxtPantalla.Text == "Indeterminado")
                 TxtPantalla.Text = "";
 
@@ -42,6 +43,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 TxtPantalla.Text = "";
                 return;
             }
+
             if (!string.IsNullOrEmpty(TxtPantalla.Text))
             {
                 TxtPantalla.Text = TxtPantalla.Text.Substring(0, TxtPantalla.Text.Length - 1);
@@ -56,7 +58,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                 string postfija = InfijaAPostfija(infija);
                 double resultado = EvaluarPostfija(postfija);
 
-                TxtPantalla.Text = resultado.ToString();
+                TxtPantalla.Text = resultado.ToString(CultureInfo.InvariantCulture);
             }
             catch (DivideByZeroException)
             {
@@ -73,7 +75,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             {
                 TxtPantalla.Text = "Error";
             }
-
         }
 
         private string InfijaAPostfija(string infija)
@@ -84,13 +85,15 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             foreach (char c in infija)
             {
-                if (char.IsDigit(c))
+                if (char.IsDigit(c) || c == '.' || c == ',')
                 {
-                    numero += c;
+                    if (c == ',')
+                        numero += '.';
+                    else
+                        numero += c;
                 }
                 else
                 {
-                    
                     if (numero != "")
                     {
                         salida += numero + " ";
@@ -121,7 +124,6 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             if (numero != "")
                 salida += numero + " ";
 
-            
             while (pila.Count > 0)
                 salida += pila.Pop() + " ";
 
@@ -142,7 +144,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             foreach (string token in tokens)
             {
-                if (double.TryParse(token, out double numero))
+                if (double.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out double numero))
                 {
                     pila.Push(numero);
                 }
@@ -153,9 +155,17 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
                     switch (token)
                     {
-                        case "+": pila.Push(a + b); break;
-                        case "-": pila.Push(a - b); break;
-                        case "*": pila.Push(a * b); break;
+                        case "+":
+                            pila.Push(a + b);
+                            break;
+
+                        case "-":
+                            pila.Push(a - b);
+                            break;
+
+                        case "*":
+                            pila.Push(a * b);
+                            break;
 
                         case "/":
                             if (b == 0)
