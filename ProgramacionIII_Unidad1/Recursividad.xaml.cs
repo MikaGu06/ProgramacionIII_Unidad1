@@ -467,11 +467,11 @@ namespace ProgramacionIII_Unidad1
 
                         if (num < 0)
                         {
-                            TextoInfo.Text = $"Número Invertido: -{invertido} (dígitos: {cantidadDigitos})";
+                            TextoInfo.Text = $"Número Invertido: {invertido}";
                         }
                         else
                         {
-                            TextoInfo.Text = $"Número Invertido: {invertido} (dígitos: {cantidadDigitos})";
+                            TextoInfo.Text = $"Número Invertido: {invertido}";
                         }
                     }
                 }
@@ -504,11 +504,11 @@ namespace ProgramacionIII_Unidad1
                         bool esPar = EsPar(num);
                         if (esPar)
                         {
-                            TextoInfo.Text = $"El número {num} es: PAR (proceso recursivo completado)";
+                            TextoInfo.Text = $"El número {num} es: PAR ";
                         }
                         else
                         {
-                            TextoInfo.Text = $"El número {num} es: IMPAR (proceso recursivo completado)";
+                            TextoInfo.Text = $"El número {num} es: IMPAR ";
                         }
                     }
                 }
@@ -526,7 +526,7 @@ namespace ProgramacionIII_Unidad1
                     else
                     {
                         string signo = ObtenerSignoRecursivo(num);
-                        TextoInfo.Text = $"El número {num} es: {signo} (determinado recursivamente)";
+                        TextoInfo.Text = $"El número {num} es: {signo} ";
                     }
                 }
             }
