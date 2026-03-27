@@ -29,7 +29,7 @@ namespace ProgramacionIII_Unidad1
 
             VistaNormal.Visibility = Visibility.Visible;
             ContenedorHanoi.Visibility = Visibility.Collapsed;
-            ContenedorHanoi.Content = null; 
+            ContenedorHanoi.Content = null;
 
             funcionActual = codigo;
             TituloFuncion.Text = titulo;
@@ -39,10 +39,9 @@ namespace ProgramacionIII_Unidad1
             txtValor.Text = "";
         }
 
-        // lo que haria el for pero recursivo
+        // Función recursiva para convertir texto a vector
         private void ConvertirTextoAVectorRecursivo(string[] partes, int[] vector, int indice)
         {
-            
             if (indice == partes.Length)
             {
                 return;
@@ -57,11 +56,24 @@ namespace ProgramacionIII_Unidad1
                 }
 
                 vector[indice] = int.Parse(textoLimpio);
-
                 ConvertirTextoAVectorRecursivo(partes, vector, indice + 1);
             }
         }
 
+        // Función para contar dígitos recursivamente
+        private int ContarDigitos(long n)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1 + ContarDigitos(n / 10);
+            }
+        }
+
+        // Botones de funciones
         private void BtnFactorial_Click(object sender, RoutedEventArgs e)
         {
             MostrarPanel("factorial", "Factorial (n!)", "Multiplica todos los números desde 1 hasta n.", "F(n) = n * F(n-1)");
@@ -99,7 +111,7 @@ namespace ProgramacionIII_Unidad1
 
         private void BtnSigno_Click(object sender, RoutedEventArgs e)
         {
-            MostrarPanel("signo", "Signo del Número", "Verifica si el número es positivo o negativo.", "n >= 0");
+            MostrarPanel("signo", "Signo del Número", "Verifica si el número es positivo o negativo usando recursividad.", "Signo(n) = Signo(n-1) si n>0, Signo(n+1) si n<0");
         }
 
         private void BtnSumaVector_Click(object sender, RoutedEventArgs e)
@@ -125,13 +137,12 @@ namespace ProgramacionIII_Unidad1
         private void BtnHanoi_Click(object sender, RoutedEventArgs e)
         {
             PanelPrincipal.Visibility = Visibility.Visible;
-
             VistaNormal.Visibility = Visibility.Collapsed;
             ContenedorHanoi.Visibility = Visibility.Visible;
             ContenedorHanoi.Content = new Hanoi();
         }
 
-
+        // Funciones recursivas
         private long CalcularFactorial(long n)
         {
             if (n == 0)
@@ -168,7 +179,7 @@ namespace ProgramacionIII_Unidad1
             }
         }
 
-        private int InvertirNumero(int n, int acumulado)
+        private long InvertirNumero(long n, long acumulado)
         {
             if (n == 0)
             {
@@ -176,13 +187,13 @@ namespace ProgramacionIII_Unidad1
             }
             else
             {
-                int ultimoDigito = n % 10;
-                int nuevoAcumulado = (acumulado * 10) + ultimoDigito;
+                long ultimoDigito = n % 10;
+                long nuevoAcumulado = (acumulado * 10) + ultimoDigito;
                 return InvertirNumero(n / 10, nuevoAcumulado);
             }
         }
 
-        private int SumarDigitos(int n)
+        private long SumarDigitos(long n)
         {
             if (n == 0)
             {
@@ -194,7 +205,7 @@ namespace ProgramacionIII_Unidad1
             }
         }
 
-        private bool EsPar(int n)
+        private bool EsPar(long n)
         {
             if (n < 0)
             {
@@ -212,6 +223,37 @@ namespace ProgramacionIII_Unidad1
             else
             {
                 return EsPar(n - 2);
+            }
+        }
+
+        // Función recursiva para determinar el signo
+        private string ObtenerSignoRecursivo(long n)
+        {
+            if (n == 0)
+            {
+                return "CERO";
+            }
+            else if (n > 0)
+            {
+                if (n == 1)
+                {
+                    return "POSITIVO";
+                }
+                else
+                {
+                    return ObtenerSignoRecursivo(n - 1);
+                }
+            }
+            else
+            {
+                if (n == -1)
+                {
+                    return "NEGATIVO";
+                }
+                else
+                {
+                    return ObtenerSignoRecursivo(n + 1);
+                }
             }
         }
 
@@ -279,7 +321,7 @@ namespace ProgramacionIII_Unidad1
             }
         }
 
-
+        // Botón ejecutar
         private void BtnEjecutar_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtValor.Text))
@@ -288,12 +330,20 @@ namespace ProgramacionIII_Unidad1
                 return;
             }
 
-            // vectores
+            // Validación para funciones de vectores
             if (funcionActual == "sv" || funcionActual == "mv" || funcionActual == "mayor" || funcionActual == "menor")
             {
                 try
                 {
                     string[] partes = txtValor.Text.Split(',');
+
+                    // Validar cantidad de elementos
+                    if (partes.Length > 100)
+                    {
+                        TextoInfo.Text = "Error: Máximo 100 elementos en el vector.";
+                        return;
+                    }
+
                     int[] vector = new int[partes.Length];
                     ConvertirTextoAVectorRecursivo(partes, vector, 0);
 
@@ -321,15 +371,22 @@ namespace ProgramacionIII_Unidad1
                 return;
             }
 
+            // Validación para funciones con números
             try
             {
                 long num = long.Parse(txtValor.Text);
+                int cantidadDigitos = ContarDigitos(Math.Abs(num));
 
+                // Validar según la función
                 if (funcionActual == "factorial")
                 {
-                    if (num > 20 || num < 0)
+                    if (num > 20)
                     {
-                        TextoInfo.Text = "Error: Rango permitido de 0 a 20.";
+                        TextoInfo.Text = "Error: Número máximo 20 para factorial (el resultado sería demasiado grande).";
+                    }
+                    else if (num < 0)
+                    {
+                        TextoInfo.Text = "Error: El factorial no está definido para números negativos.";
                     }
                     else
                     {
@@ -338,75 +395,144 @@ namespace ProgramacionIII_Unidad1
                 }
                 else if (funcionActual == "fib")
                 {
-                    if (num > 92 || num < 0)
+                    if (num > 92)
                     {
-                        TextoInfo.Text = "Error: Rango permitido de 0 a 92.";
+                        TextoInfo.Text = "Error: Número máximo 92 para Fibonacci (el resultado excede long).";
+                    }
+                    else if (num < 0)
+                    {
+                        TextoInfo.Text = "Error: La posición en Fibonacci no puede ser negativa.";
                     }
                     else
                     {
                         TextoInfo.Text = "Fibonacci en posición " + num + ": " + CalcularFibonacci(num);
                     }
                 }
-                else if (funcionActual == "capicua")
-                {
-                    int n = (int)num;
-                    if (n == InvertirNumero(n, 0))
-                    {
-                        TextoInfo.Text = "Resultado: Es Capicúa.";
-                    }
-                    else
-                    {
-                        TextoInfo.Text = "Resultado: No es Capicúa.";
-                    }
-                }
                 else if (funcionActual == "suma")
                 {
-                    if (num > 1000 || num < 0)
+                    if (num > 100000)
                     {
-                        TextoInfo.Text = "Error: Use un número entre 0 y 1000.";
+                        TextoInfo.Text = "Error: Use un número máximo de 100,000 para evitar desbordamiento de pila.";
+                    }
+                    else if (num < 0)
+                    {
+                        TextoInfo.Text = "Error: La suma progresiva no está definida para números negativos.";
                     }
                     else
                     {
                         TextoInfo.Text = "Suma Progresiva: " + CalcularSuma(num);
                     }
                 }
-                else if (funcionActual == "invertir")
+                else if (funcionActual == "capicua")
                 {
-                    TextoInfo.Text = "Número Invertido: " + InvertirNumero((int)num, 0);
-                }
-                else if (funcionActual == "digitos")
-                {
-                    TextoInfo.Text = "Suma de los dígitos: " + SumarDigitos((int)num);
-                }
-                else if (funcionActual == "par")
-                {
-                    if (num > 2000)
+                    // Validar cantidad de dígitos (máximo 10 dígitos para evitar desbordamiento)
+                    if (cantidadDigitos > 10)
                     {
-                        TextoInfo.Text = "Límite: Use un número menor a 2000.";
+                        TextoInfo.Text = $"Error: El número tiene {cantidadDigitos} dígitos. Máximo permitido: 10 dígitos.";
+                    }
+                    else if (num > 9999999999 || num < -9999999999)
+                    {
+                        TextoInfo.Text = "Error: Use un número entre -9,999,999,999 y 9,999,999,999.";
                     }
                     else
                     {
-                        if (EsPar((int)num))
+                        long valorAbsoluto = Math.Abs(num);
+                        long invertido = InvertirNumero(valorAbsoluto, 0);
+
+                        if (valorAbsoluto == invertido)
                         {
-                            TextoInfo.Text = "El número es: PAR";
+                            TextoInfo.Text = $"Resultado: El número {num} ES Capicúa.";
                         }
                         else
                         {
-                            TextoInfo.Text = "El número es: IMPAR";
+                            TextoInfo.Text = $"Resultado: El número {num} NO es Capicúa. (Invertido: {invertido})";
+                        }
+                    }
+                }
+                else if (funcionActual == "invertir")
+                {
+                    // Validar cantidad de dígitos (máximo 10 dígitos)
+                    if (cantidadDigitos > 10)
+                    {
+                        TextoInfo.Text = $"Error: El número tiene {cantidadDigitos} dígitos. Máximo permitido: 10 dígitos.";
+                    }
+                    else if (num > 9999999999 || num < -9999999999)
+                    {
+                        TextoInfo.Text = "Error: Use un número entre -9,999,999,999 y 9,999,999,999.";
+                    }
+                    else
+                    {
+                        long valorAbsoluto = Math.Abs(num);
+                        long invertido = InvertirNumero(valorAbsoluto, 0);
+
+                        if (num < 0)
+                        {
+                            TextoInfo.Text = $"Número Invertido: -{invertido} (dígitos: {cantidadDigitos})";
+                        }
+                        else
+                        {
+                            TextoInfo.Text = $"Número Invertido: {invertido} (dígitos: {cantidadDigitos})";
+                        }
+                    }
+                }
+                else if (funcionActual == "digitos")
+                {
+                    // Validar cantidad de dígitos (máximo 10 dígitos para rendimiento)
+                    if (cantidadDigitos > 10)
+                    {
+                        TextoInfo.Text = $"Error: El número tiene {cantidadDigitos} dígitos. Máximo permitido: 10 dígitos.";
+                    }
+                    else if (num > 9999999999 || num < -9999999999)
+                    {
+                        TextoInfo.Text = "Error: Use un número entre -9,999,999,999 y 9,999,999,999.";
+                    }
+                    else
+                    {
+                        long valorAbsoluto = Math.Abs(num);
+                        long suma = SumarDigitos(valorAbsoluto);
+                        TextoInfo.Text = $"Suma de los dígitos: {suma} (el número tiene {cantidadDigitos} dígitos)";
+                    }
+                }
+                else if (funcionActual == "par")
+                {
+                    if (Math.Abs(num) > 10000)
+                    {
+                        TextoInfo.Text = "Error: Use un número entre -10,000 y 10,000 para evitar desbordamiento de pila.";
+                    }
+                    else
+                    {
+                        bool esPar = EsPar(num);
+                        if (esPar)
+                        {
+                            TextoInfo.Text = $"El número {num} es: PAR (proceso recursivo completado)";
+                        }
+                        else
+                        {
+                            TextoInfo.Text = $"El número {num} es: IMPAR (proceso recursivo completado)";
                         }
                     }
                 }
                 else if (funcionActual == "signo")
                 {
-                    if (num >= 0)
+                    // Validar cantidad de dígitos para recursividad
+                    if (cantidadDigitos > 6)
                     {
-                        TextoInfo.Text = "El número es: POSITIVO";
+                        TextoInfo.Text = $"Error: El número tiene {cantidadDigitos} dígitos. Máximo permitido: 6 dígitos para recursividad de signo.";
+                    }
+                    else if (Math.Abs(num) > 999999)
+                    {
+                        TextoInfo.Text = "Error: Use un número entre -999,999 y 999,999 para evitar desbordamiento de pila.";
                     }
                     else
                     {
-                        TextoInfo.Text = "El número es: NEGATIVO";
+                        string signo = ObtenerSignoRecursivo(num);
+                        TextoInfo.Text = $"El número {num} es: {signo} (determinado recursivamente)";
                     }
                 }
+            }
+            catch (OverflowException)
+            {
+                TextoInfo.Text = "Error: Número demasiado grande. Use un número con máximo 10 dígitos.";
             }
             catch (Exception ex)
             {
