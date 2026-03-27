@@ -59,7 +59,7 @@ namespace ProgramacionIII_Unidad1
         {
 
 
-            this.NavigationService.Navigate(new ArbolBin());
+            this.NavigationService.Navigate(new ArbolBinario());
 
         }
 
