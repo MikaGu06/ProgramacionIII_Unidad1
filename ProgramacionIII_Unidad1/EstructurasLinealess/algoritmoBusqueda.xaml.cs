@@ -16,6 +16,7 @@ namespace ProgramacionIII_Unidad1
 
         private List<ElementoVector> vectorDinamico = new List<ElementoVector>();
         private int siguienteId = 1;
+        private Random random = new Random();
 
         public AlgoritmosDeBusqueda()
         {
@@ -86,14 +87,14 @@ namespace ProgramacionIII_Unidad1
                 if (encontrado)
                 {
                     TxtResultado.Text = "✓ Encontrado en posición " + (posicion + 1);
-                    
+
                     ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E1ECE3"));
                     TxtResultado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#262233"));
                 }
                 else
                 {
                     TxtResultado.Text = "✗ No encontrado";
-                    
+
                     ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8A4D67"));
                     TxtResultado.Foreground = Brushes.White;
                 }
@@ -114,7 +115,6 @@ namespace ProgramacionIII_Unidad1
                 {
                     if (boton != null)
                     {
-                        
                         boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E2F2"));
                         boton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#262233"));
                         boton.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#DDD8E7"));
@@ -136,7 +136,6 @@ namespace ProgramacionIII_Unidad1
 
                 if (boton != null)
                 {
-                    
                     boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7F73A1"));
                     boton.Foreground = Brushes.White;
                     boton.BorderBrush = Brushes.Transparent;
@@ -450,6 +449,20 @@ namespace ProgramacionIII_Unidad1
             catch (Exception ex)
             {
                 MostrarError("No se pudo agregar el elemento al vector.", ex);
+            }
+        }
+
+        private void BtnAgregarAleatorio_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int valor = random.Next(1, 101);
+                vectorDinamico.Add(new ElementoVector { Id = siguienteId++, Valor = valor });
+                ActualizarVector();
+            }
+            catch (Exception ex)
+            {
+                MostrarError("No se pudo agregar un elemento aleatorio al vector.", ex);
             }
         }
 
