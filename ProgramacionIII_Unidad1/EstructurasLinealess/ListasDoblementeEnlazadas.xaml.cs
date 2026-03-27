@@ -728,5 +728,9 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             ActualizarTodo();
         }
 
+        private void txtBuscar_TextChanged()
+        {
+
+        }
     }
 }
