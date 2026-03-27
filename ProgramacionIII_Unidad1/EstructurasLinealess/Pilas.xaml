@@ -191,8 +191,7 @@
         Grid.Column="1"
         Style="{StaticResource BtnPrimary}"
         Content="Generar automático"
-        Click="BtnGenerarAleatorio_Click"/>
-
+        Click="BtnGenerarAleatorio_Click" Cursor="Hand"/>
         </Grid>
 
         <!-- Fila 2: generar vector -->
