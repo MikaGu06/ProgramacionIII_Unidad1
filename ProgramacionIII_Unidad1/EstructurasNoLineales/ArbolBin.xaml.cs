@@ -778,7 +778,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         {
             if (raiz == null)
             {
-                MostrarMensaje("El arbol esta vacio.");
+                MostrarMensaje("El arbol esta vaci.");
                 return;
             }
 
