@@ -7,17 +7,30 @@
       Title="Grafos">
 
     <Page.Resources>
-        <Color x:Key="BgPage">#F4F1E8</Color>
-        <Color x:Key="Primary">#4F7A3D</Color>
-        <Color x:Key="PrimaryHover">#3F6231</Color>
-        <Color x:Key="PrimarySoft">#DDEBD3</Color>
-        <Color x:Key="TextPrimary">#2E3D28</Color>
-        <Color x:Key="TextMuted">#6C7562</Color>
-        <Color x:Key="CanvasBg">#FBFCF7</Color>
-        <Color x:Key="BorderSoft">#D8DFC9</Color>
-        <Color x:Key="Danger">#A94E40</Color>
-        <Color x:Key="Warning">#A87435</Color>
+        <!-- NO PERMITIR QUE SE COMBINEN CARACTERES CON ENTEROS EN UN MISMO ARBOL-->
+        <!-- Paleta nueva coherente con tu proyecto -->
+        <Color x:Key="BgPage">#F7F5FA</Color>
+        <!-- fondo crema/lavanda -->
+        <Color x:Key="Primary">#7F73A1</Color>
+        <!-- morado principal -->
+        <Color x:Key="PrimaryHover">#262233</Color>
+        <!-- morado oscuro -->
+        <Color x:Key="PrimarySoft">#E8E2F2</Color>
+        <!-- lavanda suave -->
+        <Color x:Key="TextPrimary">#262233</Color>
+        <!-- texto oscuro -->
+        <Color x:Key="TextMuted">#726C80</Color>
+        <!-- gris -->
+        <Color x:Key="CanvasBg">#FFFFFF</Color>
+        <!-- fondo canvas -->
+        <Color x:Key="BorderSoft">#DDD8E7</Color>
+        <!-- bordes suaves -->
+        <Color x:Key="Danger">#8A4D67</Color>
+        <!-- rojo elegante -->
+        <Color x:Key="Warning">#C9A3C8</Color>
+        <!-- rosa/lavanda -->
 
+        <!-- Brushes -->
         <SolidColorBrush x:Key="BgPageBrush" Color="{StaticResource BgPage}"/>
         <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
         <SolidColorBrush x:Key="PrimarySoftBrush" Color="{StaticResource PrimarySoft}"/>
@@ -26,14 +39,16 @@
         <SolidColorBrush x:Key="CanvasBgBrush" Color="{StaticResource CanvasBg}"/>
         <SolidColorBrush x:Key="BorderSoftBrush" Color="{StaticResource BorderSoft}"/>
 
+        <!-- Card -->
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#FBFCF7"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="18"/>
             <Setter Property="Padding" Value="18"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderSoftBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
 
+        <!-- Títulos -->
         <Style x:Key="TitleText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -58,22 +73,19 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
 
+        <!-- Inputs -->
         <Style x:Key="InputStyle" TargetType="TextBox">
             <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="Background" Value="#FBFCF7"/>
+            <Setter Property="Background" Value="#F7F5FA"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderSoftBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
-        <Style x:Key="CheckStyle" TargetType="CheckBox">
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
-            <Setter Property="Margin" Value="0,10,0,0"/>
-        </Style>
-
+        <!-- Botón principal -->
         <Style x:Key="PrimaryButton" TargetType="Button">
-            <Setter Property="Foreground" Value="#FBFCF7"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="Padding" Value="14,10"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -83,18 +95,15 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="12"
+                            Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
+                                          VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.92"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.84"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryHover}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -102,19 +111,23 @@
             </Setter>
         </Style>
 
+        <!-- Botón secundario -->
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="Background" Value="{StaticResource PrimarySoftBrush}"/>
         </Style>
 
+        <!-- Botón peligro -->
         <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
-            <Setter Property="Background" Value="#A94E40"/>
+            <Setter Property="Background" Value="{StaticResource Danger}"/>
         </Style>
 
+        <!-- Botón advertencia -->
         <Style x:Key="WarningButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
-            <Setter Property="Background" Value="#A87435"/>
+            <Setter Property="Background" Value="{StaticResource Warning}"/>
         </Style>
 
+        <!-- Botón ghost -->
         <Style x:Key="BtnGhost" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -128,13 +141,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12"
+                            Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
+                                          VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -145,6 +158,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Page.Resources>
 
     <Grid Background="{StaticResource BgPageBrush}">
