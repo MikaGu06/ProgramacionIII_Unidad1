@@ -85,13 +85,17 @@ namespace ProgramacionIII_Unidad1
 
                 if (encontrado)
                 {
-                    TxtResultado.Text = "Encontrado en posición " + posicion;
-                    ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#34D399"));
+                    TxtResultado.Text = "✓ Encontrado en posición " + (posicion + 1);
+                    
+                    ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E1ECE3"));
+                    TxtResultado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#262233"));
                 }
                 else
                 {
-                    TxtResultado.Text = "No encontrado";
-                    ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F87171"));
+                    TxtResultado.Text = "✗ No encontrado";
+                    
+                    ResultadoBadge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8A4D67"));
+                    TxtResultado.Foreground = Brushes.White;
                 }
             }
             catch (Exception ex)
@@ -110,8 +114,11 @@ namespace ProgramacionIII_Unidad1
                 {
                     if (boton != null)
                     {
-                        boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EEF2FF"));
-                        boton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#312E81"));
+                        
+                        boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E2F2"));
+                        boton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#262233"));
+                        boton.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#DDD8E7"));
+                        boton.BorderThickness = new Thickness(1);
                     }
                 }
             }
@@ -129,8 +136,10 @@ namespace ProgramacionIII_Unidad1
 
                 if (boton != null)
                 {
-                    boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5B5CEB"));
+                    
+                    boton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7F73A1"));
                     boton.Foreground = Brushes.White;
+                    boton.BorderBrush = Brushes.Transparent;
                 }
             }
             catch (Exception ex)
