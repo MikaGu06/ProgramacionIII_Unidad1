@@ -82,15 +82,29 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             Stack<char> pila = new Stack<char>();
             string salida = "";
             string numero = "";
+            char anterior = '\0';
 
             foreach (char c in infija)
             {
-                if (char.IsDigit(c) || c == '.' || c == ',')
+                // multiplicación implícita: 8(4) o (2+3)(4) o (2+3)4
+                if ((c == '(' && (char.IsDigit(anterior) || anterior == ')')) ||
+                    (char.IsDigit(c) && anterior == ')'))
                 {
-                    if (c == ',')
-                        numero += '.';
-                    else
-                        numero += c;
+                    if (numero != "")
+                    {
+                        salida += numero + " ";
+                        numero = "";
+                    }
+
+                    while (pila.Count > 0 && Prioridad(pila.Peek()) >= Prioridad('*'))
+                        salida += pila.Pop() + " ";
+
+                    pila.Push('*');
+                }
+
+                if (char.IsDigit(c))
+                {
+                    numero += c;
                 }
                 else
                 {
@@ -119,6 +133,8 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
                         pila.Push(c);
                     }
                 }
+
+                anterior = c;
             }
 
             if (numero != "")
@@ -129,6 +145,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
 
             return salida.Trim();
         }
+
 
         private int Prioridad(char op)
         {
