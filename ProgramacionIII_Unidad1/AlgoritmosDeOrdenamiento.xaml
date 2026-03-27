@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProgramacionIII_Unidad1"
       mc:Ignorable="d" 
-      d:DesignHeight="1200" d:DesignWidth="1280"
+      d:DesignHeight="1000" d:DesignWidth="1280"
       Title="AlgoritmosDeOrdenamiento">
 
     <Page.Resources>
         <Style x:Key="RoundedButton" TargetType="Button">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#5B21B6"/>
+            <Setter Property="Foreground" Value="#726C80"/>
+            <Setter Property="Background" Value="#262233"/>
             <Setter Property="Padding" Value="15,8"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -25,7 +25,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#4C1D95"/>
+                                <Setter TargetName="Border" Property="Background" Value="#262233"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -36,7 +36,7 @@
         <Style x:Key="AlgButton" TargetType="Button">
             <Setter Property="Foreground" Value="#1E1B4B"/>
             <Setter Property="Background" Value="#EEF2FF"/>
-            <Setter Property="BorderBrush" Value="#C7D2FE"/>
+            <Setter Property="BorderBrush" Value="#DDD8E7"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="Margin" Value="5"/>
@@ -52,7 +52,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border" Property="Background" Value="#E0E7FF"/>
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#818CF8"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#7F73A1"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -63,8 +63,8 @@
         <Style x:Key="RoundedTextBox" TargetType="TextBox">
             <Setter Property="Padding" Value="10"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="#F8FAFC"/>
-            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="Background" Value="#F7F5FA"/>
+            <Setter Property="BorderBrush" Value="#DDD8E7"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -75,6 +75,22 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="TextBlockDarkColor" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#262233"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="18"/>
+
+
+        </Style>
+
+        <Style x:Key="TextBlockLightColor" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#726C80"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="18"/>
+
+
         </Style>
     </Page.Resources>
     
@@ -89,14 +105,14 @@
             <!--titulo-->
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
                 <Button x:Name="BtnVolver"
-                        Content="←" FontSize="20" Background="White" Foreground="#6D28D9" 
+                        Content="←" FontSize="20" Background="White" Foreground="#8A4D67" 
                         Width="45" Height="45" VerticalAlignment="Top" Style="{StaticResource RoundedButton}" Click="BtnVolver_Click"/>
 
                 <StackPanel Margin="20,0,0,0">
                     <TextBlock Text="Algoritmos de Ordenamiento" 
                                FontSize="36" 
                                FontWeight="Bold" 
-                               Foreground="#6D28D9"/>
+                               Foreground="#726C80"/>
                     <TextBlock Text="Visualiza y compara diferentes algoritmos de ordenamiento"
                                FontSize="16" 
                                Foreground="#475569" 
@@ -111,8 +127,8 @@
                 </Border.Effect>
 
                 <StackPanel>
-                    <TextBlock Text="Configuración del Arreglo" FontSize="18" FontWeight="Bold" Foreground="#1E293B"/>
-                    <TextBlock Text="Genera números aleatorios o agrega tus propios elementos" FontSize="14" Foreground="#64748B" Margin="0,5,0,20"/>
+                    <TextBlock Text="Configuración del Arreglo" FontSize="24" FontWeight="Bold" Style="{StaticResource TextBlockDarkColor}"/>
+                    <TextBlock Text="Genera números aleatorios o agrega tus propios elementos" FontSize="14" Style="{StaticResource TextBlockLightColor}" Margin="0,5,0,20"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -126,16 +142,14 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tamaño del arreglo" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,5"/>
-                        <TextBox x:Name="TxtBxSizeArreglo" Grid.Row="1" Grid.Column="0" Text="10" Style="{StaticResource RoundedTextBox}" Margin="0,0,20,15"/>
-                        <Button x:Name="BtnGenerar" Click="BtnGenerar_Click" Grid.Row="1" Grid.Column="1" Content="🔀 Generar números" Style="{StaticResource RoundedButton}" Margin="0,0,0,15"/>
+                     
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Agregar elemento" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,5"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Agregar elemento" Style="{StaticResource TextBlockDarkColor}" Margin="0,0,0,5"/>
                         <TextBox x:Name="TxtBxIngresarVector" Grid.Row="3" Grid.Column="0" Tag="Ingresa un número" Style="{StaticResource RoundedTextBox}" Margin="0,0,20,0"/>
-                        <Button x:Name="BtnAgregar" Click="BtnAgregar_Click" Grid.Row="3" Grid.Column="1" Content="+ Agregar" Background="#A78BFA" Style="{StaticResource RoundedButton}"/>
+                        <Button x:Name="BtnAgregar" Click="BtnAgregar_Click" Grid.Row="3" Grid.Column="1" Content="+ Agregar" Background="#7F73A1" Foreground="White" Style="{StaticResource RoundedButton}"/>
                     </Grid>
 
-                    <TextBlock Text="Vector original" FontWeight="Bold" Foreground="#1E293B" Margin="0,30,0,10"/>
+                    <TextBlock Text="Vector original" Style="{StaticResource TextBlockDarkColor}" Margin="0,30,0,10"/>
                     <Border Background="#EEF2FF" BorderBrush="#C7D2FE" BorderThickness="1" CornerRadius="8" Padding="15" MinHeight="80">
                         <ItemsControl x:Name="ICVectorOriginal">
                             <ItemsControl.ItemsPanel>
@@ -145,7 +159,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Background="White" BorderBrush="#60A5FA" BorderThickness="2" CornerRadius="5" Padding="12,8" Margin="5">
+                                    <Border Background="White" BorderBrush="#DDD8E7" BorderThickness="2" CornerRadius="5" Padding="12,8" Margin="5">
                                         <TextBlock Text="{Binding}" FontWeight="Bold" Foreground="#1D4ED8" FontSize="16"/>
                                     </Border>
                                 </DataTemplate>
@@ -153,32 +167,32 @@
                         </ItemsControl>
                     </Border>
 
-                    <TextBlock Text="Tipo de ordenamiento" FontWeight="Bold" Foreground="#1E293B" Margin="0,30,0,10"/>
+                    <TextBlock Text="Tipo de ordenamiento" Style="{StaticResource TextBlockDarkColor}" Margin="0,30,0,10"/>
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton x:Name="radBtnAsc" Content="↑ Ascendente (menor a mayor)" IsChecked="True" FontWeight="SemiBold" Margin="0,0,30,0" Foreground="#334155"/>
-                        <RadioButton x:Name="radBtnDes" Content="↓ Descendente (mayor a menor)" FontWeight="SemiBold" Foreground="#334155"/>
+                        <RadioButton x:Name="radBtnAsc" Content="↑ Ascendente (menor a mayor)" IsChecked="True" FontWeight="SemiBold" Margin="0,0,30,0" Foreground="#334155" FontSize="16"/>
+                        <RadioButton x:Name="radBtnDes" Content="↓ Descendente (mayor a menor)" FontWeight="SemiBold" Foreground="#334155" FontSize="16"/>
                     </StackPanel>
 
-                    <TextBlock Text="Elegir algoritmo" FontWeight="Bold" Foreground="#1E293B" Margin="0,30,0,10"/>
+                    <TextBlock Text="Elegir algoritmo" Style="{StaticResource TextBlockDarkColor}" Margin="0,30,0,10"/>
 
                     <UniformGrid Columns="5" Rows="2">
                         <Button x:Name="BtnSeleccion" Click="BtnSeleccion_Click" Content="Selección" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnInsercion" Content="Inserción" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnIntercambio" Content="Intercambio" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnBurbuja" Content="Burbuja" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnQuickSort" Content="Quick Sort" Style="{StaticResource AlgButton}"/>
+                        <Button x:Name="BtnInsercion" Content="Inserción" Style="{StaticResource AlgButton}" Click="BtnInsercion_Click"/>
+                        <Button x:Name="BtnIntercambio" Content="Intercambio" Style="{StaticResource AlgButton}" Click="BtnIntercambio_Click"/>
+                        <Button x:Name="BtnBurbuja" Content="Burbuja" Style="{StaticResource AlgButton}" Click="BtnBurbuja_Click"/>
+                        <Button x:Name="BtnQuickSort" Content="Quick Sort" Style="{StaticResource AlgButton}" Click="BtnQuickSort_Click"/>
 
-                        <Button x:Name="BtnMergeSort" Content="Merge Sort" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnRadixSort" Content="Radix Sort" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnBucketSort" Content="Bucket Sort" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnShell" Content="Shell" Style="{StaticResource AlgButton}"/>
-                        <Button x:Name="BtnMonticulo" Content="Montículo" Style="{StaticResource AlgButton}"/>
+                        <Button x:Name="BtnMergeSort" Content="Merge Sort" Style="{StaticResource AlgButton}" Click="BtnMergeSort_Click"/>
+                        <Button x:Name="BtnRadixSort" Content="Radix Sort" Style="{StaticResource AlgButton}" Click="BtnRadixSort_Click"/>
+                        <Button x:Name="BtnBucketSort" Content="Bucket Sort" Style="{StaticResource AlgButton}" Click="BtnBucketSort_Click"/>
+                        <Button x:Name="BtnShell" Content="Shell" Style="{StaticResource AlgButton}" Click="BtnShell_Click"/>
+                        <Button x:Name="BtnMonticulo" Content="Montículo" Style="{StaticResource AlgButton}" Click="BtnMonticulo_Click"/>
                     </UniformGrid>
 
                     <StackPanel x:Name="PanelResultado" Visibility="Visible">
                         <Separator Margin="0,30,0,20" Background="#E2E8F0"/>
-                        <TextBlock Text="Vector ordenado" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,10"/>
-                        <Border Background="#F0FDF4" BorderBrush="#BBF7D0" BorderThickness="1" CornerRadius="8" Padding="15" MinHeight="80">
+                        <TextBlock Text="Vector ordenado" Style="{StaticResource TextBlockDarkColor}" Margin="0,0,0,10"/>
+                        <Border Background="#F0FDF4" BorderBrush="#E1ECE3" BorderThickness="1" CornerRadius="8" Padding="15" MinHeight="80">
                             <ItemsControl x:Name="ICVectorOrdenado">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -187,7 +201,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Background="White" BorderBrush="#22C55E" BorderThickness="2" CornerRadius="5" Padding="12,8" Margin="5">
+                                        <Border Background="White" BorderBrush="#E1ECE3" BorderThickness="2" CornerRadius="5" Padding="12,8" Margin="5">
                                             <TextBlock Text="{Binding}" FontWeight="Bold" Foreground="#15803D" FontSize="16"/>
                                         </Border>
                                     </DataTemplate>
