@@ -332,7 +332,40 @@
                             <Button x:Name="BtnNodoRaiz"
                                     Content="Ver nodo raiz"
                                     Click="BtnNodoRaiz_Click"
-                                    Style="{StaticResource PrimaryButton}"/>
+                                    Style="{StaticResource PrimaryButton}"
+                                    Margin="0,0,0,10"/>
+
+                            <Separator Margin="0,6,0,14"/>
+
+                            <TextBlock Text="Busqueda del arbol"
+                                       Style="{StaticResource SectionTitle}"/>
+
+                            <Button x:Name="BtnEncontrarMinimo"
+                                    Content="Buscar minimo"
+                                    Click="BtnEncontrarMinimo_Click"
+                                    Style="{StaticResource SecondaryButton}"
+                                    Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Resultado minimo"
+                                       Style="{StaticResource LabelText}"/>
+                            <TextBox x:Name="TxtMinimo"
+                                     Text=""
+                                     IsReadOnly="True"
+                                     Style="{StaticResource InputStyle}"
+                                     Margin="0,0,0,10"/>
+
+                            <Button x:Name="BtnEncontrarMaximo"
+                                    Content="Buscar maximo"
+                                    Click="BtnEncontrarMaximo_Click"
+                                    Style="{StaticResource SecondaryButton}"
+                                    Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Resultado maximo"
+                                       Style="{StaticResource LabelText}"/>
+                            <TextBox x:Name="TxtMaximo"
+                                     Text=""
+                                     IsReadOnly="True"
+                                     Style="{StaticResource InputStyle}"/>
                         </StackPanel>
                     </Border>
 

@@ -305,6 +305,61 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             return EsPerfectoRec(nodo.Izquierda, nivel + 1, profundidad) &&
                    EsPerfectoRec(nodo.Derecha, nivel + 1, profundidad);
         }
+
+        /// <summary>
+        /// Recolecta todos los valores del árbol en una lista usando recorrido inorden.
+        /// </summary>
+        private void RecolectarValores(Nodo nodo, List<string> valores)
+        {
+            if (nodo == null) return;
+            RecolectarValores(nodo.Izquierda, valores);
+            valores.Add(nodo.Valor);
+            RecolectarValores(nodo.Derecha, valores);
+        }
+
+        /// <summary>
+        /// Búsqueda lineal sin centinela adaptada del proyecto para encontrar el índice del mínimo.
+        /// </summary>
+        private int BuscarIndiceMinimo(List<string> valores)
+        {
+            if (valores == null || valores.Count == 0) return -1;
+
+            int indiceMinimo = 0;
+            int i = 1;
+
+            while (i < valores.Count)
+            {
+                if (CompararValores(valores[i], valores[indiceMinimo]) < 0)
+                {
+                    indiceMinimo = i;
+                }
+                i++;
+            }
+
+            return indiceMinimo;
+        }
+
+        /// <summary>
+        /// Búsqueda lineal sin centinela adaptada del proyecto para encontrar el índice del máximo.
+        /// </summary>
+        private int BuscarIndiceMaximo(List<string> valores)
+        {
+            if (valores == null || valores.Count == 0) return -1;
+
+            int indiceMaximo = 0;
+            int i = 1;
+
+            while (i < valores.Count)
+            {
+                if (CompararValores(valores[i], valores[indiceMaximo]) > 0)
+                {
+                    indiceMaximo = i;
+                }
+                i++;
+            }
+
+            return indiceMaximo;
+        }
         #endregion
 
         // ──────────────────────────────────────────────
@@ -497,6 +552,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private void MostrarMensaje(string mensaje)
         {
             txtResultado.Text = mensaje;
+            TxtEstado.Text = mensaje;
         }
         #endregion
 
@@ -568,6 +624,8 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             canvas.Children.Clear();
             TxtEsCompleto.Text = "Verificar";
             TxtEsPerfecto.Text = "Verificar";
+            TxtMinimo.Text = "Verificar";
+            TxtMaximo.Text = "Verificar";
             ActualizarVistaCompleta();
             MostrarMensaje("Arbol reiniciado correctamente.");
             LimpiarEntradas();
@@ -695,6 +753,44 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             MostrarMensaje(raiz == null
                 ? "El arbol esta vacio."
                 : "Nodo raiz: " + raiz.Valor);
+        }
+
+        private void BtnEncontrarMinimo_Click(object sender, RoutedEventArgs e)
+        {
+            if (raiz == null)
+            {
+                MostrarMensaje("El arbol esta vacio.");
+                return;
+            }
+
+            List<string> valores = new List<string>();
+            RecolectarValores(raiz, valores);
+            int indiceMinimo = BuscarIndiceMinimo(valores);
+
+            if (indiceMinimo >= 0)
+            {
+                TxtMinimo.Text = valores[indiceMinimo];
+                MostrarMensaje("Minimo encontrado con busqueda lineal: " + valores[indiceMinimo]);
+            }
+        }
+
+        private void BtnEncontrarMaximo_Click(object sender, RoutedEventArgs e)
+        {
+            if (raiz == null)
+            {
+                MostrarMensaje("El arbol esta vacio.");
+                return;
+            }
+
+            List<string> valores = new List<string>();
+            RecolectarValores(raiz, valores);
+            int indiceMaximo = BuscarIndiceMaximo(valores);
+
+            if (indiceMaximo >= 0)
+            {
+                TxtMaximo.Text = valores[indiceMaximo];
+                MostrarMensaje("Maximo encontrado con busqueda lineal: " + valores[indiceMaximo]);
+            }
         }
         #endregion
     }
