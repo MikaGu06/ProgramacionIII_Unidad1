@@ -8,43 +8,139 @@
       Title="AlgoritmosDeBusqueda">
 
     <Page.Resources>
-        <Style x:Key="RoundedButton" TargetType="Button">
+        <!-- Paleta nueva igual al UserControl -->
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#262233"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
+
+        <SolidColorBrush x:Key="PrimarioSuave" Color="#9B8DBE"/>
+        <SolidColorBrush x:Key="FondoLavanda" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="White"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
+
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
+
+        <!-- Estilo de botón primario -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#5B21B6"/>
-            <Setter Property="Padding" Value="14,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="10" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Opacity" Value="0.92"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Border" Property="Opacity" Value="0.82"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1.01" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1.01" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
-        <Style x:Key="RoundedTextBox" TargetType="TextBox">
-            <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="#F8FAFC"/>
-            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+        <!-- Botón secundario para algoritmos -->
+        <Style x:Key="BtnSecondary" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="{StaticResource FondoLavanda}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimarioSuave}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Botón de volver (botón redondeado sin escala) -->
+        <Style x:Key="BtnBack" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorPrimario}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource FondoLavanda}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para TextBox -->
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource InputColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
                             <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
@@ -52,16 +148,17 @@
             </Setter>
         </Style>
 
-        <Style x:Key="SearchButtonStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="#312E81"/>
-            <Setter Property="Background" Value="#EEF2FF"/>
-            <Setter Property="BorderBrush" Value="#D8DDF8"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Margin" Value="0,0,10,10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+        <!-- Estilo para items del vector -->
+        <Style x:Key="VectorItemStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimarioSuave}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="4"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorPrimario}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -69,18 +166,32 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="10"
+                                CornerRadius="8"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#E5E7FF"/>
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource FondoLavanda}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Estilo para badge de complejidad -->
+        <Style x:Key="ComplejidadBadgeStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource FondoLavanda}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,4"/>
+        </Style>
+
+        <!-- Estilo para badge de resultado -->
+        <Style x:Key="ResultadoBadgeStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource ColorAlerta}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,4"/>
         </Style>
     </Page.Resources>
 
@@ -91,50 +202,79 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Encabezado -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,22">
                 <Button x:Name="BtnVolver"
                         Content="←"
-                        Width="42"
-                        Height="42"
-                        Background="White"
-                        Foreground="#6D28D9"
-                        Style="{StaticResource RoundedButton}"
+                        Style="{StaticResource BtnBack}"
                         Click="BtnVolver_Click"/>
 
                 <StackPanel Margin="18,0,0,0">
                     <TextBlock Text="Algoritmos de Búsqueda"
                                FontSize="36"
-                               FontWeight="Bold"
-                               Foreground="#7E22CE"/>
+                               FontFamily="Segoe UI Semibold"
+                               Foreground="{StaticResource TextoOscuro}"/>
                     <TextBlock Text="Encuentra elementos usando diferentes estrategias de búsqueda"
-                               FontSize="15"
-                               Foreground="#64748B"
-                               Margin="0,4,0,0"/>
+                               FontSize="16"
+                               Foreground="{StaticResource TextoClaro}"
+                               Margin="0,6,0,0"/>
                 </StackPanel>
             </StackPanel>
 
-            <Border Grid.Row="1" Background="White" CornerRadius="18" Padding="28">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.12"/>
-                </Border.Effect>
+            <!-- Card principal -->
+            <Border Grid.Row="1" 
+                    Background="{StaticResource Card}" 
+                    CornerRadius="16" 
+                    Padding="28"
+                    BorderBrush="{StaticResource BordesSuaves}"
+                    BorderThickness="1.5">
 
                 <StackPanel>
-                    <TextBlock Text="Configuración del Arreglo" FontSize="18" FontWeight="Bold" Foreground="#1F2937"/>
-                    <TextBlock Text="Agrega tus propios elementos al vector" FontSize="14" Foreground="#64748B" Margin="0,5,0,18"/>
+                    <TextBlock Text="Configuración del Arreglo" 
+                               FontSize="15" 
+                               FontFamily="Segoe UI Semibold" 
+                               Foreground="{StaticResource TextoOscuro}"/>
+                    <TextBlock Text="Agrega tus propios elementos al vector" 
+                               FontSize="14" 
+                               Foreground="{StaticResource TextoClaro}" 
+                               Margin="0,4,0,18"/>
 
+                    <!-- Agregar elemento -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="Agregar elemento" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,6"/>
-                        <TextBox x:Name="TxtElemento" Grid.Row="1" Grid.Column="0" Style="{StaticResource RoundedTextBox}" Margin="0,0,18,0"/>
-                        <Button x:Name="BtnAgregar" Grid.Row="1" Grid.Column="1" Content="＋ Agregar" Background="#A78BFA" Style="{StaticResource RoundedButton}" Click="BtnAgregar_Click"/>
+                        <TextBlock Grid.Row="0" 
+                                   Text="Agregar elemento" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource TextoClaro}" 
+                                   Margin="0,0,0,6"/>
+                        <TextBox x:Name="TxtElemento" 
+                                 Grid.Row="1" 
+                                 Grid.Column="0" 
+                                 Style="{StaticResource InputStyle}" 
+                                 Margin="0,0,18,0"/>
+                        <Button x:Name="BtnAgregar" 
+                                Grid.Row="1" 
+                                Grid.Column="1" 
+                                Content="＋ Agregar" 
+                                Style="{StaticResource BtnPrimary}" 
+                                Click="BtnAgregar_Click"/>
                     </Grid>
 
-                    <TextBlock Text="Vector" FontWeight="Bold" Foreground="#1E293B" Margin="0,28,0,10"/>
-                    <Border Background="#EEF2FF" BorderBrush="#CDD6FE" BorderThickness="1" CornerRadius="10" Padding="12" MinHeight="78">
+                    <!-- Vector -->
+                    <TextBlock Text="Vector" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextoOscuro}" 
+                               Margin="0,28,0,10"/>
+                    <Border Background="{StaticResource InputColor}" 
+                            BorderBrush="{StaticResource BordesSuaves}" 
+                            BorderThickness="1" 
+                            CornerRadius="12" 
+                            Padding="12" 
+                            MinHeight="78">
                         <ItemsControl x:Name="ICVector">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -145,66 +285,74 @@
                                 <DataTemplate>
                                     <Button Click="BtnEliminarElemento_Click"
                                             Tag="{Binding}"
-                                            Background="White"
-                                            BorderBrush="#D8B4FE"
-                                            BorderThickness="2"
-                                            Padding="14,10"
-                                            Margin="4"
-                                            Cursor="Hand">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="Border"
-                                                        Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="8"
-                                                        Padding="{TemplateBinding Padding}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="Border" Property="Background" Value="#F5F3FF"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Valor}" Foreground="#9333EA" FontWeight="Bold" FontSize="16"/>
-                                        </StackPanel>
+                                            Style="{StaticResource VectorItemStyle}">
+                                        <TextBlock Text="{Binding Valor}" 
+                                                   Foreground="{StaticResource ColorPrimario}" 
+                                                   FontWeight="Bold" 
+                                                   FontSize="16"/>
                                     </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Border>
 
-                    <TextBlock Text="Valor a buscar" FontWeight="Bold" Foreground="#1E293B" Margin="0,22,0,8"/>
-                    <TextBox x:Name="TxtBuscar" Style="{StaticResource RoundedTextBox}"/>
+                    <!-- Valor a buscar -->
+                    <TextBlock Text="Valor a buscar" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextoOscuro}" 
+                               Margin="0,22,0,8"/>
+                    <TextBox x:Name="TxtBuscar" Style="{StaticResource InputStyle}"/>
 
-                    <TextBlock Text="Elegir algoritmo de búsqueda" FontWeight="Bold" Foreground="#1E293B" Margin="0,22,0,10"/>
-                    <UniformGrid Columns="3" Rows="2">
-                        <Button x:Name="BtnLineal" Content="Búsqueda Lineal" Style="{StaticResource SearchButtonStyle}" Click="BtnLineal_Click"/>
-                        <Button x:Name="BtnCentinela" Content="Lineal con Centinela" Style="{StaticResource SearchButtonStyle}" Click="BtnCentinela_Click"/>
-                        <Button x:Name="BtnBinaria" Content="Búsqueda Binaria" Style="{StaticResource SearchButtonStyle}" Click="BtnBinaria_Click"/>
-                        <Button x:Name="BtnIndexada" Content="Búsqueda Indexada" Style="{StaticResource SearchButtonStyle}" Click="BtnIndexada_Click"/>
-                        <Button x:Name="BtnHashing" Content="Hashing" Style="{StaticResource SearchButtonStyle}" Click="BtnHashing_Click"/>
+                    <!-- Algoritmos -->
+                    <TextBlock Text="Elegir algoritmo de búsqueda" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextoOscuro}" 
+                               Margin="0,22,0,12"/>
+                    <UniformGrid Columns="3" Rows="2" Margin="0,0,0,8">
+                        <Button x:Name="BtnLineal" Content="Búsqueda Lineal" Style="{StaticResource BtnSecondary}" Click="BtnLineal_Click"/>
+                        <Button x:Name="BtnCentinela" Content="Lineal con Centinela" Style="{StaticResource BtnSecondary}" Click="BtnCentinela_Click"/>
+                        <Button x:Name="BtnBinaria" Content="Búsqueda Binaria" Style="{StaticResource BtnSecondary}" Click="BtnBinaria_Click"/>
+                        <Button x:Name="BtnIndexada" Content="Búsqueda Indexada" Style="{StaticResource BtnSecondary}" Click="BtnIndexada_Click"/>
+                        <Button x:Name="BtnHashing" Content="Hashing" Style="{StaticResource BtnSecondary}" Click="BtnHashing_Click"/>
                         <Border Background="Transparent"/>
                     </UniformGrid>
 
-                    <Border Background="#FFF7FB" BorderBrush="#F3D3E8" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,16,0,0">
+                    <!-- Resultados -->
+                    <Border Background="{StaticResource InputColor}" 
+                            BorderBrush="{StaticResource BordesSuaves}" 
+                            BorderThickness="1" 
+                            CornerRadius="12" 
+                            Padding="16" 
+                            Margin="0,16,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,0,0,8">
-                                <TextBlock Text="Complejidad:" FontWeight="Bold" Foreground="#374151" VerticalAlignment="Center"/>
-                                <Border Background="#C7D2FE" CornerRadius="8" Margin="10,0,0,0" Padding="10,4">
-                                    <TextBlock x:Name="TxtComplejidad" Text="-" Foreground="#4338CA" FontWeight="Bold"/>
+                                <TextBlock Text="Complejidad:" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextoClaro}" 
+                                           VerticalAlignment="Center"/>
+                                <Border Style="{StaticResource ComplejidadBadgeStyle}" Margin="10,0,0,0">
+                                    <TextBlock x:Name="TxtComplejidad" 
+                                               Text="-" 
+                                               Foreground="{StaticResource TextoOscuro}" 
+                                               FontWeight="SemiBold"/>
                                 </Border>
                             </WrapPanel>
                             <WrapPanel>
-                                <TextBlock Text="Resultado:" FontWeight="Bold" Foreground="#374151" VerticalAlignment="Center"/>
-                                <Border x:Name="ResultadoBadge" Background="#FCA5A5" CornerRadius="8" Margin="10,0,0,0" Padding="10,4">
-                                    <TextBlock x:Name="TxtResultado" Text="Aún no ejecutado" Foreground="White" FontWeight="Bold"/>
+                                <TextBlock Text="Resultado:" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextoClaro}" 
+                                           VerticalAlignment="Center"/>
+                                <Border x:Name="ResultadoBadge" Style="{StaticResource ResultadoBadgeStyle}" Margin="10,0,0,0">
+                                    <TextBlock x:Name="TxtResultado" 
+                                               Text="Aún no ejecutado" 
+                                               Foreground="White" 
+                                               FontWeight="SemiBold"/>
                                 </Border>
                             </WrapPanel>
-                            <TextBlock x:Name="TxtDetalle" Margin="0,12,0,0" Foreground="#64748B" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="TxtDetalle" 
+                                       Margin="0,12,0,0" 
+                                       Foreground="{StaticResource TextoClaro}" 
+                                       TextWrapping="Wrap"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
