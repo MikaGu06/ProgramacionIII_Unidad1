@@ -793,5 +793,11 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             }
         }
         #endregion
+
+
+        private void RegresarInicio_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new Inicio());
+        }
     }
 }

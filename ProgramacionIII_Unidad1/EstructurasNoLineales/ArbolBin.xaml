@@ -6,66 +6,201 @@
              mc:Ignorable="d"
              d:DesignHeight="920"
              d:DesignWidth="1280"
-             Background="#F6F7FB">
+             Background="#E8E2F2">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="BgPage"        Color="#F6F7FB"/>
-        <SolidColorBrush x:Key="BgCard"        Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="BgSoft"        Color="#F1F3FA"/>
-        <SolidColorBrush x:Key="Primary"       Color="#5B5BD6"/>
-        <SolidColorBrush x:Key="PrimaryHover"  Color="#4848B8"/>
-        <SolidColorBrush x:Key="PrimarySoft"   Color="#ECECFF"/>
-        <SolidColorBrush x:Key="Danger"        Color="#D94F70"/>
-        <SolidColorBrush x:Key="DangerHover"   Color="#BF3C5C"/>
-        <SolidColorBrush x:Key="SuccessSoft"   Color="#EAF8EF"/>
-        <SolidColorBrush x:Key="WarningSoft"   Color="#FFF4E8"/>
-        <SolidColorBrush x:Key="BorderSoft"    Color="#E3E7F0"/>
-        <SolidColorBrush x:Key="TextPrimary"   Color="#1F2430"/>
-        <SolidColorBrush x:Key="TextSecondary" Color="#667085"/>
-        <SolidColorBrush x:Key="CanvasBg"      Color="#FCFCFE"/>
+        <!-- Paleta del segundo UserControl -->
+        <SolidColorBrush x:Key="ColorPrimario" Color="#7F73A1"/>
+        <SolidColorBrush x:Key="ColorPrimarioHover" Color="#262233"/>
+        <SolidColorBrush x:Key="ColorAlerta" Color="#8A4D67"/>
 
-        <DropShadowEffect x:Key="CardShadow"
-                          Color="#15000000" BlurRadius="18"
-                          ShadowDepth="2"  Opacity="0.18"/>
+        <SolidColorBrush x:Key="PrimarioSuave" Color="#9B8DBE"/>
+        <SolidColorBrush x:Key="FondoLavanda" Color="#E8E2F2"/>
+        <SolidColorBrush x:Key="Card" Color="White"/>
+        <SolidColorBrush x:Key="InputColor" Color="#F7F5FA"/>
+        <SolidColorBrush x:Key="BordesSuaves" Color="#DDD8E7"/>
 
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background"       Value="{StaticResource BgCard}"/>
-            <Setter Property="CornerRadius"     Value="18"/>
-            <Setter Property="Padding"          Value="18"/>
-            <Setter Property="BorderBrush"      Value="{StaticResource BorderSoft}"/>
-            <Setter Property="BorderThickness"  Value="1"/>
-            <Setter Property="Effect"           Value="{StaticResource CardShadow}"/>
+        <SolidColorBrush x:Key="TextoOscuro" Color="#262233"/>
+        <SolidColorBrush x:Key="TextoClaro" Color="#726C80"/>
+
+        <SolidColorBrush x:Key="AcentoRosa" Color="#C9A3C8"/>
+        <SolidColorBrush x:Key="AcentoVerde" Color="#E1ECE3"/>
+        <SolidColorBrush x:Key="WarningSoft" Color="#FFF4E8"/>
+        <SolidColorBrush x:Key="SuccessSoft" Color="#E1ECE3"/>
+        <SolidColorBrush x:Key="BgSoft" Color="#F7F5FA"/>
+
+        <Style x:Key="BtnGhost" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="12"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource BgSoft}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                         To="1.08" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                         To="1.08" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                         To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                         To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
+        <!-- Estilo de botón primario con efecto hover y escala -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="MinHeight" Value="42"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimarioHover}"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1.08" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1.08" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Botón secundario basado en primario -->
+        <Style x:Key="BtnSecondary" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="Background" Value="{StaticResource PrimarioSuave}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Botón de peligro -->
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="{StaticResource ColorAlerta}"/>
+        </Style>
+
+        <!-- Estilo de tarjeta -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Card}"/>
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Padding" Value="18"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+        </Style>
+
+        <!-- Estilo de texto de título -->
         <Style x:Key="TitleText" TargetType="TextBlock">
-            <Setter Property="Foreground"  Value="{StaticResource TextPrimary}"/>
-            <Setter Property="FontFamily"  Value="Segoe UI Semibold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
         </Style>
 
         <Style x:Key="SectionTitle" TargetType="TextBlock" BasedOn="{StaticResource TitleText}">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin"   Value="0,0,0,14"/>
+            <Setter Property="Margin" Value="0,0,0,14"/>
         </Style>
 
         <Style x:Key="CaptionText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
-            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoClaro}"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
 
         <Style x:Key="LabelText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
-            <Setter Property="FontSize"   Value="12"/>
-            <Setter Property="Margin"     Value="0,0,0,6"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoClaro}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
         </Style>
 
+        <!-- Estilo de input -->
         <Style x:Key="InputStyle" TargetType="TextBox">
-            <Setter Property="Background"               Value="#FAFBFF"/>
-            <Setter Property="BorderBrush"              Value="{StaticResource BorderSoft}"/>
-            <Setter Property="BorderThickness"          Value="1.2"/>
-            <Setter Property="Foreground"               Value="{StaticResource TextPrimary}"/>
-            <Setter Property="FontSize"                 Value="14"/>
-            <Setter Property="Padding"                  Value="12,9"/>
-            <Setter Property="MinHeight"                Value="42"/>
+            <Setter Property="Background" Value="{StaticResource InputColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
+            <Setter Property="BorderThickness" Value="1.2"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,9"/>
+            <Setter Property="MinHeight" Value="42"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -79,7 +214,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Primary}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource ColorPrimario}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Bd" Property="Opacity" Value="0.7"/>
@@ -91,72 +226,85 @@
         </Style>
 
         <Style x:Key="ComboStyle" TargetType="ComboBox">
-            <Setter Property="Background"      Value="#FAFBFF"/>
-            <Setter Property="BorderBrush"     Value="{StaticResource BorderSoft}"/>
+            <Setter Property="Background" Value="{StaticResource InputColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordesSuaves}"/>
             <Setter Property="BorderThickness" Value="1.2"/>
-            <Setter Property="Foreground"      Value="{StaticResource TextPrimary}"/>
-            <Setter Property="FontSize"        Value="14"/>
-            <Setter Property="MinHeight"       Value="42"/>
-            <Setter Property="Padding"         Value="10,6"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="42"/>
+            <Setter Property="Padding" Value="10,6"/>
         </Style>
 
         <Style x:Key="RadioStyle" TargetType="RadioButton">
-            <Setter Property="Foreground"        Value="{StaticResource TextPrimary}"/>
-            <Setter Property="FontSize"          Value="13"/>
-            <Setter Property="Margin"            Value="0,0,14,0"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoOscuro}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,14,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <Style x:Key="PrimaryButton" TargetType="Button">
-            <Setter Property="Foreground"  Value="White"/>
-            <Setter Property="Background"  Value="{StaticResource Primary}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Padding"     Value="16,10"/>
-            <Setter Property="MinHeight"   Value="42"/>
-            <Setter Property="FontSize"    Value="13"/>
-            <Setter Property="FontFamily"  Value="Segoe UI Semibold"/>
-            <Setter Property="Cursor"      Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bd"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryHover}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.88"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.50"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
-            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
-            <Setter Property="Background" Value="{StaticResource PrimarySoft}"/>
-        </Style>
-
-        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
-            <Setter Property="Background" Value="{StaticResource Danger}"/>
         </Style>
 
         <Style x:Key="MetricCard" TargetType="Border" BasedOn="{StaticResource CardStyle}">
             <Setter Property="Padding" Value="16,14"/>
-            <Setter Property="Margin"  Value="0,0,12,0"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
         </Style>
+
+        <!-- Estilo para botones informativos -->
+        <Style x:Key="InfoButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="16"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1.04" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1.04" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          Color="#15000000" BlurRadius="18"
+                          ShadowDepth="2" Opacity="0.18"/>
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource BgPage}">
+    <Grid Background="{StaticResource FondoLavanda}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -164,9 +312,9 @@
 
         <!-- ══ ENCABEZADO ══ -->
         <Border Grid.Row="0"
-                Background="#FFFFFF"
-                BorderBrush="{StaticResource BorderSoft}"
-                BorderThickness="0,0,0,1"
+                Background="{StaticResource Card}"
+                BorderBrush="{StaticResource BordesSuaves}"
+                BorderThickness="0,0,0,1.5"
                 Padding="28,20">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -174,25 +322,33 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
-                    <TextBlock Text="Arbol Binario"
-                               Style="{StaticResource TitleText}"
-                               FontSize="28"/>
-                    <TextBlock Text="Construye, visualiza, recorre y analiza el arbol. El canvas se expande automaticamente para mostrar todos los nodos."
-                               Style="{StaticResource CaptionText}"
-                               Margin="0,6,0,0"
-                               TextWrapping="Wrap"/>
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="RegresarInicio" 
+                            Style="{StaticResource BtnGhost}" Width="42" Margin="0,0,18,0" Click="RegresarInicio_Click">
+                        <TextBlock Text="←" FontSize="20"/>
+                    </Button>
+
+                    <StackPanel>
+                        <TextBlock Text="Árbol Binario"
+                                   Style="{StaticResource TitleText}"
+                                   FontSize="28"/>
+                        <TextBlock Text="Construye, visualiza, recorre y analiza el árbol. El canvas se expande automáticamente para mostrar todos los nodos."
+                                   Style="{StaticResource CaptionText}"
+                                   Margin="0,6,0,0"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <Border Grid.Column="1"
-                        Background="{StaticResource PrimarySoft}"
+                        Background="{StaticResource PrimarioSuave}"
                         CornerRadius="14" Padding="14,10">
                     <StackPanel>
                         <TextBlock Text="Modo actual"
                                    Style="{StaticResource CaptionText}"
+                                   Foreground="{StaticResource TextoOscuro}"
                                    HorizontalAlignment="Center"/>
                         <TextBlock Text="BST / Manual"
-                                   Foreground="{StaticResource Primary}"
+                                   Foreground="{StaticResource Card}"
                                    FontWeight="Bold" FontSize="14"
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
@@ -221,7 +377,7 @@
                             <TextBlock Text="Valor" Style="{StaticResource LabelText}"/>
                             <TextBox x:Name="txtNodeValue"
                                      Style="{StaticResource InputStyle}"
-                                     ToolTip="Ingresa un numero entero o un caracter"/>
+                                     ToolTip="Ingresa un número entero o un carácter"/>
 
                             <TextBlock Text="Tipo de dato"
                                        Style="{StaticResource LabelText}"
@@ -236,31 +392,31 @@
                                              Style="{StaticResource RadioStyle}"/>
                             </StackPanel>
 
-                            <WrapPanel Margin="0,18,0,0" ItemHeight="42" ItemWidth="160">
+                            <WrapPanel Margin="0,19,0,0" ItemHeight="50" ItemWidth="160">
                                 <Button Content="Añadir (BST)"
                                         Click="AddNode_Click"
-                                        Style="{StaticResource PrimaryButton}"
+                                        Style="{StaticResource BtnPrimary}"
                                         Margin="0,0,10,10"/>
                                 <Button Content="Eliminar"
                                         Click="Delete_Click"
-                                        Style="{StaticResource DangerButton}"
+                                        Style="{StaticResource BtnDanger}"
                                         Margin="0,0,10,10"/>
                                 <Button Content="Balancear"
                                         Click="Balancear_Click"
-                                        Style="{StaticResource SecondaryButton}"
+                                        Style="{StaticResource BtnSecondary}"
                                         Margin="0,0,10,10"/>
-                                <Button Content="Limpiar arbol"
+                                <Button Content="Limpiar árbol"
                                         Click="Limpiar_Click"
-                                        Style="{StaticResource DangerButton}"
+                                        Style="{StaticResource BtnDanger}"
                                         Margin="0,0,10,10"/>
                             </WrapPanel>
                         </StackPanel>
                     </Border>
 
-                    <!-- Insercion manual -->
+                    <!-- Inserción manual -->
                     <Border Style="{StaticResource CardStyle}" Margin="0,16,0,0">
                         <StackPanel>
-                            <TextBlock Text="Insercion manual"
+                            <TextBlock Text="Inserción manual"
                                        Style="{StaticResource SectionTitle}"/>
 
                             <TextBlock Text="Nodo padre" Style="{StaticResource LabelText}"/>
@@ -271,7 +427,7 @@
                                        Margin="0,12,0,6"/>
                             <TextBox x:Name="txtNuevoValor" Style="{StaticResource InputStyle}"/>
 
-                            <TextBlock Text="Posicion del hijo"
+                            <TextBlock Text="Posición del hijo"
                                        Style="{StaticResource LabelText}"
                                        Margin="0,12,0,6"/>
                             <ComboBox x:Name="cbPosicion"
@@ -282,13 +438,13 @@
                             </ComboBox>
 
                             <Button x:Name="BtnInsertarRaiz"
-                                    Content="Insertar raiz"
-                                    Style="{StaticResource PrimaryButton}"
+                                    Content="Insertar raíz"
+                                    Style="{StaticResource BtnPrimary}"
                                     Click="BtnInsertarRaiz_Click"
                                     Margin="0,16,0,10"/>
                             <Button x:Name="BtnInsertarManual"
-                                    Content="Insertar en posicion"
-                                    Style="{StaticResource SecondaryButton}"
+                                    Content="Insertar en posición"
+                                    Style="{StaticResource BtnSecondary}"
                                     Click="BtnInsertarManual_Click"/>
                         </StackPanel>
                     </Border>
@@ -301,10 +457,12 @@
 
                             <Button x:Name="BtnEsCompleto"
                                     Click="BtnEsCompleto_Click"
-                                    Style="{StaticResource SecondaryButton}"
+                                    Style="{StaticResource InfoButtonStyle}"
+                                    Background="{StaticResource AcentoVerde}"
+                                    BorderBrush="{StaticResource BordesSuaves}"
                                     Margin="0,0,0,10">
                                 <StackPanel>
-                                    <TextBlock Text="Arbol completo?"
+                                    <TextBlock Text="¿Árbol completo?"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock x:Name="TxtEsCompleto"
@@ -316,10 +474,12 @@
 
                             <Button x:Name="BtnEsPerfecto"
                                     Click="BtnEsPerfecto_Click"
-                                    Style="{StaticResource SecondaryButton}"
+                                    Style="{StaticResource InfoButtonStyle}"
+                                    Background="{StaticResource FondoLavanda}"
+                                    BorderBrush="{StaticResource BordesSuaves}"
                                     Margin="0,0,0,10">
                                 <StackPanel>
-                                    <TextBlock Text="Arbol perfecto?"
+                                    <TextBlock Text="¿Árbol perfecto?"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock x:Name="TxtEsPerfecto"
@@ -330,23 +490,23 @@
                             </Button>
 
                             <Button x:Name="BtnNodoRaiz"
-                                    Content="Ver nodo raiz"
+                                    Content="Ver nodo raíz"
                                     Click="BtnNodoRaiz_Click"
-                                    Style="{StaticResource PrimaryButton}"
+                                    Style="{StaticResource BtnSecondary}"
                                     Margin="0,0,0,10"/>
 
                             <Separator Margin="0,6,0,14"/>
 
-                            <TextBlock Text="Busqueda del arbol"
+                            <TextBlock Text="Búsqueda en el árbol"
                                        Style="{StaticResource SectionTitle}"/>
 
                             <Button x:Name="BtnEncontrarMinimo"
-                                    Content="Buscar minimo"
+                                    Content="Buscar mínimo"
                                     Click="BtnEncontrarMinimo_Click"
-                                    Style="{StaticResource SecondaryButton}"
+                                    Style="{StaticResource BtnSecondary}"
                                     Margin="0,0,0,10"/>
 
-                            <TextBlock Text="Resultado minimo"
+                            <TextBlock Text="Resultado mínimo"
                                        Style="{StaticResource LabelText}"/>
                             <TextBox x:Name="TxtMinimo"
                                      Text=""
@@ -355,12 +515,12 @@
                                      Margin="0,0,0,10"/>
 
                             <Button x:Name="BtnEncontrarMaximo"
-                                    Content="Buscar maximo"
+                                    Content="Buscar máximo"
                                     Click="BtnEncontrarMaximo_Click"
-                                    Style="{StaticResource SecondaryButton}"
+                                    Style="{StaticResource BtnSecondary}"
                                     Margin="0,0,0,10"/>
 
-                            <TextBlock Text="Resultado maximo"
+                            <TextBlock Text="Resultado máximo"
                                        Style="{StaticResource LabelText}"/>
                             <TextBox x:Name="TxtMaximo"
                                      Text=""
@@ -381,7 +541,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Metricas -->
+                    <!-- Métricas -->
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -391,7 +551,7 @@
 
                         <Border Grid.Column="0"
                                 Style="{StaticResource MetricCard}"
-                                Background="{StaticResource BgCard}">
+                                Background="{StaticResource Card}">
                             <StackPanel>
                                 <TextBlock Text="Nodos totales"
                                            Style="{StaticResource CaptionText}"/>
@@ -399,7 +559,7 @@
                                            Text="0"
                                            FontSize="32"
                                            FontWeight="Bold"
-                                           Foreground="{StaticResource Primary}"/>
+                                           Foreground="{StaticResource ColorPrimario}"/>
                             </StackPanel>
                         </Border>
 
@@ -413,7 +573,7 @@
                                            Text="0"
                                            FontSize="32"
                                            FontWeight="Bold"
-                                           Foreground="{StaticResource TextPrimary}"/>
+                                           Foreground="{StaticResource TextoOscuro}"/>
                             </StackPanel>
                         </Border>
 
@@ -428,13 +588,13 @@
                                            Text="Listo para operar"
                                            FontSize="14"
                                            FontWeight="Bold"
-                                           Foreground="{StaticResource TextPrimary}"
+                                           Foreground="{StaticResource TextoOscuro}"
                                            TextWrapping="Wrap"/>
                             </StackPanel>
                         </Border>
                     </Grid>
 
-                    <!-- Canvas principal del arbol -->
+                    <!-- Canvas principal del árbol -->
                     <Border Grid.Row="2"
                             Style="{StaticResource CardStyle}"
                             Padding="0">
@@ -451,10 +611,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel>
-                                    <TextBlock Text="Visualizacion del arbol"
+                                    <TextBlock Text="Visualización del árbol"
                                                Style="{StaticResource SectionTitle}"
                                                Margin="0,0,0,4"/>
-                                    <TextBlock Text="El canvas crece automaticamente segun los nodos insertados. Usa el scroll para ver el arbol completo."
+                                    <TextBlock Text="El canvas crece automáticamente según los nodos insertados. Usa el scroll para ver el árbol completo."
                                                Style="{StaticResource CaptionText}"
                                                TextWrapping="Wrap"/>
                                 </StackPanel>
@@ -465,19 +625,18 @@
                                         VerticalAlignment="Top"/>
                             </Grid>
 
-
                             <Border Grid.Row="1"
                                     Margin="18,0,18,18"
-                                    Background="{StaticResource CanvasBg}"
-                                    BorderBrush="{StaticResource BorderSoft}"
-                                    BorderThickness="1"
+                                    Background="{StaticResource InputColor}"
+                                    BorderBrush="{StaticResource BordesSuaves}"
+                                    BorderThickness="1.5"
                                     CornerRadius="16"
                                     ClipToBounds="True">
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                               VerticalScrollBarVisibility="Auto"
                                               PanningMode="Both">
                                     <Canvas x:Name="canvas"
-                                            Background="{StaticResource CanvasBg}"
+                                            Background="{StaticResource InputColor}"
                                             Width="900"
                                             Height="560"/>
                                 </ScrollViewer>
@@ -493,25 +652,25 @@
                             <WrapPanel Margin="0,0,0,14">
                                 <Button Content="PreOrden"
                                         Click="Preorden_Click"
-                                        Style="{StaticResource PrimaryButton}"
+                                        Style="{StaticResource BtnPrimary}"
                                         Margin="0,0,10,10"/>
                                 <Button Content="InOrden"
                                         Click="Inorden_Click"
-                                        Style="{StaticResource SecondaryButton}"
+                                        Style="{StaticResource BtnSecondary}"
                                         Margin="0,0,10,10"/>
                                 <Button Content="PostOrden"
                                         Click="Postorden_Click"
-                                        Style="{StaticResource SecondaryButton}"
+                                        Style="{StaticResource BtnSecondary}"
                                         Margin="0,0,10,10"/>
                             </WrapPanel>
 
                             <Border Background="{StaticResource BgSoft}"
                                     CornerRadius="14" Padding="14"
-                                    BorderBrush="{StaticResource BorderSoft}"
+                                    BorderBrush="{StaticResource BordesSuaves}"
                                     BorderThickness="1">
                                 <TextBlock x:Name="txtResultado"
-                                           Text="Selecciona un recorrido o realiza una operacion para ver el resultado."
-                                           Foreground="{StaticResource TextSecondary}"
+                                           Text="Selecciona un recorrido o realiza una operación para ver el resultado."
+                                           Foreground="{StaticResource TextoClaro}"
                                            FontSize="13"
                                            TextWrapping="Wrap"/>
                             </Border>
