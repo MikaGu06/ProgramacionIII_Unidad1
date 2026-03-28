@@ -7,7 +7,7 @@
       Title="Grafos">
 
     <Page.Resources>
-        <!-- NO PERMITIR QUE SE COMBINEN CARACTERES CON ENTEROS EN UN MISMO ARBOL-->
+
         <!-- Paleta nueva coherente con tu proyecto -->
         <Color x:Key="BgPage">#F7F5FA</Color>
         <!-- fondo crema/lavanda -->

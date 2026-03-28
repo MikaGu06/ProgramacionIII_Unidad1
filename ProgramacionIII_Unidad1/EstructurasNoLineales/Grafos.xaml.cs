@@ -46,6 +46,15 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private readonly List<Arista> aristas = new List<Arista>();
         private bool modoDirigidoPorDefecto = true;
 
+        private enum TipoDatoGrafo
+        {
+            NoDefinido,
+            Letras,
+            Numeros
+        }
+
+        private TipoDatoGrafo tipoDatoGrafo = TipoDatoGrafo.NoDefinido;
+
         public Grafos()
         {
             InitializeComponent();
@@ -66,6 +75,74 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private string NormalizarNombre(string texto)
         {
             return (texto ?? string.Empty).Trim().ToUpper();
+        }
+
+        private bool EsSoloLetras(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return false;
+
+            for (int i = 0; i < texto.Length; i++)
+            {
+                if (!char.IsLetter(texto[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool EsSoloNumeros(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return false;
+
+            for (int i = 0; i < texto.Length; i++)
+            {
+                if (!char.IsDigit(texto[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool EsValidoSegunTipoGrafo(string valor)
+        {
+            valor = NormalizarNombre(valor);
+
+            if (tipoDatoGrafo == TipoDatoGrafo.NoDefinido)
+                return EsSoloLetras(valor) || EsSoloNumeros(valor);
+
+            if (tipoDatoGrafo == TipoDatoGrafo.Letras)
+                return EsSoloLetras(valor);
+
+            if (tipoDatoGrafo == TipoDatoGrafo.Numeros)
+                return EsSoloNumeros(valor);
+
+            return false;
+        }
+
+        private void DefinirTipoGrafoSiCorresponde(string valor)
+        {
+            valor = NormalizarNombre(valor);
+
+            if (tipoDatoGrafo != TipoDatoGrafo.NoDefinido)
+                return;
+
+            if (EsSoloLetras(valor))
+                tipoDatoGrafo = TipoDatoGrafo.Letras;
+            else if (EsSoloNumeros(valor))
+                tipoDatoGrafo = TipoDatoGrafo.Numeros;
+        }
+
+        private string ObtenerMensajeTipoGrafo()
+        {
+            if (tipoDatoGrafo == TipoDatoGrafo.Letras)
+                return "Este grafo es de letras. No se permiten numeros.";
+
+            if (tipoDatoGrafo == TipoDatoGrafo.Numeros)
+                return "Este grafo es numerico. No se permiten letras.";
+
+            return "Debes ingresar solo letras o solo numeros.";
         }
 
         private Vertice BuscarVertice(string nombre)
@@ -574,6 +651,14 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                 return;
             }
 
+            if (!EsValidoSegunTipoGrafo(nombre))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
+            DefinirTipoGrafoSiCorresponde(nombre);
+
             if (BuscarVertice(nombre) != null)
             {
                 MostrarEstado("Ese vertice ya existe.");
@@ -589,6 +674,13 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private void BtnEliminarVertice_Click(object sender, RoutedEventArgs e)
         {
             string nombre = NormalizarNombre(txtVertice.Text);
+
+            if (!EsValidoSegunTipoGrafo(nombre))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
             Vertice vertice = BuscarVertice(nombre);
 
             if (vertice == null)
@@ -615,6 +707,12 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             if (string.IsNullOrWhiteSpace(origen) || string.IsNullOrWhiteSpace(destino))
             {
                 MostrarEstado("Ingresa origen y destino.");
+                return;
+            }
+
+            if (!EsValidoSegunTipoGrafo(origen) || !EsValidoSegunTipoGrafo(destino))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
                 return;
             }
 
@@ -662,6 +760,12 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
                 return;
             }
 
+            if (!EsValidoSegunTipoGrafo(vertice))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
             if (BuscarVertice(vertice) == null)
             {
                 MostrarEstado("El vertice indicado no existe.");
@@ -701,6 +805,12 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             string destino = NormalizarNombre(txtDestino.Text);
             bool dirigido = chkDirigido.IsChecked == true;
 
+            if (!EsValidoSegunTipoGrafo(origen) || !EsValidoSegunTipoGrafo(destino))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
             Arista arista = BuscarArista(origen, destino, dirigido);
 
             if (arista == null)
@@ -719,6 +829,12 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
             string origen = NormalizarNombre(txtOrigen.Text);
             string destino = NormalizarNombre(txtDestino.Text);
             bool dirigido = chkDirigido.IsChecked == true;
+
+            if (!EsValidoSegunTipoGrafo(origen) || !EsValidoSegunTipoGrafo(destino))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
 
             if (!int.TryParse(txtNuevoPeso.Text, out int nuevoPeso) || nuevoPeso <= 0)
             {
@@ -743,6 +859,13 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private void BtnBfs_Click(object sender, RoutedEventArgs e)
         {
             string inicio = NormalizarNombre(txtInicioRecorrido.Text);
+
+            if (!EsValidoSegunTipoGrafo(inicio))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
             List<string> recorrido = RecorridoBfs(inicio);
 
             if (recorrido.Count == 0)
@@ -758,6 +881,13 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private void BtnDfs_Click(object sender, RoutedEventArgs e)
         {
             string inicio = NormalizarNombre(txtInicioRecorrido.Text);
+
+            if (!EsValidoSegunTipoGrafo(inicio))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
+
             List<string> recorrido = RecorridoDfs(inicio);
 
             if (recorrido.Count == 0)
@@ -773,6 +903,12 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         private void BtnDijkstra_Click(object sender, RoutedEventArgs e)
         {
             string inicio = NormalizarNombre(txtInicioRecorrido.Text);
+
+            if (!EsValidoSegunTipoGrafo(inicio))
+            {
+                MostrarEstado(ObtenerMensajeTipoGrafo());
+                return;
+            }
 
             if (BuscarVertice(inicio) == null)
             {
@@ -833,6 +969,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         {
             vertices.Clear();
             aristas.Clear();
+            tipoDatoGrafo = TipoDatoGrafo.Letras;
 
             vertices.Add(new Vertice("A"));
             vertices.Add(new Vertice("B"));
@@ -866,6 +1003,7 @@ namespace ProgramacionIII_Unidad1.EstructurasNoLineales
         {
             vertices.Clear();
             aristas.Clear();
+            tipoDatoGrafo = TipoDatoGrafo.NoDefinido;
 
             txtVertice.Clear();
             txtOrigen.Clear();
