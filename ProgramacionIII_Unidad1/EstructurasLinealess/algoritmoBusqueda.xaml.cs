@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.VisualBasic;
 
-namespace ProgramacionIII_Unidad1
+namespace ProgramacionIII_Unidad1 
 {
     public partial class AlgoritmosDeBusqueda : Page
     {
