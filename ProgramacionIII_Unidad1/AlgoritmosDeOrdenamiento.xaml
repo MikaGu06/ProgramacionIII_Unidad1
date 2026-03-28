@@ -147,6 +147,7 @@
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Agregar elemento" Style="{StaticResource TextBlockDarkColor}" Margin="0,0,0,5"/>
                         <TextBox x:Name="TxtBxIngresarVector" Grid.Row="3" Grid.Column="0" Tag="Ingresa un número" Style="{StaticResource RoundedTextBox}" Margin="0,0,20,0"/>
                         <Button x:Name="BtnAgregar" Click="BtnAgregar_Click" Grid.Row="3" Grid.Column="1" Content="+ Agregar" Background="#7F73A1" Foreground="White" Style="{StaticResource RoundedButton}"/>
+                        <Button x:Name="BtnRandom" Content="🎲 Aleatorio" Background="#262233" Foreground="White" Style="{StaticResource RoundedButton}" Margin="2" Click="BtnRandom_Click"/>
                     </Grid>
 
                     <TextBlock Text="Vector original" Style="{StaticResource TextBlockDarkColor}" Margin="0,30,0,10"/>
@@ -208,7 +209,15 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Border>
-                        <TextBlock x:Name="TxtComplexity" Text="Complejidad: O(n²)" Margin="5,10,0,0" Foreground="#64748B" FontSize="14" FontStyle="Italic"/>
+                        <TextBox x:Name="TxtComplexity" 
+                                 Text="Complejidad: ---" 
+                                 Margin="5,10,0,0" 
+                                 Foreground="#64748B" 
+                                 FontSize="14" 
+                                 FontStyle="Italic" 
+                                 IsReadOnly="True" 
+                                 BorderThickness="0" 
+                                 Background="Transparent"/>
                     </StackPanel>
 
                 </StackPanel>

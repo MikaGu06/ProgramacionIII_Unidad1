@@ -22,6 +22,8 @@ namespace ProgramacionIII_Unidad1
         List<int> vectorOrdenadoAscendente = new List<int>();
         List<int> vectorOrdenadoDescendente = new List<int>();
 
+        Random rand = new Random();
+
         public AlgoritmosDeOrdenamiento()
         {
             InitializeComponent();
@@ -119,6 +121,8 @@ namespace ProgramacionIII_Unidad1
             ICVectorOrdenado.ItemsSource = null;
             ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
 
+            TxtComplexity.Text = "Complejidad: O(n²)";
+
         }
 
         private void BtnVolver_Click(object sender, RoutedEventArgs e)
@@ -161,6 +165,7 @@ namespace ProgramacionIII_Unidad1
             ICVectorOrdenado.ItemsSource = null;
             ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
 
+            TxtComplexity.Text = "Complejidad: O(n²)";
 
         }
 
@@ -202,6 +207,9 @@ namespace ProgramacionIII_Unidad1
 
             ICVectorOrdenado.ItemsSource = null;
             ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
+
+            TxtComplexity.Text = "Complejidad: O(n²)";
+
         }
 
         private void BtnQuickSort_Click(object sender, RoutedEventArgs e)
@@ -222,6 +230,8 @@ namespace ProgramacionIII_Unidad1
 
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
+
+                TxtComplexity.Text = "Complejidad: O(n log n)";
             }
         }
 
@@ -286,6 +296,8 @@ namespace ProgramacionIII_Unidad1
 
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
+
+                TxtComplexity.Text = "Complejidad: O(n log n)";
             }
         }
 
@@ -380,6 +392,8 @@ namespace ProgramacionIII_Unidad1
 
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
+
+                TxtComplexity.Text = "Complejidad: O(nk)";
 
             }
         }
@@ -507,6 +521,8 @@ namespace ProgramacionIII_Unidad1
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
 
+                TxtComplexity.Text = "Complejidad: O(n + k)";
+
             }
 
         }
@@ -555,6 +571,8 @@ namespace ProgramacionIII_Unidad1
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
 
+                TxtComplexity.Text = "Complejidad: O(n²)";
+
             }
 
         }
@@ -587,6 +605,8 @@ namespace ProgramacionIII_Unidad1
 
                 ICVectorOrdenado.ItemsSource = null;
                 ICVectorOrdenado.ItemsSource = vectorOrdenadoAscendente;
+
+                TxtComplexity.Text = "Complejidad: O(n log n)";
 
             }
         }
@@ -621,6 +641,18 @@ namespace ProgramacionIII_Unidad1
 
                 Heapify(arr, n, extremo);
             }
+        }
+
+        private void BtnRandom_Click(object sender, RoutedEventArgs e)
+        {
+            int numeroAleatorio = rand.Next(0, 1000);
+
+            // Agrega el número al vector principal
+            vectorDinamico.Add(numeroAleatorio);
+
+            // Actualiza la interfaz gráfica para que aparezca la cajita con el número
+            ICVectorOriginal.ItemsSource = null;
+            ICVectorOriginal.ItemsSource = vectorDinamico;
         }
     }
 }
