@@ -67,7 +67,7 @@ namespace ProgramacionIII_Unidad1.EstructurasLinealess
             catch (InvalidOperationException ex)
             {
                 if (ex.Message == "Indeterminado")
-                    TxtPantalla.Text = "Indeterminado";
+                    TxtPantalla.Text = "Indeterminado"; 
                 else
                     TxtPantalla.Text = "Error";
             }
